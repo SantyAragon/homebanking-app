@@ -15,9 +15,7 @@ Vue.createApp({
                 this.accounts = data.data.accounts
                 console.log(this.client);
                 console.log(this.accounts);
-
             })
-
     },
     methods: {
 
