@@ -61,8 +61,10 @@ Vue.createApp({
                 .then(location.reload())
         },
         removerCliente(url) {
+            console.log(url);
 
             this.clienteSeleccionado.accounts.forEach(account => {
+                // console.log(account.transactions)
                 axios.delete("http://localhost:8080/rest/accounts/" + account.id)
             });
 

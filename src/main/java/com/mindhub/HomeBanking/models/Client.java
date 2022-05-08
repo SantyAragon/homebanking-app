@@ -20,7 +20,7 @@ public class Client {
     private String email;
 
     @OneToMany(mappedBy="client", fetch=FetchType.EAGER)
-    Set<Account> accounts = new HashSet<>();
+    private Set<Account> accounts = new HashSet<>();
 
     public Client() {
     }

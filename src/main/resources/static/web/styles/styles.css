@@ -10,7 +10,19 @@
     --color1: #68fdf8;
     --color2: #2b3046;
     --color3: #fefef9;
-    --background-cards: #2a2f45;
+
+    --color4: #58b5fb;
+    --color5: #61d862;
+    --color6: #7a65f2;
+    --color7: #ff625b;
+    --color8: #092749;
+    --color9: #efefef;
+    --background: linear-gradient(90deg, rgba(9, 39, 73, 1) 0%, rgba(0, 21, 44, 1) 100%);
+    --navblack: #00142c;
+    --navfontblack: #63b7f7;
+    --backgroundcardblack: #072240;
+    --fontcolordark: #efefef;
+    --linkscolorblack: #61d862;
 }
 
 /* --color1: #A39BFA;
@@ -26,23 +38,30 @@
 }
 
 body {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1920' height='1080' preserveAspectRatio='none' viewBox='0 0 1920 1080'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1107%26quot%3b)' fill='none'%3e%3crect width='1920' height='1080' x='0' y='0' fill='url(%23SvgjsLinearGradient1108)'%3e%3c/rect%3e%3cpath d='M1138.5193459481711 478.77819970897326L1087.733788845407 238.7262385395493 925.8577625708886 379.44292135037927z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M124.41 512.74 a280.41 280.41 0 1 0 560.82 0 a280.41 280.41 0 1 0 -560.82 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M383.63%2c469.579C471.981%2c463.71%2c533.661%2c390.61%2c575.317%2c312.474C614.008%2c239.9%2c631.292%2c153.782%2c589.869%2c82.731C548.7%2c12.117%2c465.322%2c-13.538%2c383.63%2c-16.317C295.493%2c-19.315%2c200.934%2c-5.254%2c151.571%2c67.824C96.858%2c148.822%2c93.21%2c256.612%2c142.099%2c341.252C190.973%2c425.865%2c286.131%2c476.056%2c383.63%2c469.579' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M1911.815%2c973.68C2015.111%2c978.539%2c2130.109%2c957.516%2c2181.106%2c867.555C2231.661%2c778.375%2c2182.147%2c674.362%2c2132.264%2c584.804C2080.434%2c491.749%2c2018.33%2c383.519%2c1911.815%2c384.076C1805.784%2c384.631%2c1742.529%2c492.144%2c1695.326%2c587.09C1654.398%2c669.414%2c1638.176%2c763.916%2c1683.096%2c844.131C1728.981%2c926.069%2c1818.008%2c969.268%2c1911.815%2c973.68' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M901.258%2c778.27C960.533%2c780.502%2c1005.837%2c732.514%2c1036.221%2c681.57C1067.57%2c629.008%2c1089.072%2c565.849%2c1060.102%2c511.939C1029.908%2c455.75%2c964.978%2c427.47%2c901.258%2c430.413C842.23%2c433.139%2c791.95%2c472.464%2c765.941%2c525.523C742.751%2c572.832%2c757.953%2c625.579%2c782.821%2c672.028C809.651%2c722.141%2c844.455%2c776.131%2c901.258%2c778.27' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M958.68 142.91 a186.25 186.25 0 1 0 372.5 0 a186.25 186.25 0 1 0 -372.5 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M1069.95 864.63 a200.42 200.42 0 1 0 400.84 0 a200.42 200.42 0 1 0 -400.84 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1107'%3e%3crect width='1920' height='1080' fill='white'%3e%3c/rect%3e%3c/mask%3e%3clinearGradient x1='10.94%25' y1='-19.44%25' x2='89.06%25' y2='119.44%25' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1108'%3e%3cstop stop-color='%230e2a47' offset='0'%3e%3c/stop%3e%3cstop stop-color='rgba(158%2c 0%2c 141%2c 1)' offset='1'%3e%3c/stop%3e%3c/linearGradient%3e%3cstyle%3e %40keyframes float1 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-10px%2c 0)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float1 %7b animation: float1 5s infinite%3b %7d %40keyframes float2 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-5px%2c -5px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float2 %7b animation: float2 4s infinite%3b %7d %40keyframes float3 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(0%2c -10px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float3 %7b animation: float3 6s infinite%3b %7d %3c/style%3e%3c/defs%3e%3c/svg%3e");
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
+    /* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1920' height='1080' preserveAspectRatio='none' viewBox='0 0 1920 1080'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1107%26quot%3b)' fill='none'%3e%3crect width='1920' height='1080' x='0' y='0' fill='url(%23SvgjsLinearGradient1108)'%3e%3c/rect%3e%3cpath d='M1138.5193459481711 478.77819970897326L1087.733788845407 238.7262385395493 925.8577625708886 379.44292135037927z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M124.41 512.74 a280.41 280.41 0 1 0 560.82 0 a280.41 280.41 0 1 0 -560.82 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M383.63%2c469.579C471.981%2c463.71%2c533.661%2c390.61%2c575.317%2c312.474C614.008%2c239.9%2c631.292%2c153.782%2c589.869%2c82.731C548.7%2c12.117%2c465.322%2c-13.538%2c383.63%2c-16.317C295.493%2c-19.315%2c200.934%2c-5.254%2c151.571%2c67.824C96.858%2c148.822%2c93.21%2c256.612%2c142.099%2c341.252C190.973%2c425.865%2c286.131%2c476.056%2c383.63%2c469.579' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M1911.815%2c973.68C2015.111%2c978.539%2c2130.109%2c957.516%2c2181.106%2c867.555C2231.661%2c778.375%2c2182.147%2c674.362%2c2132.264%2c584.804C2080.434%2c491.749%2c2018.33%2c383.519%2c1911.815%2c384.076C1805.784%2c384.631%2c1742.529%2c492.144%2c1695.326%2c587.09C1654.398%2c669.414%2c1638.176%2c763.916%2c1683.096%2c844.131C1728.981%2c926.069%2c1818.008%2c969.268%2c1911.815%2c973.68' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M901.258%2c778.27C960.533%2c780.502%2c1005.837%2c732.514%2c1036.221%2c681.57C1067.57%2c629.008%2c1089.072%2c565.849%2c1060.102%2c511.939C1029.908%2c455.75%2c964.978%2c427.47%2c901.258%2c430.413C842.23%2c433.139%2c791.95%2c472.464%2c765.941%2c525.523C742.751%2c572.832%2c757.953%2c625.579%2c782.821%2c672.028C809.651%2c722.141%2c844.455%2c776.131%2c901.258%2c778.27' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M958.68 142.91 a186.25 186.25 0 1 0 372.5 0 a186.25 186.25 0 1 0 -372.5 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M1069.95 864.63 a200.42 200.42 0 1 0 400.84 0 a200.42 200.42 0 1 0 -400.84 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float2'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1107'%3e%3crect width='1920' height='1080' fill='white'%3e%3c/rect%3e%3c/mask%3e%3clinearGradient x1='10.94%25' y1='-19.44%25' x2='89.06%25' y2='119.44%25' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1108'%3e%3cstop stop-color='%230e2a47' offset='0'%3e%3c/stop%3e%3cstop stop-color='rgba(158%2c 0%2c 141%2c 1)' offset='1'%3e%3c/stop%3e%3c/linearGradient%3e%3cstyle%3e %40keyframes float1 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-10px%2c 0)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float1 %7b animation: float1 5s infinite%3b %7d %40keyframes float2 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-5px%2c -5px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float2 %7b animation: float2 4s infinite%3b %7d %40keyframes float3 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(0%2c -10px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float3 %7b animation: float3 6s infinite%3b %7d %3c/style%3e%3c/defs%3e%3c/svg%3e");
+   */
+
     position: relative;
     margin: var(--header-height) 0 0 0;
     padding: 0 1rem;
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
     transition: .5s;
-    color: var(--color2);
+    /* color: var(--background); */
+    background: var(--background);
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
 }
 
-a {
+.nav a {
     text-decoration: none;
-    color: var(--color3);
-    /* color: var(--color1); */
+    /* color: var(--navfontblack); */
+    color: var(--navfontblack);
+}
+
+.nav a:hover {
+    color: var(--color1);
 }
 
 .header {
@@ -55,7 +74,7 @@ a {
     align-items: center;
     /* justify-content: space-between; */
     padding: 0 1rem;
-    background-color: var(--color2);
+    background-color: var(--navblack);
     z-index: var(--z-fixed);
     transition: .5s
 }
@@ -83,16 +102,12 @@ a {
     overflow: hidden
 }
 
-.header_img img {
-    /* width: 10rem; */
-}
-
 .l-navbar {
     position: fixed;
     left: -30%;
     width: var(--nav-width);
     height: 100vh;
-    background-color: var(--color2);
+    background-color: var(--navblack);
     padding: .5rem 1rem 0 0;
     transition: .5s;
     z-index: var(--z-fixed)
@@ -121,7 +136,7 @@ a {
 
 .nav_logo-icon {
     font-size: 1.25rem;
-    color: var(--white-color)
+    color: var(--fontcolordark)
 }
 
 .nav_logo-name {
@@ -146,6 +161,14 @@ a {
 
 .nav_icon {
     font-size: 1.25rem
+}
+
+.dropdown-accounts {
+    background-color: var(--backgroundcardblack);
+}
+
+.dropdown-item:hover {
+    background-color: var(--color8);
 }
 
 .show {
@@ -183,15 +206,6 @@ a {
         height: calc(var(--header-height) + 1rem)
     }
 
-    .header_img {
-        /* width: 10rem; */
-        /* height: 10rem; */
-    }
-
-    .header_img img {
-        /* width: 45px */
-    }
-
     .l-navbar {
         left: 0;
         padding: 1rem 1rem 0 0
@@ -218,12 +232,19 @@ a {
 
 .card-body {
     /* background-color: var(--background-cards); */
-    background: url(https://static.vecteezy.com/system/resources/thumbnails/001/886/871/small/dark-blue-modern-blurred-background-vector.jpg);
+    /* background: url(https://static.vecteezy.com/system/resources/thumbnails/001/886/871/small/dark-blue-modern-blurred-background-vector.jpg);
     background-repeat: no-repeat;
-    background-size: cover;
-    color: var(--color1);
+    background-size: cover; */
+    background-color: var(--backgroundcardblack);
+    /* width: 100%; */
+    color: var(--fontcolordark);
     border-radius: 2rem;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
 
+.card-body a {
+    color: var(--color4);
+    text-decoration: none;
 }
 
 .card {
@@ -234,7 +255,7 @@ a {
 .coin-icon {
     transform: scale(2.5);
     padding: 1rem;
-    color: var(--color3);
+    color: var(--color4);
 }
 
 /* From uiverse.io */
@@ -253,7 +274,7 @@ a {
 }
 
 .view-account button.learn-more {
-    width: 13rem;
+    width: 75%;
     height: auto;
 }
 
@@ -264,7 +285,7 @@ a {
     margin: 0;
     width: 3rem;
     height: 3rem;
-    background: var(--color1);
+    background: var(--color4);
     border-radius: 1.625rem;
 }
 
@@ -283,6 +304,7 @@ a {
     width: 1.125rem;
     height: 0.125rem;
     background: none;
+
 }
 
 .view-account button.learn-more .circle .icon.arrow::before {
@@ -292,9 +314,10 @@ a {
     right: 0.0625rem;
     width: 0.625rem;
     height: 0.625rem;
-    border-top: 0.125rem solid var(--color2);
-    border-right: 0.125rem solid var(--color2);
+    border-top: 0.125rem solid #fff;
+    border-right: 0.125rem solid #fff;
     transform: rotate(45deg);
+
 }
 
 .view-account button.learn-more .button-text {
@@ -305,8 +328,8 @@ a {
     right: 0;
     bottom: 0;
     padding: 0.75rem 0;
-    margin: 0 0 0 3.3rem;
-    color: var(--color1);
+    margin: 0 0 0 3rem;
+    color: #282936;
     font-weight: 700;
     line-height: 1.6;
     text-align: center;
@@ -315,13 +338,19 @@ a {
 
 .view-account button:hover .circle {
     width: 100%;
+    background: var(--color2);
 }
 
 .view-account button:hover .circle .icon.arrow {
-    background: var(--color2);
+    background: #fff;
     transform: translate(1rem, 0);
 }
 
 .view-account button:hover .button-text {
-    color: var(--color2);
+    color: #fff;
+}
+
+#chartdiv {
+    width: 100%;
+    height: 500px;
 }

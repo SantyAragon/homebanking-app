@@ -31,10 +31,6 @@ public class ClientDTO {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -61,5 +57,9 @@ public class ClientDTO {
 
     public Set<AccountDTO> getAccounts() {
         return accounts;
+    }
+
+    public void setAccounts(Set<AccountDTO> accounts) {
+        this.accounts = accounts;
     }
 }
