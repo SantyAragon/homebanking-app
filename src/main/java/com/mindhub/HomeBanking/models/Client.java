@@ -1,11 +1,14 @@
 package com.mindhub.HomeBanking.models;
 
 import com.mindhub.HomeBanking.dtos.AccountDTO;
+import com.mindhub.HomeBanking.dtos.ClientLoanDTO;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Client {
@@ -19,8 +22,14 @@ public class Client {
     private String lastName;
     private String email;
 
-    @OneToMany(mappedBy="client", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Account> accounts = new HashSet<>();
+
+    @OneToMany(mappedBy = "clientLoan", fetch = FetchType.EAGER)
+    private Set<ClientLoan> loans = new HashSet<>();
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private Set<Card> cards = new HashSet<>();
 
     public Client() {
     }
@@ -47,7 +56,13 @@ public class Client {
         this.lastName = lastName;
     }
 
-    public long getId() {return id;}
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    public long getId() {
+        return id;
+    }
 
     public String getEmail() {
         return email;
@@ -61,8 +76,20 @@ public class Client {
         return accounts;
     }
 
-    public void addAccount(Account account){
+    public void addAccount(Account account) {
         account.setClient(this);
         accounts.add(account);
+    }
+
+    public List<ClientLoanDTO> getLoans() {
+        return loans.stream().map(clientLoan -> new ClientLoanDTO(clientLoan)).collect(Collectors.toList());
+    }
+
+    public Set<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(Set<Card> cards) {
+        this.cards = cards;
     }
 }

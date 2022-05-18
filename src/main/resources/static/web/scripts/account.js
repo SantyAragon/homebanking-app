@@ -4,6 +4,7 @@ Vue.createApp({
             message: 'Hello Vue!',
             client: {},
             account: {},
+            accounts: [],
             transactions: {},
         }
     },
@@ -13,6 +14,8 @@ Vue.createApp({
         axios.get("http://localhost:8080/api/clients/1")
             .then(data => {
                 this.client = data.data
+                this.accounts = data.data.accounts
+                this.accounts.sort((a, b) => a.id - b.id);
             })
 
 
@@ -30,6 +33,7 @@ Vue.createApp({
                 this.sortTransactions();
                 this.chart();
             })
+
     },
     methods: {
 
@@ -81,6 +85,7 @@ Vue.createApp({
                 date.getHours() + ":" + (date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes()))
         },
 
+
         chart() {
             var root = am5.Root.new("chartdiv");
 
@@ -124,7 +129,7 @@ Vue.createApp({
                     textAlign: "center",
                     centerY: am5.p100,
                     centerX: am5.p50,
-                    text: `[bold fontSize: 2.5rem] TOTAL SPENDED[/]:\n[bold fontSize:3rem]$ ${this.transactions.filter(transaction=>transaction.type=="DEBITO").map(transaction=>transaction.amount).reduce((a,b)=>a+b,0) } [/]`,
+                    text: `[bold fontSize: 1rem] TOTAL SPENDED[/]:\n[bold fontSize:1rem]$ ${this.transactions.filter(transaction=>transaction.type=="DEBITO").map(transaction=>transaction.amount).reduce((a,b)=>a+b,0) } [/]`,
                 })
             );
             var data = [];

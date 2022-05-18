@@ -137,7 +137,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-
+                            
                             <div class="d-flex flex-column">
                                 <table id="tabla-accounts">
                                     <thead>
@@ -154,8 +154,8 @@
                                             <td>{{account.number}} </td>
                                             <td>{{account.creationDate}}</td>
                                             <td>{{account.balance}} <button type="button" class="btn btn-success p-1"
-                                                    @click="editarCuenta(account)">
-                                                    <i class="fa-solid fa-user-pen"></i>
+                                                @click="editarCuenta(account)">
+                                                <i class="fa-solid fa-user-pen"></i>
                                                 </button></td>
                                         </tr>
                                     </tbody>
@@ -164,6 +164,7 @@
 
                         </div>
                         <div class="modal-footer">
+                           
                             <button type="submit" class="btn btn-success"
                                 @click="editarCliente(urlclienteSeleccionado)">Edit</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
