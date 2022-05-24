@@ -12,7 +12,7 @@ Vue.createApp({
     created() {
         this.navbarFunctions();
 
-        axios.get("http://localhost:8080/api/clients/1")
+        axios.get("http://localhost:8080/api/clients/current")
             .then(data => {
                 this.client = data.data;
                 this.cards = data.data.cards;
@@ -20,7 +20,7 @@ Vue.createApp({
 
                 this.cardsDebit = this.cards.filter(card => card.type == 'DEBIT')
                 this.cardsCredit = this.cards.filter(card => card.type == 'CREDIT')
-                
+
                 console.log(this.cardsCredit)
                 console.log(this.cardsDebit)
 
@@ -64,7 +64,7 @@ Vue.createApp({
 
         sortCards() {
             this.cards.sort((a, b) => a.id - b.id)
-
+            
             //funcion para ordenar por LocalDateTime.
             // this.transactions.sort((a, b) => new Intl.Collator().compare(a.date, b.date))
         },

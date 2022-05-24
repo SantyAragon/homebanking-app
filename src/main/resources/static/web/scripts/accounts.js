@@ -5,13 +5,15 @@ Vue.createApp({
             client: {},
             cuentas: {},
             arrayCuentas: [],
-            loans:[],
+            loans: [],
+            topCryptos: [],
+            cryptosIcon: [],
         }
     },
     created() {
         this.navbarFunctions();
 
-        axios.get("http://localhost:8080/api/clients/1")
+        axios.get("http://localhost:8080/api/clients/current")
             .then(data => {
 
                 this.client = data.data;
@@ -19,6 +21,19 @@ Vue.createApp({
                 this.loans = data.data.loans
                 console.log(this.loans)
                 this.chart();
+            })
+        // axios.get("http://localhost:8080/api/cryptos").then(response => {
+        //     console.log(response.data.data)
+        //     this.topCryptos = response.data.data
+        // })
+        // axios.get("http://localhost:8080/api/cryptos/img").then(response => {
+        //     console.log(response.data.data)
+        //     this.cryptosIcon = response.data.data
+        // })
+        axios.get("http://localhost:8080/api/cryptos")
+            .then(data => {
+                console.log(data.data)
+                this.topCryptos = data.data
             })
     },
     methods: {
@@ -112,7 +127,7 @@ Vue.createApp({
                 categoryField: "account",
                 alignLabels: false
             }));
-           
+
             series.labels.template.setAll({
                 textType: "circular",
                 centerX: 0,
@@ -139,7 +154,6 @@ Vue.createApp({
             // Play initial series animation
             // https://www.amcharts.com/docs/v5/concepts/animations/#Animation_of_series
             series.appear(1000, 100);
-
 
         },
         navbarFunctions() {
@@ -174,6 +188,37 @@ Vue.createApp({
 
             });
         },
+        logout() {
+            axios.post('/api/logout').then(response => console.log('signed out!!!'))
+            window.location.href = './index.html'
+        },
+        formatearPrecio(price) {
+
+            // priceArr = Array.from(price.toString())
+
+            // if (priceArr[0] != 0 && priceArr[1] != 0 && priceArr[2] != 0) {
+            //     return price.toFixed(1)
+            // }
+
+            // if (priceArr[2] == 0 && priceArr[3] == 0) {
+
+            //     return price.toFixed(7);
+            // } else {
+
+            //     return price.toFixed(3)
+            // }
+
+            if (price.toString() < 0.001) {
+                return price
+            }
+            if (price.toString() < 1) {
+                return price
+            } else {
+                return price
+            }
+
+        }
+
     },
     computed: {
 

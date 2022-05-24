@@ -11,20 +11,22 @@ Vue.createApp({
     created() {
         this.navbarFunctions();
 
-        axios.get("http://localhost:8080/api/clients/1")
+        axios.get("http://localhost:8080/api/clients/current")
             .then(data => {
                 this.client = data.data
                 this.accounts = data.data.accounts
                 this.accounts.sort((a, b) => a.id - b.id);
+
+
             })
 
 
         const urlParams = new URLSearchParams(window.location.search);
         const idAccount = urlParams.get('id');
 
-        axios.get("http://localhost:8080/api/accounts/" + idAccount)
+        axios.get("http://localhost:8080/api/accounts/current/" + idAccount)
             .then(data => {
-
+                console.log(data)
                 this.account = data.data;
                 this.transactions = data.data.transactions
                 console.log(this.account);

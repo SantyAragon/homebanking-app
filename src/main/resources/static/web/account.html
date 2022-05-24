@@ -26,32 +26,39 @@
         </header>
         <div class="l-navbar" id="nav-bar">
             <nav class="nav">
-                <div>
-                    <a href="./accounts.html" class="nav_logo">
-                        <i class="fa-solid fa-square-poll-vertical"></i>
-                        <span class="nav_logo-name">Dashboard</span>
-                    </a>
-                    <div class="nav_list">
 
+                <div class="nav_list ">
+                    <div>
+                        <a href="./accounts.html" class="nav_link">
+                            <i class="fa-solid fa-square-poll-vertical"></i>
+                            <span class="nav_logo-name">Dashboard</span>
+                        </a>
                         <a href="./cards.html" class="nav_link"><i class="fa-solid fa-credit-card"></i><span
-                            class="nav_name">Cards</span> </a>
+                                class="nav_name">Cards</span> </a>
                         <a class="nav_link nav-link dropdown-toggle d-flex" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-solid fa-file-invoice-dollar"></i>
-                            <span class="nav_name">My accounts</span>
+                            <span class="nav_name">My transactions</span>
                         </a>
 
                         <ul class="dropdown-menu dropdown-accounts" aria-labelledby="navbarDropdown">
-                            <li v-for="cuenta in accounts">
+                            <li v-for="cuenta in client.accounts">
                                 <a class="dropdown-item" :href="'./account.html?id=' + cuenta.id">{{cuenta.number}}</a>
                             </li>
                         </ul>
                     </div>
+                    <div>
+                        <a href="#" class="nav_link" @click="logout()">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            <span class="nav_name">SignOut</span>
+                        </a>
+                    </div>
                 </div>
-                <a href="#" class="nav_link">
-                    <i class='bx bx-log-out nav_icon'></i>
-                    <span class="nav_name">SignOut</span>
-                </a>
+
+
+
+
+
             </nav>
         </div>
 
@@ -82,7 +89,7 @@
                         </tr>
                     </tbody>
                 </table>
-              
+
                 <div id="chartdiv"></div>
             </div>
         </section>

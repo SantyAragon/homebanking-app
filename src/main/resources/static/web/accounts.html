@@ -13,7 +13,7 @@
   <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
   <!-- <link rel="shortcut icon" src="./assets/favicon.ico" type="image/x-icon"> -->
   <title>My Accounts | Dano Bank</title>
- 
+
 </head>
 
 <body id="body-pd">
@@ -27,13 +27,13 @@
     </header>
     <div class="l-navbar" id="nav-bar">
       <nav class="nav">
-        <div>
-          <a href="#" class="nav_logo">
-            <i class="fa-solid fa-square-poll-vertical"></i>
-            <span class="nav_logo-name">Dashboard</span>
-          </a>
-          <div class="nav_list">
 
+        <div class="nav_list ">
+          <div>
+            <a href="#" class="nav_link">
+              <i class="fa-solid fa-square-poll-vertical"></i>
+              <span class="nav_logo-name">Dashboard</span>
+            </a>
             <a href="./cards.html" class="nav_link"><i class="fa-solid fa-credit-card"></i><span
                 class="nav_name">Cards</span> </a>
             <a class="nav_link nav-link dropdown-toggle d-flex" href="#" id="navbarDropdown" role="button"
@@ -48,31 +48,38 @@
               </li>
             </ul>
           </div>
+          <div>
+            <a href="#" class="nav_link" @click="logout()">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              <span class="nav_name">SignOut</span>
+            </a>
+          </div>
         </div>
-        <a href="#" class="nav_link">
-          <i class='bx bx-log-out nav_icon'></i>
-          <span class="nav_name">SignOut</span>
-        </a>
+
+
+
+
+
       </nav>
     </div>
 
     <section class="">
-      <h2 class="my-bank text-info mb-5">Hi, {{client.firstName}} {{client.lastName}}.</h2>
+      <h2 class="my-bank text-info mb-5" v-cloak>Hi, {{client.firstName}} {{client.lastName}}.</h2>
       <div class="container">
         <div class="row">
 
-          <div class="card col-12 col-md-6 mb-5">
+          <div class="card col-12 col-md-6">
 
             <div class="card-body col-12 col-md-12 m-auto">
               <div class="w-100">
-                <p v-if="loans.length==0"> No tiene prestamos solicitados.</p>
+                <p v-if="loans.length==0" v-cloak> No tiene prestamos solicitados.</p>
                 <div v-else>
-                  <h2>Loans requested:</h2>
-                  <ul>
+                  <h2 class="text-center mb-3">Loans requested:</h2>
+                  <ul class="d-flex align-center justify-content-around">
                     <li v-for="loan in loans">
-                      <p>Type: {{loan.name}}</p>
-                      <p>Amount: {{loan.amount}}</p>
-                      <p>Payments: {{loan.payments}}</p>
+                      <p v-cloak>Type: {{loan.name}}</p>
+                      <p v-cloak>Amount: {{loan.amount}}</p>
+                      <p v-cloak>Payments: {{loan.payments}}</p>
                     </li>
                   </ul>
                 </div>
@@ -86,19 +93,56 @@
 
               <div class="list-accounts col-12 col-md-4">
                 <ul>
-                  <li v-for="account in cuentas">
-                    <a :href="'./account.html?id=' + account.id"> {{account.number}}</a>
-                    <p class="text-muted">{{account.balance}}</p>
+                  <li v-for="account in cuentas" v-cloak>
+                    <a :href="'./account.html?id=' + account.id" v-cloak> {{account.number}}</a>
+                    <p class="text-muted" v-cloak>{{account.balance}}</p>
                   </li>
                 </ul>
               </div>
-              
+
               <div id="chartdiv" class="col-12 col-md-8"></div>
 
             </div>
 
           </div>
 
+        </div>
+        <div class="row mt-5">
+
+          <div class="container">
+            <div class="slider">
+              <div class="logos">
+                <div class="fab h-100" v-for="crypto in topCryptos">
+                  <img :src="crypto.logo_url" alt="crypto logo" height="50" width="50">
+                  <p class="text-muted m-0 p-3">{{crypto.name}}</p>
+                  <P class="text-ligth m-0 p-3">{{crypto.price}} </P>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="row mt-5 d-flex justify-content-center">
+          <div class="card col-6">
+            <table class="table table-dark table-hover">
+              <thead>
+                <tr>
+                  <th>Crypto Name</th>
+                  <th>Crypto Symbol</th>
+                  <th>Crypto Price USD</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="crypto in topCryptos.slice(0,14)">
+                  <td>{{crypto.name}}</td>
+                  <td>{{crypto.id}}</td>
+                  <td>{{formatearPrecio(crypto.price)}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
       </div>
