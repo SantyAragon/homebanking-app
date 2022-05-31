@@ -6,6 +6,8 @@ Vue.createApp({
             cards: [],
             cardsDebit: [],
             cardCredit: [],
+            colorCard: "SILVER",
+            cardType: "CREDIT",
 
         }
     },
@@ -76,7 +78,21 @@ Vue.createApp({
             let month = (date.getMonth() + 1) > 9 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1);
 
             let year = date.getFullYear().toString().slice(-2);
+
             return month + "/" + year
+        },
+
+        createCard() {
+            axios.post('/api/clients/current/cards', `colorCard=${this.colorCard}&cardType=${this.cardType}`, {
+                    headers: {
+                        'content-type': 'application/x-www-form-urlencoded'
+                    }
+                }).then(response => {
+                    window.location.href = "./cards.html";
+                })
+                .catch(error => {
+                    console.log(error)
+                })
         },
         logout() {
             axios.post('/api/logout').then(response => console.log('signed out!!!'))

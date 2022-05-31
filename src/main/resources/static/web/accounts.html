@@ -16,16 +16,16 @@
 
 </head>
 
-<body id="body-pd">
+<body id="body-pd" class="body-pd">
   <div id="app">
 
-    <header class="header " id="header">
-      <div class="header_toggle"><i id="header-toggle" class="fas fa-bars text-info"></i> </div>
+    <header class="header body-pd" id="header">
+      <div class="header_toggle show "><i id="header-toggle" class="bx-x fas fa-bars text-info"></i> </div>
       <div id="logo">
         <div class="header_img"> <img src="./assets/logo.png" alt=""> </div>
       </div>
     </header>
-    <div class="l-navbar" id="nav-bar">
+    <div class="l-navbar show" id="nav-bar">
       <nav class="nav">
 
         <div class="nav_list ">
@@ -66,10 +66,9 @@
     <section class="">
       <h2 class="my-bank text-info mb-5" v-cloak>Hi, {{client.firstName}} {{client.lastName}}.</h2>
       <div class="container">
-        <div class="row">
+        <div class="row ">
 
           <div class="card col-12 col-md-6">
-
             <div class="card-body col-12 col-md-12 m-auto">
               <div class="w-100">
                 <p v-if="loans.length==0" v-cloak> No tiene prestamos solicitados.</p>
@@ -88,8 +87,7 @@
           </div>
 
           <div class="card col-12 col-md-6 ">
-
-            <div class="card-body align-center row">
+            <div id="accounts" class="card-body align-center row">
 
               <div class="list-accounts col-12 col-md-4">
                 <ul>
@@ -98,53 +96,119 @@
                     <p class="text-muted" v-cloak>{{account.balance}}</p>
                   </li>
                 </ul>
+
+                <button v-if="cuentas.length<3" class="btn" @click="createAccount()"> Create new account</button>
               </div>
 
               <div id="chartdiv" class="col-12 col-md-8"></div>
 
             </div>
-
           </div>
 
         </div>
         <div class="row mt-5">
+          <div  id="infinite"  class="highway-slider">
+            <div class="card-body container highway-barrier">
+              <ul class="highway-lane">
+                <li class="highway-car" v-for="crypto in topCryptos">
+                  <div class="p-3 h-100 d-flex align-items-center">
+                    <img :src="crypto.logo_url" alt="crypto logo" height="65" width="65">
+                    <div class="d-flex flex-column text-crypto">
+                      <p class="text-muted ps-2 m-0">{{crypto.name}}</p>
+                      <P class="text-ligth ps-2 m-0">{{crypto.price}} </P>
+                  
+                    </div>
+                  </div>
+                </li>
 
-          <div class="container">
-            <div class="slider">
-              <div class="logos">
-                <div class="fab h-100" v-for="crypto in topCryptos">
-                  <img :src="crypto.logo_url" alt="crypto logo" height="50" width="50">
-                  <p class="text-muted m-0 p-3">{{crypto.name}}</p>
-                  <P class="text-ligth m-0 p-3">{{crypto.price}} </P>
-                </div>
-              </div>
+                <li class="highway-car" v-for="crypto in topCryptos">
+                  <div class="p-3 h-100 d-flex align-items-center">
+                    <img :src="crypto.logo_url" alt="crypto logo" height="65" width="65">
+                    <div class="d-flex flex-column text-crypto">
+                      <p class="text-muted ps-2 m-0">{{crypto.name}}</p>
+                      <P class="text-ligth ps-2 m-0">{{crypto.price}} </P>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
+          <!-- <section class="slide-option">
+            <div class="container">
+              <h3 class="no-marg">closed infinite loop</h3>
+            </div>
+            <div id="infinite" class="highway-slider">
+              <div class="container highway-barrier">
+                <ul class="highway-lane">
+                  <li class="highway-car"><span class="fab fa-angular"></span></li>
+                  <li class="highway-car"><span class="fab fa-js"></span></li>
+                  <li class="highway-car"><span class="fab fa-node"></span></li>
+                  <li class="highway-car"><span class="fab fa-html5"></span></li>
+                  <li class="highway-car"><span class="fab fa-less"></span></li>
+                  <li class="highway-car"><span class="fab fa-gulp"></span></li>
+                  <li class="highway-car"><span class="fab fa-stack-overflow"></span></li>
+                  <li class="highway-car"><span class="fab fa-codepen"></span></li>
+                  <li class="highway-car"><span class="fab fa-aws"></span></li>
+                  <li class="highway-car"><span class="fab fa-gitlab"></span></li>
+                  <li class="highway-car"><span class="fab fa-chrome"></span></li>
+                  <li class="highway-car"><span class="fab fa-google"></span></li>
+
+                  <li class="highway-car"><span class="fab fa-angular"></span></li>
+                  <li class="highway-car"><span class="fab fa-js"></span></li>
+                  <li class="highway-car"><span class="fab fa-node"></span></li>
+                  <li class="highway-car"><span class="fab fa-html5"></span></li>
+                  <li class="highway-car"><span class="fab fa-less"></span></li>
+                  <li class="highway-car"><span class="fab fa-gulp"></span></li>
+                  <li class="highway-car"><span class="fab fa-stack-overflow"></span></li>
+                  <li class="highway-car"><span class="fab fa-codepen"></span></li>
+                  <li class="highway-car"><span class="fab fa-aws"></span></li>
+                  <li class="highway-car"><span class="fab fa-gitlab"></span></li>
+                  <li class="highway-car"><span class="fab fa-chrome"></span></li>
+                  <li class="highway-car"><span class="fab fa-google"></span></li>
+                </ul>
+              </div>
+            </div>
+          </section> -->
+
         </div>
+
+
 
 
 
         <div class="row mt-5 d-flex justify-content-center">
-          <div class="card col-6">
-            <table class="table table-dark table-hover">
-              <thead>
-                <tr>
-                  <th>Crypto Name</th>
-                  <th>Crypto Symbol</th>
-                  <th>Crypto Price USD</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="crypto in topCryptos.slice(0,14)">
-                  <td>{{crypto.name}}</td>
-                  <td>{{crypto.id}}</td>
-                  <td>{{formatearPrecio(crypto.price)}}</td>
-                </tr>
-              </tbody>
-            </table>
+          <div>
+            <div class="table-transactions">
+
+
+              <table class="col-12 table table-light table-hover">
+
+                <thead>
+                  <tr class="row">
+                    <th class="col-12">
+                      <h2>Last Transactions</h2>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="row" v-for="transaction in allTransactions">
+
+                    <td class="col-4 fw-bold">{{transaction.description}}</td>
+                    <td class=" text-center col-4 fw-bold fs-5"
+                      :class="{'text-danger' : transaction.type=='DEBITO','text-success': transaction.type!='DEBITO'}">
+                      {{transaction.amount}}
+                    </td>
+                    <td class="col-4 text-end d-flex flex-column">
+                      <span class="fw-bold"> {{formatearFecha(transaction.date)}}</span>
+                      <span> {{formatearHora(transaction.date)}}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
           </div>
         </div>
-
       </div>
 
     </section>

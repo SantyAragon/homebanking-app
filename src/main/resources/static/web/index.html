@@ -55,7 +55,8 @@
                                 <!-- <button type="button" class="btn forms_buttons-action" @click="login">Log In </button> -->
                                 <button v-if="email=='' || password==''" disabled type="submit"
                                     class="btn forms_buttons-action">Log In</button>
-                                <button v-else type="button" class="btn forms_buttons-action" @click="login">Log In</button>
+                                <button v-else type="button" class="btn forms_buttons-action" @click="login">Log
+                                    In</button>
 
                             </div>
                         </form>
@@ -79,7 +80,7 @@
                                 </div>
                                 <div class="forms_field">
                                     <input type="password" placeholder="Password" v-model="passwordSign"
-                                        class="forms_field-input" required />
+                                        class="forms_field-input" @keyup.enter="signup()" required />
                                 </div>
                             </fieldset>
                             <div class="forms_buttons">

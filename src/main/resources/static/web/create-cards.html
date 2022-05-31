@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="./styles/cards.css">
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+    <title>Create Cards | Dano Bank</title>
+</head>
+
+<body id="body-pd">
+    <div id="app" class="body-pd">
+        <header class="header body-pd" id="header">
+            <div class="header_toggle"><i id="header-toggle" class="fas fa-bars text-info"></i> </div>
+            <div id="logo">
+                <div class="header_img"> <img src="./assets/logo.png" alt=""> </div>
+            </div>
+        </header>
+        <div class="l-navbar show" id="nav-bar">
+            <nav class="nav">
+
+                <div class="nav_list ">
+                    <div>
+                        <a href="./accounts.html" class="nav_link">
+                            <i class="fa-solid fa-square-poll-vertical"></i>
+                            <span class="nav_logo-name">Dashboard</span>
+                        </a>
+                        <a href="#" class="nav_link"><i class="fa-solid fa-credit-card"></i><span
+                                class="nav_name">Cards</span> </a>
+                        <a class="nav_link nav-link dropdown-toggle d-flex" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-file-invoice-dollar"></i>
+                            <span class="nav_name">My transactions</span>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-accounts" aria-labelledby="navbarDropdown">
+                            <li v-for="cuenta in client.accounts">
+                                <a class="dropdown-item" :href="'./account.html?id=' + cuenta.id">{{cuenta.number}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <a href="#" class="nav_link" @click="logout()">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            <span class="nav_name">SignOut</span>
+                        </a>
+                    </div>
+                </div>
+
+
+
+
+
+            </nav>
+        </div>
+
+
+        <section>
+            <div class="conteiner row">
+                <section>
+                    <div class="color"></div>
+                    <div class="color"></div>
+                    <div class="color"></div>
+                    <div class="box">
+                        <div class="square" style="--i:0;"></div>
+                        <div class="square" style="--i:1;"></div>
+                        <div class="square" style="--i:2;"></div>
+                        <div class="square" style="--i:3;"></div>
+                        <div class="square" style="--i:4;"></div>
+                        <div class="container">
+                            <div class="form">
+                                <h2>Apply for a card</h2>
+
+                                <div class="inputBox">
+                                    <h6 class="text-white">Card Type</h6>
+                                    <select name="" id="" v-model="cardType">
+                                        <option value="CREDIT">CREDIT</option>
+                                        <option value="DEBIT">DEBIT</option>
+                                    </select>
+                                </div>
+                                <div class="inputBox">
+                                    <h6 class="text-white">Color Card</h6>
+                                    <div class="btn-group dropend">
+                                        <a type="button"
+                                            class="text-decoration-none forget btn-secondary dropdown-toggle"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            {{colorCard}}
+                                        </a>
+
+                                        <ul class="dropdown-menu" id="color2" aria-labelledby="dropdownMenuLink">
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label for="silver" class="w-100">Silver
+                                                        <input class="d-none" id="silver" v-model="colorCard"
+                                                            value="SILVER" type="radio">
+                                                    </label>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label for="gold" class="w-100"> Gold
+                                                        <input class="d-none" id="gold" v-model="colorCard" value="GOLD"
+                                                            type="radio">
+                                                    </label>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    <label for="titanium" class="w-100">Titanium
+                                                        <input class="d-none" id="titanium" v-model="colorCard"
+                                                            value="TITANIUM" type="radio">
+                                                    </label>
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                        <!-- <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
+                                                <li><a class="dropdown-item" href="#">Silver</a></li>
+                                                <li><a class="dropdown-item" href="#">Gold</a></li>
+                                                <li><a class="dropdown-item" href="#">Titanium</a></li>
+                                            </ul> -->
+                                    </div>
+                                </div>
+                                <div class="inputBox">
+                                    <button @click="createCard" class="btn" id="apply">Apply</button>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+    </div>
+
+    <div id="chartdiv"></div>
+
+
+    <script src="https://kit.fontawesome.com/23209d6861.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <script src="./scripts/create-cards.js"></script>
+</body>
+
+</html>

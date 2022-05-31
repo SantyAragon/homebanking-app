@@ -47,6 +47,17 @@ public class Card {
         this.client = client;
     }
 
+    public Card(String cardholder, CardType type, ColorCard color, String number, int cvv, Client client) {
+        this.cardholder = cardholder;
+        this.type = type;
+        this.color = color;
+        this.number = number;
+        this.cvv = cvv;
+        this.fromDate = LocalDateTime.now();
+        this.thruDate = LocalDateTime.now().plusYears(5);
+        this.client = client;
+    }
+
     public long getId() {
         return id;
     }

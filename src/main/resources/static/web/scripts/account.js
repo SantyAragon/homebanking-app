@@ -24,7 +24,7 @@ Vue.createApp({
         const urlParams = new URLSearchParams(window.location.search);
         const idAccount = urlParams.get('id');
 
-        axios.get("http://localhost:8080/api/accounts/current/" + idAccount)
+        axios.get("http://localhost:8080/api/clients/current/accounts/" + idAccount)
             .then(data => {
                 console.log(data)
                 this.account = data.data;
@@ -154,6 +154,10 @@ Vue.createApp({
             // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
 
             series1.data.setAll(data);
+        },
+        logout() {
+            axios.post('/api/logout').then(response => console.log('signed out!!!'))
+            window.location.href = './index.html'
         },
     },
     computed: {

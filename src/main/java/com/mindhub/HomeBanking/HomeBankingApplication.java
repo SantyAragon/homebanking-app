@@ -43,12 +43,12 @@ public class HomeBankingApplication {
             Account cuenta1 = new Account("VIN001", LocalDateTime.now(), 5000, client1);
             Account cuenta2 = new Account("VIN002", LocalDateTime.now().plusDays(1), 7500, client1);
             Account cuenta3 = new Account("VIN003", LocalDateTime.now(), 10000, client2);
-            Account cuenta4 = new Account("VIN004", LocalDateTime.now(), 6500, client1);
+//            Account cuenta4 = new Account("VIN004", LocalDateTime.now(), 6500, client1);
             Account cuenta5 = new Account("VIN005", LocalDateTime.now(), 25500, client3);
             accountRepository.save(cuenta1);
             accountRepository.save(cuenta2);
             accountRepository.save(cuenta3);
-            accountRepository.save(cuenta4);
+//            accountRepository.save(cuenta4);
             accountRepository.save(cuenta5);
 
             Transaction transaction1 = new Transaction(TransactionType.CREDITO, 550, "Transfer received from Rune Bank ", LocalDateTime.now(), cuenta1);
@@ -61,6 +61,12 @@ public class HomeBankingApplication {
             Transaction transaction8 = new Transaction(TransactionType.DEBITO, 7300, "Mc Donalds", LocalDateTime.now(), cuenta5);
             Transaction transaction9 = new Transaction(TransactionType.CREDITO, 9300, "Supermarket", LocalDateTime.now(), cuenta5);
 
+            Transaction transactionPrueba1 = new Transaction(TransactionType.DEBITO, 1099.99, "Riot Games 2500 RP", LocalDateTime.now().plusDays(1), cuenta1);
+            Transaction transactionPrueba2 = new Transaction(TransactionType.DEBITO, 1099.99, "Riot Games 2500 RP", LocalDateTime.now().plusDays(2), cuenta1);
+            Transaction transactionPrueba3 = new Transaction(TransactionType.DEBITO, 1099.99, "Riot Games 2500 RP", LocalDateTime.now().plusDays(3), cuenta1);
+            Transaction transactionPrueba4 = new Transaction(TransactionType.DEBITO, 1099.99, "Riot Games 2500 RP", LocalDateTime.now().plusDays(4), cuenta1);
+            Transaction transactionPrueba5 = new Transaction(TransactionType.DEBITO, 1099.99, "Riot Games 2500 RP", LocalDateTime.now().plusDays(5), cuenta1);
+            Transaction transactionPrueba6 = new Transaction(TransactionType.DEBITO, 1099.99, "Riot Games 2500 RP", LocalDateTime.now().plusDays(6), cuenta1);
 
             transactionRepository.save(transaction1);
             transactionRepository.save(transaction2);
@@ -71,6 +77,8 @@ public class HomeBankingApplication {
             transactionRepository.save(transaction7);
             transactionRepository.save(transaction8);
             transactionRepository.save(transaction9);
+            List<Transaction> transactionsPrueba = List.of(transactionPrueba1, transactionPrueba2, transactionPrueba3, transactionPrueba4, transactionPrueba5, transactionPrueba6);
+            transactionRepository.saveAll(transactionsPrueba);
 
 
             List<Integer> miLista = List.of(12, 24, 36, 48, 60);
@@ -111,7 +119,6 @@ public class HomeBankingApplication {
             cardRepository.save(card4);
 
             System.out.println("todo listo, arranca nomas rey");
-
 
 
         };

@@ -1,9 +1,10 @@
-Vue.createApp({
+const app = Vue.createApp({
     data() {
         return {
             message: 'Hello Vue!',
             client: {},
             cuentas: {},
+            allTransactions: [],
             arrayCuentas: [],
             loans: [],
             topCryptos: [],
@@ -21,85 +22,33 @@ Vue.createApp({
                 this.loans = data.data.loans
                 console.log(this.loans)
                 this.chart();
+                this.takeAllTransaction();
             })
-        // axios.get("http://localhost:8080/api/cryptos").then(response => {
-        //     console.log(response.data.data)
-        //     this.topCryptos = response.data.data
-        // })
-        // axios.get("http://localhost:8080/api/cryptos/img").then(response => {
-        //     console.log(response.data.data)
-        //     this.cryptosIcon = response.data.data
-        // })
+
         axios.get("http://localhost:8080/api/cryptos")
             .then(data => {
-                console.log(data.data)
                 this.topCryptos = data.data
             })
+
     },
     methods: {
+        formatearFecha(dateInput) {
+            const date = new Date(dateInput)
 
-        // chart() {
+            return date.toDateString().slice(3)
+        },
+        formatearHora(dateInput) {
+            const date = new Date(dateInput)
+            let minutes = date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes()
+            return date.getHours() + ":" + minutes
+        },
 
-
-        //     var root = am5.Root.new("chartdiv");
-
-        //     // Set themes
-        //     // https://www.amcharts.com/docs/v5/concepts/themes/
-        //     root.setThemes([
-        //         am5themes_Animated.new(root)
-        //     ]);
-
-        //     // Create chart
-        //     // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
-        //     var chart = root.container.children.push(
-        //         am5percent.PieChart.new(root, {
-        //             startAngle: 160,
-        //             endAngle: 380
-        //         })
-        //     );
-
-        //     // Create series
-        //     // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
-
-        //     var series1 = chart.series.push(
-        //         am5percent.PieSeries.new(root, {
-        //             startAngle: 160,
-        //             endAngle: 380,
-        //             valueField: "balance",
-        //             innerRadius: am5.percent(80),
-        //             categoryField: "number"
-        //         })
-        //     );
-
-        //     series1.ticks.template.set("forceHidden", true);
-        //     series1.labels.template.set("forceHidden", true);
-
-        //     var label = chart.seriesContainer.children.push(
-        //         am5.Label.new(root, {
-        //             textAlign: "center",
-        //             centerY: am5.p100,
-        //             centerX: am5.p50,
-        //             text: `[ fontSize:1rem]TOTAL BALANCE[/]:\n[ fontSize:1rem]$ ${this.cuentas.map(account=> account.balance).reduce((a,b)=>a+b,0)}[/]`
-        //         })
-        //     );
-
-        //     var data = [];
-        //     this.cuentas.forEach(account => {
-        //         let aux = {}
-        //         aux = {
-        //             balance: account.balance,
-        //             number: account.number
-        //         }
-        //         data.push(aux)
-        //     })
-
-
-        //     // Set data
-        //     // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
-        //     series1.data.setAll(data);
-
-        // },
-
+        takeAllTransaction() {
+            this.client.accounts.forEach(account => {
+                account.transactions.forEach(transaction => this.allTransactions.push(transaction))
+            })
+            this.allTransactions.sort((a, b) => b.id - a.id)
+        },
         chart() {
 
             var root = am5.Root.new("chartdiv");
@@ -188,36 +137,32 @@ Vue.createApp({
 
             });
         },
+
+
+
+
+
         logout() {
             axios.post('/api/logout').then(response => console.log('signed out!!!'))
             window.location.href = './index.html'
         },
         formatearPrecio(price) {
 
-            // priceArr = Array.from(price.toString())
+            let priceFloat = parseFloat(price)
 
-            // if (priceArr[0] != 0 && priceArr[1] != 0 && priceArr[2] != 0) {
-            //     return price.toFixed(1)
-            // }
-
-            // if (priceArr[2] == 0 && priceArr[3] == 0) {
-
-            //     return price.toFixed(7);
-            // } else {
-
-            //     return price.toFixed(3)
-            // }
-
-            if (price.toString() < 0.001) {
-                return price
+            if (priceFloat < 0.001) {
+                return priceFloat.toFixed(7)
             }
-            if (price.toString() < 1) {
-                return price
+            if (priceFloat < 1) {
+                return priceFloat.toFixed(3)
             } else {
-                return price
+                return priceFloat.toFixed(2)
             }
 
-        }
+        },
+        createAccount() {
+            axios.post("http://localhost:8080/api/clients/current/accounts").then(response => {}).then(location.reload())
+        },
 
     },
     computed: {

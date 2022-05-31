@@ -24,12 +24,7 @@ Vue.createApp({
                         'content-type': 'application/x-www-form-urlencoded'
                     }
                 }).then(response => {
-                    console.log('signed in!!!')
-
-                    function redirect() {
-                        window.location.href = '../web/accounts.html'
-                    }
-                    setTimeout(redirect, 350)
+                    window.location.href = '../web/accounts.html'
                 })
                 .catch(error => {
                     this.errorLogin = "User or password incorrect."
