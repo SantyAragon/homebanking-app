@@ -16,100 +16,123 @@
     <title>Account | Dano Bank</title>
 </head>
 
-<body id="body-pd" class="body-pd">
+<body>
     <div id="app">
-        <header class="header body-pd" id="header">
-            <div class="header_toggle"><i id="header-toggle" class="fas fa-bars text-info"></i> </div>
-            <div id="logo">
-                <div class="header_img"> <img src="./assets/logo.png" alt=""> </div>
+
+        <input type="checkbox" id="nav-toggle">
+        <div class="sidebar">
+            <div class="sidebar-brand">
+                <h1> <span>Dano Bank</span>
+                </h1>
             </div>
-        </header>
-        <div class="l-navbar show" id="nav-bar">
-            <nav class="nav">
 
-                <div class="nav_list ">
-                    <div>
-                        <a href="./accounts.html" class="nav_link">
-                            <i class="fa-solid fa-square-poll-vertical"></i>
-                            <span class="nav_logo-name">Dashboard</span>
+            <div class="sidebar-menu">
+                <ul>
+                    <li>
+                        <a href="./accounts.html">
+                            <span><i class="fa-solid fa-square-poll-vertical"></i></span>
+                            <span>Dashboard</span>
                         </a>
-                        <a href="./cards.html" class="nav_link"><i class="fa-solid fa-credit-card"></i><span
-                                class="nav_name">Cards</span> </a>
-                        <a class="nav_link nav-link dropdown-toggle d-flex" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-file-invoice-dollar"></i>
-                            <span class="nav_name">My transactions</span>
+                    </li>
+                    <li>
+                        <a href="./cards.html">
+                            <span><i class="fa-solid fa-credit-card"></i></span>
+                            <span>Cards</span>
                         </a>
+                    </li>
+                    <li>
+                        <a href="#" class="active">
+                            <span><i class="fa-solid fa-money-bill-transfer"></i></span>
+                            <span>Transactions</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span><i class="fa-solid fa-circle-dollar-to-slot"></i></span>
+                            <span>Staking</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fas fa-boxes"></span>
+                            <span>Loans</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fas fa-user-circle"></span>
+                            <span>My Accounts</span>
+                        </a>
+                    </li>
 
-                        <ul class="dropdown-menu dropdown-accounts" aria-labelledby="navbarDropdown">
-                            <li v-for="cuenta in client.accounts">
-                                <a class="dropdown-item" :href="'./account.html?id=' + cuenta.id">{{cuenta.number}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                        <a href="#" class="nav_link" @click="logout()">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                            <span class="nav_name">SignOut</span>
+                </ul>
+                <ul>
+                    <li>
+                        <a href="#" @click="logout()">
+                            <span><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
+                            <span>SignOut</span>
                         </a>
-                    </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-content">
+            <header>
+                <h2 v-cloak>
+                    <label for="nav-toggle">
+                        <span class="fas fa-bars"></span>
+                    </label>
+                    Transactions {{account.number}}
+                </h2>
+
+                <div class="search-wrapper">
+                    <span class="fas fa-search"> </span>
+                    <input type="search" placeholder="Search..." />
                 </div>
 
+                <div class="user-wrapper">
+                    <div class="">
+                        <h4>Santiago Aragon</h4>
+                        <small>Super Admin</small>
+                    </div>
+                </div>
+            </header>
+            <main>
 
 
+                <section>
+                    <h3 v-if="transactions.length==0">This account haven't transactions😥</h3>
+                    <div v-else class="align-items-center">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="transaction in transactions">
+                                    <td><span class="status"
+                                            :class="{'red': transaction.type=='DEBIT','green':transaction.type=='CREDIT'}"></span>{{transaction.type}}
+                                    </td>
+                                    <td>{{transaction.description}}</td>
+                                    <td>{{ formatearFecha(transaction.date)  }} </td>
+                                    <td class="fw-bold fs-5"
+                                        :class="{'text-danger' : transaction.type=='DEBIT','text-success': transaction.type!='DEBIT'}">
+                                        {{transaction.type=="DEBITO" ? '-' + transaction.amount : transaction.amount}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
 
 
-            </nav>
+                    </div>
+                </section>
+            </main>
         </div>
-
-
-        <section>
-            <h2 class="my-bank text-info mb-5">Account number : {{account.number}}.</h2>
-
-            <h3 v-if="transactions.length==0">Esta cuenta no tiene transacciones😥</h3>
-            <div v-else class="align-items-center">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Type</th>
-                            <th>Description</th>
-                            <th>Date</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="transaction in transactions">
-                            <td>{{transaction.type}}</td>
-                            <td>{{transaction.description}}</td>
-                            <td>{{ formatearFecha(transaction.date)  }} </td>
-                            <td class="fw-bold fs-5"
-                                :class="{'text-danger' : transaction.type=='DEBITO','text-success': transaction.type!='DEBITO'}">
-                                {{transaction.type=="DEBITO" ? '-' + transaction.amount : transaction.amount}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div id="chartdiv"></div>
-            </div>
-        </section>
-
     </div>
-
-
-
-
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-
-
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/locales/de_DE.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/germanyLow.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/fonts/notosans-sc.js"></script>
 
 
     <script src="https://kit.fontawesome.com/23209d6861.js" crossorigin="anonymous"></script>

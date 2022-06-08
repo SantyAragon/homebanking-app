@@ -1,4 +1,4 @@
-Vue.createApp({
+const app = Vue.createApp({
     data() {
         return {
             message: 'Hello Vue!',
@@ -10,7 +10,6 @@ Vue.createApp({
         }
     },
     created() {
-        this.navbarFunctions();
 
         axios.get("http://localhost:8080/api/clients/current")
             .then(data => {
@@ -21,46 +20,12 @@ Vue.createApp({
                 this.cardsDebit = this.cards.filter(card => card.type == 'DEBIT')
                 this.cardsCredit = this.cards.filter(card => card.type == 'CREDIT')
 
-                console.log(this.cardsCredit)
-                console.log(this.cardsDebit)
+
 
             })
 
     },
     methods: {
-
-        navbarFunctions() {
-            document.addEventListener("DOMContentLoaded", function (event) {
-                const showNavbar = (toggleId, navId, bodyId, headerId) => {
-                    const toggle = document.getElementById(toggleId),
-                        nav = document.getElementById(navId),
-                        bodypd = document.getElementById(bodyId),
-                        headerpd = document.getElementById(headerId)
-
-                    if (toggle && nav && bodypd && headerpd) {
-                        toggle.addEventListener('click', () => {
-                            nav.classList.toggle('show')
-                            toggle.classList.toggle('bx-x')
-                            bodypd.classList.toggle('body-pd')
-                            headerpd.classList.toggle('body-pd')
-                        })
-                    }
-                }
-
-                showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
-
-                const linkColor = document.querySelectorAll('.nav_link')
-
-                function colorLink() {
-                    if (linkColor) {
-                        linkColor.forEach(l => l.classList.remove('active'))
-                        this.classList.add('active')
-                    }
-                }
-                linkColor.forEach(l => l.addEventListener('click', colorLink))
-
-            });
-        },
 
         sortCards() {
             this.cards.sort((a, b) => a.id - b.id)

@@ -17,134 +17,167 @@
     <title>Create Cards | Dano Bank</title>
 </head>
 
-<body id="body-pd">
-    <div id="app" class="body-pd">
-        <header class="header body-pd" id="header">
-            <div class="header_toggle"><i id="header-toggle" class="fas fa-bars text-info"></i> </div>
-            <div id="logo">
-                <div class="header_img"> <img src="./assets/logo.png" alt=""> </div>
+<body>
+    <div id="app">
+
+        <input type="checkbox" id="nav-toggle">
+        <div class="sidebar">
+            <div class="sidebar-brand">
+                <h1> <span>Dano Bank</span>
+                </h1>
             </div>
-        </header>
-        <div class="l-navbar show" id="nav-bar">
-            <nav class="nav">
 
-                <div class="nav_list ">
-                    <div>
-                        <a href="./accounts.html" class="nav_link">
-                            <i class="fa-solid fa-square-poll-vertical"></i>
-                            <span class="nav_logo-name">Dashboard</span>
+            <div class="sidebar-menu">
+                <ul>
+                    <li>
+                        <a href="./accounts.html">
+                            <span><i class="fa-solid fa-square-poll-vertical"></i></span>
+                            <span>Dashboard</span>
                         </a>
-                        <a href="#" class="nav_link"><i class="fa-solid fa-credit-card"></i><span
-                                class="nav_name">Cards</span> </a>
-                        <a class="nav_link nav-link dropdown-toggle d-flex" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-file-invoice-dollar"></i>
-                            <span class="nav_name">My transactions</span>
+                    </li>
+                    <li>
+                        <a href="./cards.html">
+                            <span><i class="fa-solid fa-credit-card"></i></span>
+                            <span>Cards</span>
                         </a>
+                    </li>
+                    <li>
+                        <a href="./cards.html" class="active">
+                            <span><i class="fa-solid fa-money-bill-transfer"></i></span>
+                            <span>Transactions</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span><i class="fa-solid fa-circle-dollar-to-slot"></i></span>
+                            <span>Staking</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fas fa-boxes"></span>
+                            <span>Loans</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fas fa-user-circle"></span>
+                            <span>My Accounts</span>
+                        </a>
+                    </li>
 
-                        <ul class="dropdown-menu dropdown-accounts" aria-labelledby="navbarDropdown">
-                            <li v-for="cuenta in client.accounts">
-                                <a class="dropdown-item" :href="'./account.html?id=' + cuenta.id">{{cuenta.number}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                        <a href="#" class="nav_link" @click="logout()">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                            <span class="nav_name">SignOut</span>
+                </ul>
+                <ul>
+                    <li>
+                        <a href="#" @click="logout()">
+                            <span><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
+                            <span>SignOut</span>
                         </a>
-                    </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-content">
+            <header>
+                <h2>
+                    <label for="nav-toggle">
+                        <span class="fas fa-bars"></span>
+                    </label>
+                    Request Card
+                </h2>
+
+                <div class="search-wrapper">
+                    <span class="fas fa-search"> </span>
+                    <input type="search" placeholder="Search..." />
+
                 </div>
 
+                <div class="user-wrapper">
+                    <div class="">
+                        <h4 v-cloak>{{client.firstName}} {{client.lastName}}</h4>
+                        <small>Super Admin</small>
+                    </div>
+                </div>
+            </header>
+            <section>
+                <div class="conteiner row">
+                    <section>
+                        <div class="color"></div>
+                        <div class="color"></div>
+                        <div class="color"></div>
+                        <div class="box">
+                            <div class="square" style="--i:0;"></div>
+                            <div class="square" style="--i:1;"></div>
+                            <div class="square" style="--i:2;"></div>
+                            <div class="square" style="--i:3;"></div>
+                            <div class="square" style="--i:4;"></div>
+                            <div class="container">
+                                <div class="form">
+                                    <h2>Apply for a card</h2>
 
+                                    <div class="inputBox">
+                                        <h6 class="text-white">Card Type</h6>
+                                        <select name="" id="" v-model="cardType">
+                                            <option value="CREDIT">CREDIT</option>
+                                            <option value="DEBIT">DEBIT</option>
+                                        </select>
+                                    </div>
+                                    <div class="inputBox">
+                                        <h6 class="text-white">Color Card</h6>
+                                        <div class="btn-group dropend">
+                                            <a type="button"
+                                                class="text-decoration-none forget btn-secondary dropdown-toggle"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                {{colorCard}}
+                                            </a>
 
+                                            <ul class="dropdown-menu" id="color2" aria-labelledby="dropdownMenuLink">
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        <label for="silver" class="w-100">Silver
+                                                            <input class="d-none" id="silver" v-model="colorCard"
+                                                                value="SILVER" type="radio">
+                                                        </label>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        <label for="gold" class="w-100"> Gold
+                                                            <input class="d-none" id="gold" v-model="colorCard"
+                                                                value="GOLD" type="radio">
+                                                        </label>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        <label for="titanium" class="w-100">Titanium
+                                                            <input class="d-none" id="titanium" v-model="colorCard"
+                                                                value="TITANIUM" type="radio">
+                                                        </label>
+                                                    </a>
+                                                </li>
 
-
-            </nav>
-        </div>
-
-
-        <section>
-            <div class="conteiner row">
-                <section>
-                    <div class="color"></div>
-                    <div class="color"></div>
-                    <div class="color"></div>
-                    <div class="box">
-                        <div class="square" style="--i:0;"></div>
-                        <div class="square" style="--i:1;"></div>
-                        <div class="square" style="--i:2;"></div>
-                        <div class="square" style="--i:3;"></div>
-                        <div class="square" style="--i:4;"></div>
-                        <div class="container">
-                            <div class="form">
-                                <h2>Apply for a card</h2>
-
-                                <div class="inputBox">
-                                    <h6 class="text-white">Card Type</h6>
-                                    <select name="" id="" v-model="cardType">
-                                        <option value="CREDIT">CREDIT</option>
-                                        <option value="DEBIT">DEBIT</option>
-                                    </select>
-                                </div>
-                                <div class="inputBox">
-                                    <h6 class="text-white">Color Card</h6>
-                                    <div class="btn-group dropend">
-                                        <a type="button"
-                                            class="text-decoration-none forget btn-secondary dropdown-toggle"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            {{colorCard}}
-                                        </a>
-
-                                        <ul class="dropdown-menu" id="color2" aria-labelledby="dropdownMenuLink">
-                                            <li>
-                                                <a class="dropdown-item" href="#">
-                                                    <label for="silver" class="w-100">Silver
-                                                        <input class="d-none" id="silver" v-model="colorCard"
-                                                            value="SILVER" type="radio">
-                                                    </label>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">
-                                                    <label for="gold" class="w-100"> Gold
-                                                        <input class="d-none" id="gold" v-model="colorCard" value="GOLD"
-                                                            type="radio">
-                                                    </label>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">
-                                                    <label for="titanium" class="w-100">Titanium
-                                                        <input class="d-none" id="titanium" v-model="colorCard"
-                                                            value="TITANIUM" type="radio">
-                                                    </label>
-                                                </a>
-                                            </li>
-
-                                        </ul>
-                                        <!-- <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
+                                            </ul>
+                                            <!-- <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
                                                 <li><a class="dropdown-item" href="#">Silver</a></li>
                                                 <li><a class="dropdown-item" href="#">Gold</a></li>
                                                 <li><a class="dropdown-item" href="#">Titanium</a></li>
                                             </ul> -->
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="inputBox">
-                                    <button @click="createCard" class="btn" id="apply">Apply</button>
-                                </div>
+                                    <div class="inputBox">
+                                        <button @click="createCard" class="btn" id="apply">Apply</button>
+                                    </div>
 
 
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-            </div>
-        </section>
-
+                    </section>
+                </div>
+            </section>
+        </div>
     </div>
-
-    <div id="chartdiv"></div>
 
 
     <script src="https://kit.fontawesome.com/23209d6861.js" crossorigin="anonymous"></script>

@@ -52,7 +52,7 @@ public class ClientController {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
         if (clientRepository.findByEmail(email) != null) {
-            return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Email already in use", HttpStatus.FORBIDDEN);
         }
         Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password));
         clientRepository.save(client);

@@ -16,215 +16,195 @@
 
 </head>
 
-<body id="body-pd" class="body-pd">
+<body>
   <div id="app">
 
-    <header class="header body-pd" id="header">
-      <div class="header_toggle show "><i id="header-toggle" class="bx-x fas fa-bars text-info"></i> </div>
-      <div id="logo">
-        <div class="header_img"> <img src="./assets/logo.png" alt=""> </div>
+
+    <input type="checkbox" id="nav-toggle">
+    <div class="sidebar">
+      <div class="sidebar-brand">
+        <h1> <span>Dano Bank</span>
+        </h1>
       </div>
-    </header>
-    <div class="l-navbar show" id="nav-bar">
-      <nav class="nav">
 
-        <div class="nav_list ">
-          <div>
-            <a href="#" class="nav_link">
-              <i class="fa-solid fa-square-poll-vertical"></i>
-              <span class="nav_logo-name">Dashboard</span>
+      <div class="sidebar-menu">
+        <ul>
+          <li>
+            <a href="#" class="active">
+              <span><i class="fa-solid fa-square-poll-vertical"></i></span>
+              <span>Dashboard</span>
             </a>
-            <a href="./cards.html" class="nav_link"><i class="fa-solid fa-credit-card"></i><span
-                class="nav_name">Cards</span> </a>
-            <a class="nav_link nav-link dropdown-toggle d-flex" href="#" id="navbarDropdown" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fa-solid fa-file-invoice-dollar"></i>
-              <span class="nav_name">My transactions</span>
+          </li>
+          <li>
+            <a href="./cards.html">
+              <span><i class="fa-solid fa-credit-card"></i></span>
+              <span>Cards</span>
             </a>
-
-            <ul class="dropdown-menu dropdown-accounts" aria-labelledby="navbarDropdown">
-              <li v-for="cuenta in client.accounts">
-                <a class="dropdown-item" :href="'./account.html?id=' + cuenta.id">{{cuenta.number}}</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <a href="#" class="nav_link" @click="logout()">
-              <i class="fa-solid fa-arrow-right-from-bracket"></i>
-              <span class="nav_name">SignOut</span>
+          </li>
+          <li>
+            <a href="./transfers.html">
+              <span><i class="fa-solid fa-money-bill-transfer"></i></span>
+              <span>Transactions</span>
             </a>
-          </div>
-        </div>
+          </li>
+          <li>
+            <a href="#">
+              <span><i class="fa-solid fa-circle-dollar-to-slot"></i></span>
+              <span>Staking</span>
+            </a>
+          </li>
+          <li>
+            <a href="./loan-application.html">
+              <span class="fas fa-boxes"></span>
+              <span>Loans</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="fas fa-user-circle"></span>
+              <span>My Accounts</span>
+            </a>
+          </li>
 
-
-
-
-
-      </nav>
+        </ul>
+        <ul>
+          <li>
+            <a href="#" @click="logout()">
+              <span><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
+              <span>SignOut</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
 
-    <section class="">
-      <h2 class="my-bank text-info mb-5" v-cloak>Hi, {{client.firstName}} {{client.lastName}}.</h2>
-      <div class="container">
-        <div class="row ">
+    <div class="main-content">
+      <header>
+        <h2>
+          <label for="nav-toggle">
+            <span class="fas fa-bars"></span>
+          </label>
+          Dashboard
+        </h2>
 
-          <div class="card col-12 col-md-6">
-            <div class="card-body col-12 col-md-12 m-auto">
-              <div class="w-100">
-                <p v-if="loans.length==0" v-cloak> No tiene prestamos solicitados.</p>
-                <div v-else>
-                  <h2 class="text-center mb-3">Loans requested:</h2>
-                  <ul class="d-flex align-center justify-content-around">
-                    <li v-for="loan in loans">
-                      <p v-cloak>Type: {{loan.name}}</p>
-                      <p v-cloak>Amount: {{loan.amount}}</p>
-                      <p v-cloak>Payments: {{loan.payments}}</p>
-                    </li>
-                  </ul>
+        <div class="search-wrapper">
+          <span class="fas fa-search"> </span>
+          <input type="search" placeholder="Search..." />
+
+        </div>
+
+        <div class="user-wrapper">
+          <div class="">
+            <h4 v-cloak>{{client.firstName}} {{client.lastName}}</h4>
+            <small>Super Admin</small>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <div class="cards">
+          <!-- ACCOUNTS CLIENT -->
+          <div v-for="account in accounts" class="card-single">
+            <div>
+              <h1 v-cloak>{{account.balance}}</h1>
+              <span v-cloak> <a :href="'./account.html?id='+account.id"> {{account.number}}</a></span>
+            </div>
+            <div>
+              <span class="fas fa-dollar"></span>
+            </div>
+          </div>
+          <!-- TOTAL BALANCE -->
+          <div class="card-single">
+            <div>
+              <h1 v-cloak>{{totalBalance}}</h1>
+              <span>Total Balance</span>
+            </div>
+            <div>
+              <span class="fas fa-wallet"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTIONS -->
+        <div class="recent-grid">
+          <!-- TABLE TRANSACTIONS-->
+          <div class="projects">
+            <div class="card">
+              <div class="card-header">
+                <h2>Recent Transactions</h2>
+                <a href="#"><button> See all <span class="fas fa-arrow-right"></span> </button></a>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive table-transactions">
+                  <table class="w-100">
+                    <thead>
+                      <tr>
+                        <td>Description</td>
+                        <td>Amount</td>
+                        <td>Type</td>
+                        <td>Date</td>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="transaction in allTransactions">
+                        <td v-cloak>{{transaction.description}}</td>
+                        <td v-cloak>{{transaction.type=='DEBITO'?"- " + transaction.amount:transaction.amount}}</td>
+                        <td v-cloak>
+                          <span class="status"
+                            :class="{'red': transaction.type=='DEBIT','green':transaction.type=='CREDIT'}"></span>
+                          {{transaction.type}}
+                        </td>
+                        <td>
+                          <div class="d-flex flex-column">
+                            <span v-cloak>{{formatearFecha(transaction.date)}}</span>
+                            <span v-cloak class="">{{formatearHora(transaction.date) }}</span>
+                          </div>
+
+                        </td>
+                      </tr>
+
+                    </tbody>
+
+                  </table>
                 </div>
               </div>
+
             </div>
+
           </div>
-
-          <div class="card col-12 col-md-6 ">
-            <div id="accounts" class="card-body align-center row">
-
-              <div class="list-accounts col-12 col-md-4">
-                <ul>
-                  <li v-for="account in cuentas" v-cloak>
-                    <a :href="'./account.html?id=' + account.id" v-cloak> {{account.number}}</a>
-                    <p class="text-muted" v-cloak>{{account.balance}}</p>
-                  </li>
-                </ul>
-
-                <button v-if="cuentas.length<3" class="btn" @click="createAccount()"> Create new account</button>
+          <!-- CARDS -->
+          <div class="customers">
+            <div class="card">
+              <div class="card-header">
+                <h2>Cards</h2>
+                <a href="./cards.html"><button> See all <span class="fas fa-arrow-right"></span> </button></a>
               </div>
-
-              <div id="chartdiv" class="col-12 col-md-8"></div>
-
-            </div>
-          </div>
-
-        </div>
-        <div class="row mt-5">
-          <div  id="infinite"  class="highway-slider">
-            <div class="card-body container highway-barrier">
-              <ul class="highway-lane">
-                <li class="highway-car" v-for="crypto in topCryptos">
-                  <div class="p-3 h-100 d-flex align-items-center">
-                    <img :src="crypto.logo_url" alt="crypto logo" height="65" width="65">
-                    <div class="d-flex flex-column text-crypto">
-                      <p class="text-muted ps-2 m-0">{{crypto.name}}</p>
-                      <P class="text-ligth ps-2 m-0">{{crypto.price}} </P>
-                  
+              <div class="card-body" v-for="card in cards">
+                <div class="customer">
+                  <div class="info">
+                    <div>
+                      <h4 v-cloak>{{card.number}}</h4>
+                      <small v-cloak>{{card.type}} {{card.color}}</small>
                     </div>
                   </div>
-                </li>
-
-                <li class="highway-car" v-for="crypto in topCryptos">
-                  <div class="p-3 h-100 d-flex align-items-center">
-                    <img :src="crypto.logo_url" alt="crypto logo" height="65" width="65">
-                    <div class="d-flex flex-column text-crypto">
-                      <p class="text-muted ps-2 m-0">{{crypto.name}}</p>
-                      <P class="text-ligth ps-2 m-0">{{crypto.price}} </P>
-                    </div>
+                  <div class="contact">
+                    <span class="fas fa-wallet"></span>
                   </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <!-- <section class="slide-option">
-            <div class="container">
-              <h3 class="no-marg">closed infinite loop</h3>
-            </div>
-            <div id="infinite" class="highway-slider">
-              <div class="container highway-barrier">
-                <ul class="highway-lane">
-                  <li class="highway-car"><span class="fab fa-angular"></span></li>
-                  <li class="highway-car"><span class="fab fa-js"></span></li>
-                  <li class="highway-car"><span class="fab fa-node"></span></li>
-                  <li class="highway-car"><span class="fab fa-html5"></span></li>
-                  <li class="highway-car"><span class="fab fa-less"></span></li>
-                  <li class="highway-car"><span class="fab fa-gulp"></span></li>
-                  <li class="highway-car"><span class="fab fa-stack-overflow"></span></li>
-                  <li class="highway-car"><span class="fab fa-codepen"></span></li>
-                  <li class="highway-car"><span class="fab fa-aws"></span></li>
-                  <li class="highway-car"><span class="fab fa-gitlab"></span></li>
-                  <li class="highway-car"><span class="fab fa-chrome"></span></li>
-                  <li class="highway-car"><span class="fab fa-google"></span></li>
+                </div>
 
-                  <li class="highway-car"><span class="fab fa-angular"></span></li>
-                  <li class="highway-car"><span class="fab fa-js"></span></li>
-                  <li class="highway-car"><span class="fab fa-node"></span></li>
-                  <li class="highway-car"><span class="fab fa-html5"></span></li>
-                  <li class="highway-car"><span class="fab fa-less"></span></li>
-                  <li class="highway-car"><span class="fab fa-gulp"></span></li>
-                  <li class="highway-car"><span class="fab fa-stack-overflow"></span></li>
-                  <li class="highway-car"><span class="fab fa-codepen"></span></li>
-                  <li class="highway-car"><span class="fab fa-aws"></span></li>
-                  <li class="highway-car"><span class="fab fa-gitlab"></span></li>
-                  <li class="highway-car"><span class="fab fa-chrome"></span></li>
-                  <li class="highway-car"><span class="fab fa-google"></span></li>
-                </ul>
               </div>
             </div>
-          </section> -->
 
-        </div>
-
-
-
-
-
-        <div class="row mt-5 d-flex justify-content-center">
-          <div>
-            <div class="table-transactions">
-
-
-              <table class="col-12 table table-light table-hover">
-
-                <thead>
-                  <tr class="row">
-                    <th class="col-12">
-                      <h2>Last Transactions</h2>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="row" v-for="transaction in allTransactions">
-
-                    <td class="col-4 fw-bold">{{transaction.description}}</td>
-                    <td class=" text-center col-4 fw-bold fs-5"
-                      :class="{'text-danger' : transaction.type=='DEBITO','text-success': transaction.type!='DEBITO'}">
-                      {{transaction.amount}}
-                    </td>
-                    <td class="col-4 text-end d-flex flex-column">
-                      <span class="fw-bold"> {{formatearFecha(transaction.date)}}</span>
-                      <span> {{formatearHora(transaction.date)}}</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-            </div>
           </div>
         </div>
-      </div>
 
-    </section>
+      </main>
+    </div>
+
+
   </div>
 
-
-  <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-  <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
-  <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-
-  <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-  <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-  <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-  <script src="https://cdn.amcharts.com/lib/5/locales/de_DE.js"></script>
-  <script src="https://cdn.amcharts.com/lib/5/geodata/germanyLow.js"></script>
-  <script src="https://cdn.amcharts.com/lib/5/fonts/notosans-sc.js"></script>
 
 
   <script src="https://kit.fontawesome.com/23209d6861.js" crossorigin="anonymous"></script>

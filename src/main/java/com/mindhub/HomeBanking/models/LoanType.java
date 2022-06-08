@@ -1,8 +1,8 @@
 package com.mindhub.HomeBanking.models;
 
 public enum LoanType {
-    Hipotecario,
+    Mortgage,
     Personal,
-    Automotriz,
+    Car,
 
 }

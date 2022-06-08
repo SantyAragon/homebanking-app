@@ -1,0 +1,553 @@
+/*==================== GOOGLE FONTS ====================*/
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Rubik&display=swap");
+
+/*==================== VARIABLES CSS ====================*/
+:root {
+    /*========== Colors ==========*/
+    /* Change favorite color - Blue 210 - Purple 250 - Green 142 - Pink 340*/
+    --hue-color: 250;
+
+    /* HSL color mode */
+    --first-color: hsl(var(--hue-color), 96%, 54%);
+    --first-color-light: hsl(var(--hue-color), 96%, 69%);
+    --first-color-alt: hsl(var(--hue-color), 96%, 37%);
+    --first-color-lighter: hsl(var(--hue-color), 14%, 96%);
+    --title-color: hsl(var(--hue-color), 12%, 15%);
+    --text-color: hsl(var(--hue-color), 12%, 35%);
+    --text-color-light: hsl(var(--hue-color), 12%, 65%);
+    --white-color: #FFF;
+    --body-color: hsl(var(--hue-color), 100%, 99%);
+    --container-color: #FFF;
+
+    /*========== Font and typography ==========*/
+    --body-font: 'Lato', sans-serif;
+    --pricing-font: 'Rubik', sans-serif;
+    --biggest-font-size: 1.75rem;
+    --normal-font-size: .938rem;
+    --h2-font-size: 1.25rem;
+    --small-font-size: .813rem;
+    --smaller-font-size: .75rem;
+    --tiny-font-size: .625rem;
+
+    /*========== Margenes Bottom ==========*/
+    --mb-0-25: .25rem;
+    --mb-0-5: .5rem;
+    --mb-1: 1rem;
+    --mb-1-25: 1.25rem;
+    --mb-1-5: 1.5rem;
+    --mb-2: 2rem;
+}
+
+@media screen and (min-width: 968px) {
+    :root {
+        --biggest-font-size: 2.125rem;
+        --h2-font-size: 1.5rem;
+        --normal-font-size: 1rem;
+        --small-font-size: .875rem;
+        --smaller-font-size: .813rem;
+        --tiny-font-size: .688rem;
+    }
+}
+
+
+/*==================== REUSABLE CSS CLASSES ====================*/
+.container {
+    max-width: 1024px;
+    margin-left: var(--mb-1-5);
+    margin-right: var(--mb-1-5);
+}
+
+.grid {
+    display: grid;
+}
+
+/*==================== CARD PRICING ====================*/
+.cardd {
+    padding: 3rem 0;
+}
+
+.card__container {
+    gap: 3rem 1.25rem;
+}
+
+.card__content {
+    position: relative;
+    background-color: var(--container-color);
+    padding: 2rem 1.5rem 2.5rem;
+    border-radius: 1.75rem;
+    box-shadow: 0 12px 24px hsla(var(--hue-color), 61%, 16%, 0.1);
+    transition: .4s;
+}
+
+.card__content:hover {
+    box-shadow: 0 16px 24px hsla(var(--hue-color), 61%, 16%, 0.15);
+}
+
+
+.card__header-img {
+    width: 40px;
+    height: 40px;
+}
+
+.card__header-circle {
+    width: 40px;
+    height: 40px;
+    background-color: var(--first-color-lighter);
+    border-radius: 50%;
+    margin-bottom: var(--mb-1);
+    place-items: center;
+}
+
+.card__header-subtitle {
+    display: block;
+    font-size: var(--smaller-font-size);
+    color: var(--text-color-light);
+    text-transform: uppercase;
+    margin-bottom: var(--mb-0-25);
+}
+
+.card__header-title {
+    font-size: var(--biggest-font-size);
+    color: var(--title-color);
+    margin-bottom: var(--mb-1);
+}
+
+.card__pricing {
+    position: absolute;
+    background: linear-gradient(157deg, var(--first-color-light) -12%, var(--first-color) 109%);
+    width: 60px;
+    height: 88px;
+    right: 1.5rem;
+    top: -1rem;
+    padding-top: 1.25rem;
+    text-align: center;
+}
+
+.card__pricing-number {
+    font-family: var(--pricing-font);
+}
+
+.card__pricing-symbol {
+    font-size: var(--smaller-font-size);
+}
+
+.card__pricing-number {
+    font-size: var(--h2-font-size);
+}
+
+.card__pricing-month {
+    display: block;
+    font-size: var(--tiny-font-size);
+}
+
+.card__pricing-number,
+.card__pricing-month {
+    color: var(--white-color);
+}
+
+.card__pricing::after,
+.card__pricing::before {
+    content: '';
+    position: absolute;
+}
+
+.card__pricing::after {
+    width: 100%;
+    height: 14px;
+    background-color: var(--white-color);
+    left: 0;
+    bottom: 0;
+    clip-path: polygon(0 100%, 50% 0, 100% 100%);
+}
+
+.card__pricing::before {
+    width: 14px;
+    height: 16px;
+    background-color: var(--first-color-alt);
+    top: 0;
+    left: -14px;
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+}
+
+.card__list {
+    row-gap: .5rem;
+    margin-bottom: var(--mb-2);
+}
+
+.card__list-item {
+    display: flex;
+    align-items: center;
+}
+
+.card__list-icon {
+    font-size: 1.5rem;
+    color: var(--first-color);
+    margin-right: var(--mb-0-5);
+}
+
+.card__button {
+    padding: 1.25rem;
+    border: none;
+    font-size: var(--normal-font-size);
+    border-radius: .5rem;
+    background: linear-gradient(157deg, var(--first-color-light) -12%, var(--first-color) 109%);
+    color: var(--white-color);
+    cursor: pointer;
+    transition: .4s;
+}
+
+.card__button:hover {
+    box-shadow: 0 12px 24px hsla(var(--hue-color), 97%, 54%, 0.2);
+}
+
+/*==================== MEDIA QUERIES ====================*/
+/* For small devices */
+@media screen and (max-width: 320px) {
+    .container {
+        margin-left: var(--mb-1);
+        margin-right: var(--mb-1);
+    }
+
+    .card__content {
+        padding: 2rem 1.25rem;
+        border-radius: 1rem;
+    }
+}
+
+/* For medium devices */
+@media screen and (min-width: 568px) {
+    .card__container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card__content {
+        grid-template-rows: repeat(2, max-content);
+    }
+
+    .card__button {
+        align-self: flex-end;
+    }
+}
+
+/* For large devices */
+@media screen and (min-width: 968px) {
+    .container {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .cardd {
+        align-items: center;
+    }
+
+    .card__container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card__header-circle {
+        margin-bottom: var(--mb-1-25);
+    }
+
+    .card__header-subtitle {
+        font-size: var(--small-font-size);
+    }
+}
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+html {
+    font-family: 'Montserrat', Arial, sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background: #F2F3EB;
+}
+
+button {
+    overflow: visible;
+}
+
+button,
+select {
+    text-transform: none;
+}
+
+button,
+input,
+select,
+textarea {
+    color: #5D3EBC;
+    font: inherit;
+    margin: 0;
+}
+
+input {
+    line-height: normal;
+}
+
+textarea {
+    overflow: auto;
+}
+
+#container {
+    border: solid 3px var(--main-color);
+    border-radius: 2rem;
+    /* background-color: #5d3ebc6b; */
+    max-width: 768px;
+    margin: 60px auto;
+    position: relative;
+}
+
+form {
+    padding: 2rem;
+    margin: 3rem 0;
+    min-width: 40rem;
+    /* background-color: #5d3ebc38; */
+}
+
+.title-form {
+    color: var(--color-dark);
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 7px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.underline {
+    border-bottom: solid 2px var(--main-color);
+    margin: -0.512em auto;
+    width: 80px;
+}
+
+.icon_wrapper {
+    margin: 50px auto 0;
+    width: 100%;
+}
+
+.icon {
+    display: block;
+    fill: var(--main-color);
+    height: 50px;
+    margin: 0 auto;
+    width: 50px;
+}
+
+
+input[type='text'],
+[type='number'],
+select {
+    background: none;
+    border: none;
+    border-bottom: solid 2px var(--main-color);
+    color: var(--main-color);
+    font-size: 1.000em;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin: 0em 0 1.875em 0;
+    padding: 0 0 0.875em 0;
+    text-transform: uppercase;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+input[type='text']:focus,
+[type='number']:focus,
+textarea:focus {
+    outline: none;
+    padding: 0 0 0.875em 0;
+}
+
+select {
+    background: url('https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-down-32.png') no-repeat right;
+    outline: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+::-webkit-input-placeholder {
+    color: var(--main-color);
+}
+
+:-moz-placeholder {
+    color: var(--main-color);
+    opacity: 1;
+}
+
+::-moz-placeholder {
+    color: var(--main-color);
+    opacity: 1;
+}
+
+:-ms-input-placeholder {
+    color: var(--main-color);
+}
+
+
+@media screen and (max-width: 768px) {
+    #container {
+        margin: 20px auto;
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 26px;
+    }
+
+    .underline {
+        width: 68px;
+    }
+
+    #form_button {
+        padding: 15px 25px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    h1 {
+        font-size: 18px;
+    }
+
+    .icon {
+        height: 35px;
+        width: 35px;
+    }
+
+    .underline {
+        width: 53px;
+    }
+
+    input[type='text'],
+    [type='email'],
+    select,
+    textarea {
+        font-size: 0.875em;
+    }
+}
+
+.slide-in-top {
+    -webkit-animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2022-6-7 17:17:25
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation slide-in-top
+ * ----------------------------------------
+ */
+@-webkit-keyframes slide-in-top {
+    0% {
+        -webkit-transform: translateY(-1000px);
+        transform: translateY(-1000px);
+        opacity: 0;
+        z-index: -1;
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        opacity: 1;
+        z-index: 1;
+    }
+}
+
+@keyframes slide-in-top {
+    0% {
+        -webkit-transform: translateY(-1000px);
+        transform: translateY(-1000px);
+        opacity: 0;
+        z-index: -1;
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        opacity: 1;
+        z-index: 1;
+    }
+}
+
+/* From uiverse.io by @martinval9 */
+/* Hide the default checkbox */
+.containerr input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.containerr {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 20px;
+    user-select: none;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 1.3em;
+    width: 1.3em;
+    background-color: #ccc;
+    border-radius: 25px;
+    transition: 0.15s;
+}
+
+/* When the checkbox is checked, add a blue background */
+.containerr input:checked~.checkmark {
+    background-color: var(--main-color);
+    border-radius: 25px;
+    transition: 0.15s;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.containerr input:checked~.checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.containerr .checkmark:after {
+    left: 0.45em;
+    top: 0.25em;
+    width: 0.25em;
+    height: 0.5em;
+    border: solid white;
+    border-width: 0 0.15em 0.15em 0;
+    transform: rotate(45deg);
+}

@@ -43,8 +43,8 @@ Vue.createApp({
                     if (error.response.data == 'Missing data') {
                         this.errorRegister = "Missing Data";
                     }
-                    if (error.response.data == 'Name already in use') {
-                        this.errorRegister = "Name already in use";
+                    if (error.response.data == 'Email already in use') {
+                        this.errorRegister = "Email already in use";
                     }
                 })
         },
