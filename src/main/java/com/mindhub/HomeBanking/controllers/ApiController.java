@@ -2,6 +2,7 @@ package com.mindhub.HomeBanking.controllers;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,7 +45,7 @@ public class ApiController {
             return "null";
         }
         */
-    @RequestMapping("/cryptos")
+    @GetMapping("/cryptos")
     public String getCryptos() {
 
 //        String uri = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/info";

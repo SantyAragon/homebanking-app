@@ -200,6 +200,11 @@
     box-shadow: 0 12px 24px hsla(var(--hue-color), 97%, 54%, 0.2);
 }
 
+.button-disabled {
+    background: #524579;
+
+}
+
 /*==================== MEDIA QUERIES ====================*/
 /* For small devices */
 @media screen and (max-width: 320px) {

@@ -107,8 +107,8 @@ public class HomeBankingApplication {
             clientLoanRepository.save(clientloan3);
             clientLoanRepository.save(clientloan4);
 
-            ClientLoan clientloan5 = new ClientLoan(50000, 12, client1, loan3);
-            clientLoanRepository.save(clientloan5);
+//            ClientLoan clientloan5 = new ClientLoan(50000, 12, client1, loan3);
+//            clientLoanRepository.save(clientloan5);
 
             Card card1 = new Card(client1.getFullName(), DEBIT, GOLD, "1234567890123456", 219, LocalDateTime.now(), LocalDateTime.now().plusYears(5), client1);
             Card card2 = new Card(client1.getFullName(), CREDIT, TITANIUM, "4000001234567899", 513, LocalDateTime.now(), LocalDateTime.now().plusYears(5), client1);

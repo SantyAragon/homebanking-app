@@ -52,10 +52,9 @@
                             </fieldset>
                             <div class="forms_buttons">
                                 <button type="button" class="forms_buttons-forgot">Forgot password?</button>
-                                <!-- <button type="button" class="btn forms_buttons-action" @click="login">Log In </button> -->
-                                <button v-if="email=='' || password==''" disabled type="submit"
-                                    class="btn forms_buttons-action">Log In</button>
-                                <button v-else type="button" class="btn forms_buttons-action" @click="login">Log
+
+                                <button :disabled="email=='' || password==''" type="button"
+                                    class="btn forms_buttons-action" @click="login">Log
                                     In</button>
 
                             </div>

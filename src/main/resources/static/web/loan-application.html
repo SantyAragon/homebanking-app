@@ -115,12 +115,14 @@
 
             <section>
                 <main>
-                    <div class="recent-grid d-flex  w-100">
+                    <div class="recent-grid d-flex justify-content-center w-100">
                         <div class="card">
                             <div class="card-header w-100">
                                 <h2>Apply loan</h2>
                             </div>
-                            <div class="card-body row d-flex flex-column align-items-center ">
+
+                            <div class="card-body row w-100 d-flex flex-column justify-content-center align-items-center ">
+                                <!-- LOAN CARDS -->
                                 <section class="cardd container grid">
                                     <div class="card__container grid">
                                         <!--==================== CARD 1 ====================-->
@@ -171,12 +173,15 @@
 
                                             </ul>
 
-                                            <input @click="selectLoan(loan)" type="button" class="card__button"
-                                                value="Choose this plan">
+                                            <input @click="selectLoan(loan),isDisabled(loan)" type="button"
+                                                :disabled="isDisabled(loan)"
+                                                :class="{'button-disabled':isDisabled(loan)}" class="card__button"
+                                                :value="isDisabled(loan)?'Loan already taked':'Choose this plan'">
 
                                         </article>
                                     </div>
                                 </section>
+                                <!-- FORM Request -->
                                 <section>
                                     <div v-cloak class="slide-in-top" class="card" v-if="typeLoan !='Select Loan type'">
                                         <div id="container">
@@ -186,12 +191,13 @@
 
                                             <form @submit.prevent="requestLoan()" id="contact_form">
                                                 <label class="fw-bold pb-2">Type loan</label>
-                                                <div class="typeLoan w-100">
 
-                                                    <select v-model="typeLoan" class="w-50" id="subject_input">
+                                                <div class="typeLoan w-100">
+                                                    <select required v-model="typeLoan" class="w-50" id="subject_input">
                                                         <option disabled hidden selected value="Select Loan type">Select
                                                             Loan type</option>
-                                                        <option v-for="loan in loans" :value="loan">{{loan.name}}
+                                                        <option v-for="loan in loans" v-show="!isDisabled(loan)"
+                                                            :value="loan">{{loan.name}}
                                                         </option>
                                                     </select>
                                                 </div>
@@ -223,6 +229,8 @@
 
                                                 <div class="amount w-100">
                                                     <label class="fw-bold pb-2">Amount</label>
+                                                    <span class="text-muted ms-3">Max({{typeLoan.maxAmount}})
+                                                    </span>
                                                     <input required type="number" min="1" step="0.1"
                                                         :max="typeLoan.maxAmount" placeholder="Insert amount"
                                                         id="telephone_input" v-model="amountLoan">
@@ -230,8 +238,8 @@
 
                                                 <div class="targetAccount w-100">
                                                     <label class="fw-bold pb-2">Select account</label>
-                                                    <select class="w-100" v-model="targetAccount">
-                                                        <option selected hidden disabled value="Select target account">
+                                                    <select required class="w-100" v-model="targetAccount">
+                                                        <option value="" selected hidden disabled>
                                                             Select target
                                                             account
                                                         </option>
@@ -240,12 +248,12 @@
                                                     </select>
                                                 </div>
                                                 <label class="fw-bold pb-2"
-                                                    v-show="(amountLoan*1.20) / paymentLoan != Infinity">Monthly rate:
+                                                    v-show="amountLoan!='' && paymentLoan!=0">Monthly rate:
                                                     <span
-                                                        v-show="(amountLoan*1.20) / paymentLoan != 'NaN'">{{(amountLoan*1.20) / paymentLoan}}</span></label>
-                                                <div class=" submit">
-                                                    <input type="submit" class="card__button button-disabled"
-                                                        value="Request loan">
+                                                        v-show="(amountLoan*1.20) / paymentLoan != Infinity">{{((amountLoan*1.20) / paymentLoan).toFixed(2)}}</span></label>
+                                                <div class="submit">
+                                                    <input type="submit" class="card__button"
+                                                        :value="paymentLoan==0 || amountLoan==''|| targetAccount==''? 'Missing data':'Request loan'">
                                                 </div>
                                             </form><!-- // End form -->
                                         </div><!-- // End #container -->

@@ -180,6 +180,47 @@ header label span {
 
 }
 
+/* From uiverse.io by @bandirevanth */
+.custom-btn {
+    width: 7rem;
+    height: 3rem;
+    font-size: 1rem;
+    width: 100%;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5),
+        7px 7px 20px 0px rgba(0, 0, 0, .1),
+        4px 4px 5px 0px rgba(0, 0, 0, .1);
+    outline: none;
+}
+
+.btn-1 {
+    background: var(--main-color);
+    background: linear-gradient(0deg, rgba(96, 9, 240, 1) 0%, rgba(129, 5, 240, 1) 100%);
+    border: none;
+}
+
+.btn-1:before {
+    height: 0%;
+    width: 2px;
+}
+
+.btn-1:hover {
+    box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, .5),
+        -4px -4px 6px 0 rgba(116, 125, 136, .5),
+        inset -4px -4px 6px 0 rgba(255, 255, 255, .2),
+        inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+}
+
+
 main {
     margin-top: 85px;
     padding: 2rem 1.5rem;
@@ -209,6 +250,7 @@ main {
 .card-single a,
 .card-header a {
     text-decoration: none;
+    color: var(--text-grey);
 }
 
 .card-single a:hover,
@@ -218,11 +260,11 @@ main {
 }
 
 .card-header a {
-    color: white;
+    color: var(--text-grey);
 }
 
 .card-single a:visited {
-    color: var(--text-grey)
+    color: var(--text-grey);
 }
 
 .card-single div:last-child span {
@@ -282,6 +324,7 @@ main {
 
 table {
     border-collapse: collapse;
+
 }
 
 thead tr {
@@ -296,7 +339,7 @@ thead td {
 
 td {
     padding: .5rem 1rem;
-    font-size: .9rem;
+    font-size: 1rem;
     color: #222;
 
 }
@@ -304,8 +347,6 @@ td {
 tr td:last-child {
     display: flex;
     align-items: center;
-
-
 }
 
 td .status {
@@ -324,7 +365,7 @@ td .status {
     background: red;
 }
 
-.customer {
+.cardss {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -518,27 +559,77 @@ td .status {
     }
 }
 
+.row>* {
+    padding-right: 0;
+}
 
+.contenedorrr {
+    min-height: 65vh;
+    max-height: 65vh;
+
+}
+
+.projects {
+    max-height: 65vh;
+
+}
 
 
 .table-transactions {
+
     border-radius: 1rem;
-    height: 30vh;
+    height: 48.5vh;
+    overflow: scroll;
+    overflow-x: hidden;
+
+}
+
+.height-card {
+    height: 20vh;
     overflow: scroll;
     overflow-x: hidden;
 }
 
-.table-transactions::-webkit-scrollbar {
+.table-transactions::-webkit-scrollbar,
+.height-card::-webkit-scrollbar {
     width: 11px;
 }
 
-.table-transactions::-webkit-scrollbar-track {
+.table-transactions::-webkit-scrollbar-track,
+.height-card::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
 }
 
-.table-transactions::-webkit-scrollbar-thumb {
+.table-transactions::-webkit-scrollbar-thumb,
+.height-card::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #5D3EBC;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+/* =========== CHANGE COLOR SWEET ALERT ========== */
+.swal2-popup.swal2-modal.swal2-show {
+    background: #5d3ebc;
+    color: white;
+}
+
+.swal2-deny.swal2-styled {
+    background-color: var(--text-grey);
+}
+
+.swal2-confirm.swal2-styled {
+    background-color: #66b9e0;
+}
+
+.swal2-success-circular-line-left {
+    background-color: transparent !important;
+}
+
+.swal2-success-circular-line-right {
+    background-color: transparent !important;
+}
+
+.swal2-success-fix {
+    background-color: transparent !important;
 }

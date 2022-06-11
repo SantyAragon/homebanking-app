@@ -5,8 +5,8 @@ const app = Vue.createApp({
             client: {},
             accounts: [],
             typeTransaction: "",
-            originAccount: "Select account",
-            targetAccount: "Select account",
+            originAccountNumber: "Select account",
+            targetAccountNumber: "Select account",
             thirdAccount: "",
             description: "",
             amount: 0,
@@ -24,7 +24,6 @@ const app = Vue.createApp({
 
                 this.accounts = data.data.accounts
                 this.sortAccounts();
-
                 let loader = document.querySelector('#loader-container')
                 loader.classList.add('loader-desactive')
             })
@@ -52,9 +51,9 @@ const app = Vue.createApp({
             }).then((result) => {
 
                 if (result.isConfirmed) {
-                    if (this.originAccount != "Select account" && this.targetAccount != "Select account" && this.amount > 0 && this.description != "") {
+                    if (this.originAccountNumber != "Select account" && this.targetAccountNumber != "Select account" && this.amount > 0 && this.description != "") {
 
-                        axios.post('http://localhost:8080/api/transactions', `description=${this.description}&amount=${this.amount}&originAccount=${this.originAccount}&targetAccount=${this.targetAccount}`)
+                        axios.post('http://localhost:8080/api/transactions', `description=${this.description}&amount=${this.amount}&originAccountNumber=${this.originAccountNumber}&targetAccountNumber=${this.targetAccountNumber}`)
                             .then(response => {
                                 Swal.fire('Transaction Success', '', 'success')
                                     .then(result => {

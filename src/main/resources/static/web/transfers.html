@@ -177,7 +177,7 @@
                                     <div id="stepOne" class="d-none">
                                         <form @submit.prevent="changeStep(), changeStepForm()"
                                             class="pt-3 d-flex flex-column gap-3">
-                                            <select v-model="originAccount" name="" id="" required>
+                                            <select v-model="originAccountNumber" name="" id="" required>
                                                 <option value="Select account">Select origin account</option>
                                                 <option v-for="account in accounts" :value="account.number">
                                                     {{account.number}}
@@ -194,10 +194,10 @@
                                             class="pt-3 d-flex flex-column gap-3">
                                             <input v-if="typeTransaction=='thirdTransaction'" v-model="thirdAccount"
                                                 type="text" name="" id="" required placeholder="Target Account">
-                                            <select v-else v-model="targetAccount" name="" id="" required>
+                                            <select v-else v-model="targetAccountNumber" name="" id="" required>
                                                 <option value="Select account">Select target account</option>
                                                 <option v-for="account in accounts"
-                                                    v-show="originAccount!=account.number" :value="account.number">
+                                                    v-show="originAccountNumber!=account.number" :value="account.number">
                                                     {{account.number}}
                                                 </option>
                                             </select>
@@ -229,12 +229,12 @@
                                             <input class="w-100" v-model="description" placeholder="description"
                                                 type="text" required>
                                             <button v-if="typeTransaction=='ownTransaction'"
-                                                :disabled="originAccount=='Select account' || targetAccount=='Select account'"
+                                                :disabled="originAccountNumber=='Select account' || targetAccountNumber=='Select account'"
                                                 type="submit" class="btn transaction-button">Make
                                                 Transaction
                                             </button>
                                             <button v-else
-                                                :disabled="originAccount=='Select account' || targetAccount==''"
+                                                :disabled="originAccountNumber=='Select account' || targetAccountNumber==''"
                                                 type="submit" class="btn transaction-button">Make
                                                 Transaction
                                             </button>

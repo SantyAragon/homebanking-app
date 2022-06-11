@@ -1,9 +1,10 @@
-/**
- * * General variables
- * */
-/**
- * * General configs
- * */
+:root {
+    --main-color: #5D3EBC;
+    --color-dark: #1D2231;
+    --text-grey: #8390A2;
+    --widthSideBar: 100px;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -12,6 +13,7 @@ body {
     font-family: "Montserrat", sans-serif;
     font-size: 12px;
     line-height: 1em;
+
 }
 
 [v-cloak] {
@@ -147,7 +149,10 @@ input::placeholder {
     align-items: center;
     width: 100%;
     height: 100vh;
-    background: #ccc;
+    /* background: var(--color-dark); */
+    /* background-size: cover; */
+    background-image: url('https://papers.co/wallpaper/papers.co-sf63-white-purple-gradation-blur-35-3840x2160-4k-wallpaper.jpg');
+    background-repeat: no-repeat;
     background-size: cover;
 }
 
@@ -160,7 +165,7 @@ input::placeholder {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    background-color: rgba(34, 34, 34, 0.85);
+    background-color: var(--main-color);
     border-radius: 3px;
 }
 
@@ -234,7 +239,7 @@ input::placeholder {
     font-weight: 500;
     line-height: 1em;
     text-transform: uppercase;
-    color: #e8716d;
+    color: var(--main-color);
     letter-spacing: 0.1rem;
 }
 
@@ -278,7 +283,7 @@ input::placeholder {
 }
 
 .user_options-forms .forms_buttons-action {
-    background-color: #e8716d;
+    background-color: var(--main-color);
     border-radius: 3px;
     padding: 10px 35px;
     font-size: 1rem;
@@ -291,7 +296,8 @@ input::placeholder {
 }
 
 .user_options-forms .forms_buttons-action:hover {
-    background-color: #e14641;
+    background-color: #7d60d6;
+    ;
 }
 
 .user_options-forms .user_forms-signup,

@@ -9,7 +9,7 @@ const app = Vue.createApp({
             typeLoan: "Select Loan type",
             amountLoan: "",
             paymentLoan: 0,
-            targetAccount: "Select target account",
+            targetAccount: "",
         }
     },
     created() {
@@ -30,30 +30,63 @@ const app = Vue.createApp({
                 this.loans.sort((a, b) => a.id - b.id)
             })
     },
-    mounted() {
 
-    },
     methods: {
+        isDisabled(loan) {
+            let estate = false;
+
+            this.client.loans.forEach(clientLoan => {
+                if (clientLoan.idLoan == loan.id) {
+                    estate = true;
+                }
+            })
+            // console.log(estate)
+            return estate
+
+        },
         selectLoan(loan) {
             this.typeLoan = loan
             console.log(this.typeLoan)
             return this.typeLoan.name
         },
         requestLoan() {
+
             let loanApplication = {
                 id: this.typeLoan.id,
                 amount: this.amountLoan,
                 payment: this.paymentLoan,
                 targetAccount: this.targetAccount
             }
-
             console.log(loanApplication)
 
-            axios.post('http://localhost:8080/api/loans', loanApplication, {
-                headers: {
-                    'content-type': 'application/json'
-                }
-            }).then(response => console.log(response))
+
+            Swal.fire({
+                    title: 'Do you make transaction?',
+                    showDenyButton: true,
+                    // showCancelButton: true,
+                    confirmButtonText: 'Accept',
+                    denyButtonText: `Cancel`,
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        axios.post('http://localhost:8080/api/loans', loanApplication, {
+                            headers: {
+                                'content-type': 'application/json'
+                            }
+                        }).then(response => {
+                            Swal.fire('Loan approved', '', 'success')
+                                .then(result => {
+                                    window.location.reload()
+                                })
+                        }).catch(error => {
+                            this.error = error.response.data
+                            Swal.fire('Loan request Failed', this.error, 'error')
+                                .then(result => {
+                                    window.location.reload()
+                                })
+                        })
+                    }
+                })
         },
         sortAccounts() {
             this.accounts.sort((a, b) => a.id - b.id)
