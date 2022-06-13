@@ -49,6 +49,11 @@ const app = Vue.createApp({
             console.log(this.typeLoan)
             return this.typeLoan.name
         },
+        resetTypeLoan() {
+            this.amountLoan = ""
+            this.paymentLoan = 0
+
+        },
         requestLoan() {
 
             let loanApplication = {

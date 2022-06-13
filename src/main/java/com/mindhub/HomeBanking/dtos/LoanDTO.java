@@ -16,6 +16,7 @@ import java.util.Set;
 public class LoanDTO {
     private long id;
 
+    private int percentIncrease;
     private LoanType name;
 
     private int maxAmount;
@@ -27,6 +28,7 @@ public class LoanDTO {
 
     public LoanDTO(Loan loan) {
         this.id = loan.getId();
+        this.percentIncrease= loan.getPercentIncrease();
         this.name = loan.getName();
         this.maxAmount = loan.getMaxAmount();
         this.payments = loan.getPayments();
@@ -35,6 +37,8 @@ public class LoanDTO {
     public long getId() {
         return id;
     }
+
+    public int getPercentIncrease() {return percentIncrease;}
 
     public LoanType getName() {
         return name;

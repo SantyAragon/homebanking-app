@@ -21,6 +21,7 @@ public class Loan {
 
     private LoanType name;
 
+    private int percentIncrease;
     private int maxAmount;
 
     @ElementCollection
@@ -33,10 +34,11 @@ public class Loan {
     public Loan() {
     }
 
-    public Loan(LoanType name, int maxAmount, List<Integer> payments) {
+    public Loan(LoanType name, int maxAmount, List<Integer> payments, int percentIncrease) {
         this.name = name;
         this.maxAmount = maxAmount;
         this.payments = payments;
+        this.percentIncrease = percentIncrease;
     }
 
 
@@ -75,6 +77,14 @@ public class Loan {
 
     @JsonIgnore
     public List<Client> getClients() {
-       return  clientLoans.stream().map(clientLoan -> clientLoan.getClient()).collect(toList());
+        return clientLoans.stream().map(clientLoan -> clientLoan.getClient()).collect(toList());
+    }
+
+    public int getPercentIncrease() {
+        return percentIncrease;
+    }
+
+    public void setPercentIncrease(int percentIncrease) {
+        this.percentIncrease = percentIncrease;
     }
 }

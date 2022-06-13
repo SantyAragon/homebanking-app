@@ -96,7 +96,7 @@ public class LoanController {
             return new ResponseEntity<>("You are not the account owner", HttpStatus.FORBIDDEN);
         }
 
-        ClientLoan clientLoan = new ClientLoan(amount * 1.2, payment, client, loan);
+        ClientLoan clientLoan = new ClientLoan(amount * (loan.getPercentIncrease() * 0.01 + 1), payment, client, loan);
         clientLoanService.saveClientLoan(clientLoan);
 
         Transaction transaction = new Transaction(TransactionType.CREDIT, amount, loan.getName() + " loan approved", LocalDateTime.now(), targetAccount);

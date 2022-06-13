@@ -84,13 +84,13 @@ public class HomeBankingApplication {
 
 
             List<Integer> miLista = List.of(12, 24, 36, 48, 60);
-            Loan loan1 = new Loan(Mortgage, 500000, miLista);
+            Loan loan1 = new Loan(Mortgage, 500000, miLista, 25);
 
             miLista = List.of(6, 12, 24);
-            Loan loan2 = new Loan(Personal, 100000, miLista);
+            Loan loan2 = new Loan(Personal, 100000, miLista, 12);
 
             miLista = List.of(6, 12, 24, 36);
-            Loan loan3 = new Loan(Car, 300000, miLista);
+            Loan loan3 = new Loan(Car, 300000, miLista, 35);
 
             loanRepository.save(loan1);
             loanRepository.save(loan2);

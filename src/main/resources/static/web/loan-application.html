@@ -121,7 +121,8 @@
                                 <h2>Apply loan</h2>
                             </div>
 
-                            <div class="card-body row w-100 d-flex flex-column justify-content-center align-items-center ">
+                            <div
+                                class="card-body row w-100 d-flex flex-column justify-content-center align-items-center ">
                                 <!-- LOAN CARDS -->
                                 <section class="cardd container grid">
                                     <div class="card__container grid">
@@ -129,9 +130,9 @@
                                         <article v-cloak v-for="loan in loans" class="card__content grid">
                                             <div class="card__pricing">
                                                 <div v-cloak class="card__pricing-number">
-                                                    <span v-cloak class="card__pricing-symbol">%</span>20
+                                                    <span v-cloak class="card__pricing-symbol">%</span>{{loan.percentIncrease}}
                                                 </div>
-                                                <span class="card__pricing-month">/year </span>
+                                                <span class="card__pricing-month">/increase </span>
                                             </div>
 
                                             <div class="card__header">
@@ -170,7 +171,14 @@
                                                     <p v-cloak class="card__list-description">Max Amount:
                                                         {{loan.maxAmount}}</p>
                                                 </li>
+                                                <li class="card__list-item">
+                                                    <i class="uil uil-check card__list-icon"></i>
+                                                    <p v-cloak class="card__list-description w-75">
 
+                                                        The Loan has a interest rate of {{loan.percentIncrease}}
+                                                        &percnt;.
+                                                    </p>
+                                                </li>
                                             </ul>
 
                                             <input @click="selectLoan(loan),isDisabled(loan)" type="button"
@@ -193,7 +201,8 @@
                                                 <label class="fw-bold pb-2">Type loan</label>
 
                                                 <div class="typeLoan w-100">
-                                                    <select required v-model="typeLoan" class="w-50" id="subject_input">
+                                                    <select @change="resetTypeLoan" required v-model="typeLoan"
+                                                        class="w-50" id="subject_input">
                                                         <option disabled hidden selected value="Select Loan type">Select
                                                             Loan type</option>
                                                         <option v-for="loan in loans" v-show="!isDisabled(loan)"
@@ -231,6 +240,9 @@
                                                     <label class="fw-bold pb-2">Amount</label>
                                                     <span class="text-muted ms-3">Max({{typeLoan.maxAmount}})
                                                     </span>
+                                                    <span class="text-muted ms-3">Interest rate of
+                                                        {{typeLoan.percentIncrease}}%.
+                                                    </span>
                                                     <input required type="number" min="1" step="0.1"
                                                         :max="typeLoan.maxAmount" placeholder="Insert amount"
                                                         id="telephone_input" v-model="amountLoan">
@@ -250,7 +262,7 @@
                                                 <label class="fw-bold pb-2"
                                                     v-show="amountLoan!='' && paymentLoan!=0">Monthly rate:
                                                     <span
-                                                        v-show="(amountLoan*1.20) / paymentLoan != Infinity">{{((amountLoan*1.20) / paymentLoan).toFixed(2)}}</span></label>
+                                                        v-show="(amountLoan*(typeLoan.percentIncrease*0.01+1) / paymentLoan) != Infinity">{{  (amountLoan*(typeLoan.percentIncrease*0.01+1) / paymentLoan).toFixed(2)}}</span></label>
                                                 <div class="submit">
                                                     <input type="submit" class="card__button"
                                                         :value="paymentLoan==0 || amountLoan==''|| targetAccount==''? 'Missing data':'Request loan'">
