@@ -93,7 +93,6 @@ Vue.createApp({
                     inputLabel: 'Enter the new balance',
                     inputValue: cuenta.balance,
 
-
                     showCancelButton: true,
                     confirmButtonText: 'Edit',
                 })

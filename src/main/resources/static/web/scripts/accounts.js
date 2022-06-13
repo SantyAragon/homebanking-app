@@ -34,9 +34,50 @@ const app = Vue.createApp({
 
     },
     methods: {
+        disableAccount(id) {
+
+
+            Swal.fire({
+                    title: 'Disable Account?',
+                    showDenyButton: true,
+                    // showCancelButton: true,
+                    confirmButtonText: 'Accept',
+                    denyButtonText: `Cancel`,
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                                input: 'password',
+                                inputLabel: 'Enter your password for confirm',
+                                inputValue: '',
+
+
+                                showCancelButton: true,
+                                confirmButtonText: 'Confirm',
+                            })
+                            .then(result => {
+                                if (result.isConfirmed) {
+                                    console.log(result)
+                                    axios.patch('http://localhost:8080/api/clients/current/accounts/disabled', `idAccount=${id}&password=${result.value}`)
+                                        .then(response => {
+                                            Swal.fire('Account deactivated', '', 'success')
+                                                .then(result => {
+                                                    window.location.reload()
+                                                })
+                                        }).catch(error => {
+                                            this.error = error.response.data
+                                            Swal.fire('Failed deactived account', this.error, 'error')
+                                                .then(result => {
+                                                    window.location.reload()
+                                                })
+                                        })
+                                }
+                            })
+                    }
+                })
+        },
         formatearFecha(dateInput) {
             const date = new Date(dateInput)
-
             return date.toDateString().slice(3)
         },
         formatearHora(dateInput) {
@@ -44,7 +85,6 @@ const app = Vue.createApp({
             let minutes = date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes()
             return date.getHours() + ":" + minutes
         },
-
         takeAllTransaction() {
             this.client.accounts.forEach(account => {
                 account.transactions.forEach(transaction => {
@@ -59,6 +99,9 @@ const app = Vue.createApp({
                 })
             })
             this.allTransactions.sort((a, b) => b.id - a.id)
+        },
+        managementAccount() {
+
         },
         logout() {
             axios.post('/api/logout').then(response => console.log('signed out!!!'))
@@ -107,17 +150,6 @@ const app = Vue.createApp({
                     Swal.fire('Cancel creation account', '', 'error')
                 }
             })
-        },
-        applyLoan() {
-            let loan = {
-                id: 1,
-                amount: 10000,
-                payment: 24,
-                targetAccount: 'VIN006'
-
-            }
-            axios.post("http://localhost:8080/api/loans", loan)
-
         },
     },
     computed: {

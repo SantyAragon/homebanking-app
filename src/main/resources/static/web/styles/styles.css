@@ -180,6 +180,25 @@ header label span {
 
 }
 
+.custom-btnn {
+    width: auto;
+    font-size: 1rem;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5),
+        7px 7px 20px 0px rgba(0, 0, 0, .1),
+        4px 4px 5px 0px rgba(0, 0, 0, .1);
+    outline: none;
+}
+
 /* From uiverse.io by @bandirevanth */
 .custom-btn {
     width: 7rem;
@@ -267,16 +286,21 @@ main {
     color: var(--text-grey);
 }
 
-.card-single div:last-child span {
+.card-single div:last-child i {
     color: var(--main-color);
     font-size: 3rem;
-
 }
+
+.card-single .fa-wallet {
+    color: white !important;
+}
+/* 
+#management-account {
+    cursor: pointer;
+} */
 
 .card-single div:first-child span {
     color: var(--text-grey);
-
-
 }
 
 .card-single:last-child {
@@ -344,10 +368,6 @@ td {
 
 }
 
-tr td:last-child {
-    display: flex;
-    align-items: center;
-}
 
 td .status {
     display: inline-block;
@@ -632,4 +652,10 @@ td .status {
 
 .swal2-success-fix {
     background-color: transparent !important;
+}
+
+/* ========= MODAL STYLES =======*/
+
+.modal-content {
+    width: 50vw;
 }

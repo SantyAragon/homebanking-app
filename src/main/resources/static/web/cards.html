@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="./styles/styles.css">
     <link rel="stylesheet" href="./styles/cards.css">
     <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
@@ -89,7 +90,7 @@
 
                 <div class="search-wrapper">
                     <span class="fas fa-search"> </span>
-                    <input type="search" placeholder="Search..." />
+                    <input type="search" autocomplete="off" placeholder="Search..." />
                 </div>
                 <div class="user-wrapper gap-5">
 
@@ -110,6 +111,9 @@
                     <div class="card row">
                         <div class="card-header col-12">
                             <h2>Your cards</h2>
+                            <button v-cloak v-if="cards.length>0" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop" class="custom-btnn btn-1">
+                                <span> Management</span></button>
                         </div>
                         <div class="card-body bg-white">
                             <div class="col-12" v-if="this.cards.length==0">
@@ -117,15 +121,22 @@
                             </div>
                             <div v-cloak v-else class="col-12">
 
-                                <div class="row gap-3">
+                                <div class="row gap-3" id="all-cards">
                                     <div class="row gap-3 ps-4 flex-wrap" id="card">
                                         <h2 v-if="cardsCredit.length>0">CREDIT CARDS</h2>
 
-                                        <div class="card d-flex justify-content-center" v-for="card in cardsCredit">
-                                            <div class="card__front card__part"
-                                                :class="{'silver' : card.color=='SILVER' , 'gold' : card.color=='GOLD' , 'titanium' : card.color=='TITANIUM'}">
-                                                <img class="card__front-logo card__logo" src="./assets/logo.png">
+                                        <div class="card d-flex justify-content-center position-relative"
+                                            v-for="card in cardsCredit" :class="{'expired':!isActive(card)}">
+                                            <div v-if="!isActive(card)" id="disabled"
+                                                class="d-flex justify-content-center align-items-center">
+                                                <div>
+                                                    <h4>Expired: {{formatearFechaCard(card.thruDate)}}</h4>
+                                                </div>
+                                            </div>
 
+                                            <div class="card__front card__part"
+                                                :class="{'silver' : card.color=='SILVER' , 'gold' : card.color=='GOLD' , 'titanium' : card.color=='TITANIUM','disabled': !isActive(card)}">
+                                                <img class="card__front-logo card__logo" src="./assets/logo.png">
                                                 <p class="card_numer">{{card.number.slice(0,4)}}
                                                     {{card.number.slice(4,8)}}
                                                     {{card.number.slice(8,12)}} {{card.number.slice(12,16)}}
@@ -141,15 +152,13 @@
                                             </div>
 
                                             <div class="card__back card__part"
-                                                :class="{'silver':card.color=='SILVER','gold':card.color=='GOLD','titanium':card.color=='TITANIUM'}">
+                                                :class="{'silver':card.color=='SILVER','gold':card.color=='GOLD','titanium':card.color=='TITANIUM','disabled': !isActive(card)}">
                                                 <div class="card__black-line"></div>
                                                 <div class="card__back-content">
                                                     <div class="card__secret">
                                                         <p class="card__secret--last">{{card.cvv}}</p>
                                                     </div>
-
                                                     <img class="card__back-logo card__logo" src="./assets/logo.png">
-
                                                 </div>
                                             </div>
 
@@ -159,9 +168,18 @@
                                     <div class="row gap-3 ps-4 flex-wrap" id="card">
                                         <h2 v-if="cardsDebit.length>0">DEBIT CARDS</h2>
 
-                                        <div class="card d-flex justify-content-center" v-for="card in cardsDebit">
+                                        <div class="card d-flex justify-content-center" v-for="card in cardsDebit"
+                                            :class="{'expired':!isActive(card)}">
+                                            <div v-if="!isActive(card)" id="disabled"
+                                                class="d-flex justify-content-center align-items-center">
+                                                <div>
+                                                    <h4>Expired: {{formatearFechaCard(card.thruDate)}}</h4>
+                                                </div>
+                                            </div>
+
+
                                             <div class="card__front card__part"
-                                                :class="{'silver' : card.color=='SILVER' , 'gold' : card.color=='GOLD' , 'titanium' : card.color=='TITANIUM'}">
+                                                :class="{'silver' : card.color=='SILVER' , 'gold' : card.color=='GOLD' , 'titanium' : card.color=='TITANIUM','disabled': !isActive(card)}">
                                                 <img class="card__front-logo card__logo" src="./assets/logo.png">
 
                                                 <p class="card_numer">{{card.number.slice(0,4)}}
@@ -179,7 +197,7 @@
                                             </div>
 
                                             <div class="card__back card__part"
-                                                :class="{'silver':card.color=='SILVER','gold':card.color=='GOLD','titanium':card.color=='TITANIUM'}">
+                                                :class="{'silver':card.color=='SILVER','gold':card.color=='GOLD','titanium':card.color=='TITANIUM','disabled': !isActive(card)}">
                                                 <div class="card__black-line"></div>
                                                 <div class="card__back-content">
                                                     <div class="card__secret">
@@ -202,9 +220,55 @@
                         </div>
                     </div>
                 </div>
+
+
+                <!-- Vertically centered scrollable modal -->
+
             </main>
-        </div>
-        <!-- <section>
+            <div class="modal fade" id="staticBackdrop" data-bs-focus="false" data-bs-backdrop="static"
+                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body ">
+                            <div class="table-responsive heigth-cards table-card">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>Type</th>
+                                            <th>Cardholder</th>
+                                            <th>Termination Number</th>
+                                            <th>ThruDate</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for='card in cards.sort((a,b)=>b.expired-a.expired)' class="">
+                                            <td class="text-success" :class="{'text-danger':card.expired}">
+                                                {{card.expired?'Expired':'Active'}}</td>
+                                            <td>{{card.type}}</td>
+                                            <td>{{card.cardholder}}</td>
+                                            <td>{{card.number.slice(-4)}}</td>
+                                            <td>{{formatearFechaCard(card.thruDate)}}</td>
+                                            <td> <button class="custom-btnn btn-1" @click='disabledCard(card.id)'>
+                                                    <i class="fa-solid fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <section>
                     <div class="conteiner row">
 
                         <h2 class="my-bank mb-5 text-info">Hi, {{client.firstName}}.</h2>
@@ -305,8 +369,8 @@
 
                 </section> -->
 
+        </div>
     </div>
-
     <script src="https://kit.fontawesome.com/23209d6861.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

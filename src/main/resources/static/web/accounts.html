@@ -101,7 +101,7 @@
                 <span><i class="fa-solid fa-plus"></i></span> New Account</button>
             </a>
           </div>
-          <div class="">
+          <div>
             <h4 v-cloak>{{client.firstName}} {{client.lastName}}</h4>
             <small>Super Admin</small>
           </div>
@@ -118,7 +118,7 @@
               <span v-cloak> <a :href="'./account.html?id='+account.id"> {{account.number}}</a></span>
             </div>
             <div>
-              <span class="fas fa-dollar"></span>
+              <span><i class="fas fa-dollar"></i></span>
             </div>
           </div>
           <!-- TOTAL BALANCE -->
@@ -127,8 +127,20 @@
               <h1 v-cloak>{{totalBalance.toFixed(2)}}</h1>
               <span>Total Balance</span>
             </div>
-            <div>
-              <span class="fas fa-wallet"></span>
+            <div @click="managementAccount" id="management-account"
+              class="gap-2 d-flex flex-column align-items-center justify-content-between">
+              <span><i class="fas fa-wallet"></i></span>
+              <!-- <div class="d-flex flex-column align-items-center justify-content-between">
+                <span> Management</span>
+                <span>accounts</span>
+              </div> -->
+              <button v-cloak data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="custom-btnn btn-1">
+                <div class="d-flex flex-column align-items-center justify-content-between">
+                  <span>Management</span>
+                  <span>accounts</span>
+                </div>
+              </button>
+
             </div>
           </div>
         </div>
@@ -153,6 +165,7 @@
                         <td>Amount</td>
                         <td>Type</td>
                         <td>Date</td>
+                        <td>Balance</td>
 
                       </tr>
                     </thead>
@@ -175,6 +188,7 @@
                           </div>
 
                         </td>
+                        <td>{{transaction.balance}}</td>
                       </tr>
 
                     </tbody>
@@ -251,6 +265,46 @@
       </main>
     </div>
 
+    <div class="modal fade" id="staticBackdrop" data-bs-focus="false" data-bs-backdrop="static" data-bs-keyboard="false"
+      tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body ">
+            <div class="table-responsive heigth-cards table-card">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Number</th>
+                    <th>Type</th>
+                    <th>Balance</th>
+                    <th>Transactions</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for='account in accounts'>
+                    <td>{{account.number}}</td>
+                    <td>{{account.number}}</td>
+                    <td>{{account.balance}}</td>
+                    <td>{{account.transactions.length}}</td>
+                    <td> <button class="custom-btnn btn-1" @click='disableAccount(account.id)'>
+                        <i class="fa-solid fa-trash"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 

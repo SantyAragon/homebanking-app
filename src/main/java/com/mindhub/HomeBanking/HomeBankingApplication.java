@@ -110,15 +110,17 @@ public class HomeBankingApplication {
 //            ClientLoan clientloan5 = new ClientLoan(50000, 12, client1, loan3);
 //            clientLoanRepository.save(clientloan5);
 
-            Card card1 = new Card(client1.getFullName(), DEBIT, GOLD, "1234567890123456", 219, LocalDateTime.now(), LocalDateTime.now().plusYears(5), client1);
-            Card card2 = new Card(client1.getFullName(), CREDIT, TITANIUM, "4000001234567899", 513, LocalDateTime.now(), LocalDateTime.now().plusYears(5), client1);
-            Card card3 = new Card(client3.getFullName(), CREDIT, SILVER, "4000123456789010", 987, LocalDateTime.now(), LocalDateTime.now().plusYears(5), client3);
+            Card card1 = new Card(client1.getFullName(), DEBIT, GOLD, "1234567890123456", 219, LocalDateTime.now().minusYears(7).minusMonths(3), LocalDateTime.now().minusYears(5).minusMonths(3), client1);
+            Card card2 = new Card(client1.getFullName(), CREDIT, TITANIUM, "4000001234567899", 513, LocalDateTime.now().minusYears(2).minusMonths(1), LocalDateTime.now().minusYears(1).minusMonths(1), client1);
+            Card card5 = new Card(client1.getFullName(), CREDIT, TITANIUM, "101341434567899", 513, LocalDateTime.now().minusYears(2).minusMonths(1), LocalDateTime.now().minusYears(1).minusMonths(3), client1);
+            Card card3 = new Card(client3.getFullName(), CREDIT, SILVER, "4000123456789010", 987, LocalDateTime.now().minusYears(3).minusMonths(2), LocalDateTime.now().minusYears(4).minusMonths(5), client3);
             Card card4 = new Card(client1.getFullName(), CREDIT, SILVER, "4000123456754321", 754, LocalDateTime.now(), LocalDateTime.now().plusYears(5), client1);
 
             cardRepository.save(card1);
             cardRepository.save(card2);
             cardRepository.save(card3);
             cardRepository.save(card4);
+            cardRepository.save(card5);
 
             System.out.println("todo listo, arranca nomas rey");
 

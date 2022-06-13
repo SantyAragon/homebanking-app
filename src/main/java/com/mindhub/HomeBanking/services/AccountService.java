@@ -12,7 +12,8 @@ public interface AccountService {
 
     Set<Account> getAllAccountsAuthenticated(Authentication authentication);
 
-    AccountDTO getAccountById(Long id);
+    Account getAccountById(Long id);
+    AccountDTO getAccountDTOById(Long id);
 
     Account getAccountByNumber(String number);
 

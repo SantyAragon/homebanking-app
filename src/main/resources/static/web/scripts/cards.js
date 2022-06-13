@@ -20,20 +20,74 @@ const app = Vue.createApp({
                 this.cardsDebit = this.cards.filter(card => card.type == 'DEBIT')
                 this.cardsCredit = this.cards.filter(card => card.type == 'CREDIT')
 
-
-
+                // this.removeHoverCardExpired()
             })
 
     },
     methods: {
 
+        disabledCard(id) {
+
+            Swal.fire({
+                    title: 'Disable card?',
+                    showDenyButton: true,
+                    // showCancelButton: true,
+                    confirmButtonText: 'Accept',
+                    denyButtonText: `Cancel`,
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                                input: 'password',
+                                inputLabel: 'Enter your password for confirm',
+                                inputValue: '',
+
+
+                                showCancelButton: true,
+                                confirmButtonText: 'Confirm',
+                            })
+                            .then(result => {
+                                if (result.isConfirmed) {
+                                    console.log(result)
+                                    axios.patch('http://localhost:8080/api/clients/current/cards/disabled', `idCard=${id}&password=${result.value}`)
+                                        .then(response => {
+                                            Swal.fire('Card deactivated', '', 'success')
+                                                .then(result => {
+                                                    window.location.reload()
+                                                })
+                                        }).catch(error => {
+                                            this.error = error.response.data
+                                            Swal.fire('Failed deactived card', this.error, 'error')
+                                                .then(result => {
+                                                    window.location.reload()
+                                                })
+                                        })
+                                }
+                            })
+                    }
+                })
+
+
+        },
+        isActive(card) {
+            let now = new Date()
+            let dateCard = new Date(card.thruDate)
+
+            if (now > dateCard) {
+                // console.log('now:' + now, 'card' + card.id + ': ' + dateCard, (now > dateCard))
+                return false;
+            } else {
+                // console.log('now:' + now, 'card' + card.id + ':' + dateCard, (now > dateCard))
+                return true;
+            }
+
+        },
         sortCards() {
             this.cards.sort((a, b) => a.id - b.id)
 
             //funcion para ordenar por LocalDateTime.
             // this.transactions.sort((a, b) => new Intl.Collator().compare(a.date, b.date))
         },
-
         formatearFechaCard(dateInput) {
             const date = new Date(dateInput);
 

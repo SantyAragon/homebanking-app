@@ -10,7 +10,8 @@ public interface ClientService {
 
     List<ClientDTO> getClients();
 
-    ClientDTO getClientById(Long id);
+    ClientDTO getClientDTOById(Long id);
+    Client getClientById(Long id);
 
     Client getClientCurrent(Authentication authentication);
 

@@ -23,8 +23,13 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClientDTO getClientById(Long id) {
+    public ClientDTO getClientDTOById(Long id) {
         return clientRepository.findById(id).map(client -> new ClientDTO(client)).orElse(null);
+    }
+
+    @Override
+    public Client getClientById(Long id) {
+        return clientRepository.findById(id).orElse(null);
     }
 
     @Override

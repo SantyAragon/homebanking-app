@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class CardDTO {
 
     private long id;
-
+    private boolean expired;
     private String cardholder;
 
     private CardType type;
@@ -30,6 +30,7 @@ public class CardDTO {
 
     public CardDTO(Card card) {
         this.id = card.getId();
+        this.expired=card.isExpired();
         this.cardholder = card.getCardholder();
         this.type = card.getType();
         this.color = card.getColor();
@@ -42,6 +43,8 @@ public class CardDTO {
     public long getId() {
         return id;
     }
+
+    public boolean isExpired() {return expired;}
 
     public String getCardholder() {
         return cardholder;

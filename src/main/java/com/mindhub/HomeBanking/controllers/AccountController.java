@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -27,6 +29,8 @@ public class AccountController {
     private ClientService clientService;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/accounts")
     public List<AccountDTO> getAll() {
@@ -35,7 +39,7 @@ public class AccountController {
 
     @GetMapping("/accounts/{id}")
     public AccountDTO getAccount(@PathVariable Long id) {
-        return accountService.getAccountById(id);
+        return accountService.getAccountDTOById(id);
     }
 
     @GetMapping("/clients/current/accounts")
@@ -56,7 +60,7 @@ public class AccountController {
     @PostMapping("/clients/current/accounts")
     public ResponseEntity<Object> createNewAccount(Authentication authentication) {
         Client client = clientService.getClientCurrent(authentication);
-        Set<Account> accounts = accountService.getAllAccountsAuthenticated(authentication);
+        Set<Account> accounts = accountService.getAllAccountsAuthenticated(authentication).stream().filter(account -> account.isActive()).collect(Collectors.toSet());
 
         if (accounts.size() < 3) {
             accountService.saveAccount(new Account("VIN-" + randomNumber(1000000, 99999999), LocalDateTime.now(), 0, client));
@@ -64,7 +68,43 @@ public class AccountController {
         } else {
             return new ResponseEntity<>("Account limit reached", HttpStatus.FORBIDDEN);
         }
-
     }
 
+
+    @Transactional
+    @PatchMapping("/clients/current/accounts/disabled")
+    public ResponseEntity<Object> disableCard(Authentication authentication, @RequestParam Long idAccount, @RequestParam String password) {
+        Client client = clientService.getClientCurrent(authentication);
+        Account accountDisable = accountService.getAccountById(idAccount);
+
+        if (idAccount.toString().isEmpty()) {
+            return new ResponseEntity<>("Missing ID account", HttpStatus.FORBIDDEN);
+        }
+        if (password.isEmpty()) {
+            return new ResponseEntity<>("Missing password", HttpStatus.FORBIDDEN);
+        }
+        if (!passwordEncoder.matches(password, client.getPassword())) {
+            return new ResponseEntity<>("Incorrect password", HttpStatus.FORBIDDEN);
+        }
+        if (idAccount <= 0) {
+            return new ResponseEntity<>("Invalid ID account", HttpStatus.FORBIDDEN);
+        }
+        if (accountDisable == null) {
+            return new ResponseEntity<>("Invalid Account", HttpStatus.FORBIDDEN);
+        }
+        if(!accountDisable.isActive()){
+            return new ResponseEntity<>("Account already deactivated", HttpStatus.FORBIDDEN);
+        }
+        if (!client.getAccounts().contains(accountDisable)) {
+            return new ResponseEntity<>("You are not the account owner", HttpStatus.FORBIDDEN);
+        }
+        if(accountDisable.getBalance()>0){
+            return new ResponseEntity<>("Your account has balance available, please transfer these balance", HttpStatus.FORBIDDEN);
+        }
+
+        accountDisable.setActive(false);
+        accountService.saveAccount(accountDisable);
+
+        return new ResponseEntity<>("Account disabled successfully", HttpStatus.ACCEPTED);
+    }
 }

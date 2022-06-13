@@ -23,8 +23,10 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
 
                 .antMatchers("/rest/**", "/h2-console/**").hasAuthority("ADMIN")
-
+                .antMatchers(HttpMethod.POST, "/api/clients/cards/all").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PATCH, "/api/clients/current/cards/disabled").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST, "/api/clients/current/cards").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.PATCH, "/api/clients/current/accounts/disabled").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST, "/api/clients/current/accounts").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST, "/api/transactions").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST, "/api/loans").hasAuthority("CLIENT")
@@ -32,7 +34,6 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/clients/current/**").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST, "/api/clients").permitAll()
                 .antMatchers("/api/cryptos/**").hasAuthority("CLIENT")
-//                .antMatchers("/api/accounts/current").hasAuthority("CLIENT")
                 .antMatchers("/api/**").hasAuthority("ADMIN")
 
                 .antMatchers("/web/index.html", "web/assets/**", "/web/styles/index.css", "/web/scripts/index.js").permitAll()

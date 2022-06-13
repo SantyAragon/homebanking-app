@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -24,15 +26,16 @@ public class CardController {
     private ClientService clientService;
     @Autowired
     private CardService cardService;
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/clients/current/cards")
     public ResponseEntity<Object> createCard(Authentication authentication, @RequestParam ColorCard colorCard, @RequestParam CardType cardType) {
 
         Client client = clientService.getClientCurrent(authentication);
         Set<Card> cardsClient = cardService.getAllCardsAuthenticated(authentication);
-        Set<Card> cardsDebit = cardsClient.stream().filter(card -> card.getType() == CardType.DEBIT).collect(Collectors.toSet());
-        Set<Card> cardsCredit = cardsClient.stream().filter(card -> card.getType() == CardType.CREDIT).collect(Collectors.toSet());
+        Set<Card> cardsDebit = cardsClient.stream().filter(card -> card.getType() == CardType.DEBIT && card.isActive()).collect(Collectors.toSet());
+        Set<Card> cardsCredit = cardsClient.stream().filter(card -> card.getType() == CardType.CREDIT && card.isActive()).collect(Collectors.toSet());
 
         if (cardsDebit.size() < 3 && cardType == CardType.DEBIT) {
             Card card = new Card(client.getFullName(), CardType.DEBIT, colorCard, "4517" + randomNumber(1000, 9999) + randomNumber(1000, 9999) + randomNumber(1000, 9999), randomNumber(100, 999), client);
@@ -48,17 +51,49 @@ public class CardController {
 
     }
 
+    //RETURN ALL CARDS ACTIVES
     @GetMapping("/clients/current/cards")
-    public Set<CardDTO> getCards(Authentication authentication) {
+    public Set<CardDTO> getCardsDTO(Authentication authentication) {
         Client client = clientService.getClientCurrent(authentication);
         return client.getCards().stream().map(card -> new CardDTO(card)).collect(Collectors.toSet());
     }
 
-//    @RequestMapping("/card/delete")
-//    public ResponseEntity<Object> deleteCard(Authentication authentication){
-//
-//        cardRepository.delete(card);
-//    }
+    //RETURN ALL CARDS(ACTIVE AND DISABLED) OF CLIENT - ONLY ADMINS
+    @GetMapping("/clients/cards/all")
+    public Set<Card> getAllCards(@RequestParam Long idClient) {
+        Client client = clientService.getClientById(idClient);
+        return client.getCards();
+    }
+
+    //CHANGE THE PROPERTY STATUS(ACTIVE/DISABLED)
+    @Transactional
+    @PatchMapping("/clients/current/cards/disabled")
+    public ResponseEntity<Object> disabledCard(Authentication authentication, @RequestParam Long idCard, @RequestParam String password) {
+        Set<Card> cards = cardService.getAllCardsAuthenticated(authentication);
+        Client client = clientService.getClientCurrent(authentication);
+
+        Card cardDisabled = cards.stream().filter(card -> card.getId() == idCard).findFirst().orElse(null);
+
+        System.out.println(client.getPassword());
+        System.out.println(passwordEncoder.encode(password));
+        if (!passwordEncoder.matches(password, client.getPassword())) {
+            return new ResponseEntity<>("Password Incorrect", HttpStatus.FORBIDDEN);
+        }
+
+        if (idCard.toString().isEmpty()) {
+            return new ResponseEntity<>("Missing Id Card", HttpStatus.FORBIDDEN);
+        }
+        if (cardDisabled == null) {
+            return new ResponseEntity<>("Invalid card", HttpStatus.FORBIDDEN);
+        }
+        if (!cardDisabled.isActive()) {
+            return new ResponseEntity<>("Card already disabled", HttpStatus.FORBIDDEN);
+        }
+
+        cardDisabled.setActive(false);
+        cardService.saveCard(cardDisabled);
+        return new ResponseEntity<>("Card successfully deactivated", HttpStatus.ACCEPTED);
+    }
 
 
 }

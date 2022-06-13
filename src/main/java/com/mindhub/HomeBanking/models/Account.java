@@ -17,6 +17,7 @@ public class Account {
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
 
+    private boolean active;
     private String number;
     private LocalDateTime creationDate;
     private double balance;
@@ -33,6 +34,7 @@ public class Account {
     }
 
     public Account(String number, LocalDateTime creationDate, double balance, Client cliente) {
+        this.active = true;
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
@@ -42,6 +44,10 @@ public class Account {
     public long getId() {
         return id;
     }
+
+    public boolean isActive() {return active;}
+
+    public void setActive(boolean active) {this.active = active;}
 
     public String getNumber() {
         return number;
@@ -78,4 +84,6 @@ public class Account {
     public Set<Transaction> getTransactions() {
         return transactions;
     }
+
+
 }
