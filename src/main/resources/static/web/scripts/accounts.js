@@ -51,7 +51,6 @@ const app = Vue.createApp({
                                 inputLabel: 'Enter your password for confirm',
                                 inputValue: '',
 
-
                                 showCancelButton: true,
                                 confirmButtonText: 'Confirm',
                             })
@@ -67,9 +66,9 @@ const app = Vue.createApp({
                                         }).catch(error => {
                                             this.error = error.response.data
                                             Swal.fire('Failed deactived account', this.error, 'error')
-                                                .then(result => {
-                                                    window.location.reload()
-                                                })
+                                            // .then(result => {
+                                            //     window.location.reload()
+                                            // })
                                         })
                                 }
                             })
@@ -122,34 +121,71 @@ const app = Vue.createApp({
 
         },
         createAccount() {
+
+            // let contentHtml 
+            /* 
+                        Swal.fire({
+                            title: '<strong>Select type account</strong>',
+                            inputLabel:'Type account',
+                            inputValue:'radio',
+
+                            // html: `<div class='d-flex justify-content-center align-items-center gap-3'>
+                            // <div class='d-flex align-items-center flex-column'>
+                            //     <label for='type1'>Savings</label>
+                            //     <input required type='radio' name='typeAccount' value="SAVINGS" id='type1'>
+                            // </div>
+                            // <div class='d-flex align-items-center flex-column'>
+                            //     <label for='type2'>Checking</label>
+                            //     <input required type='radio' name='typeAccount' value="CHECKING" id='type2'>
+                            // </div>
+                            // </div>`,
+
+                            showCancelButton: true,
+                            confirmButtonText: 'Create',
+                            cancelButtonText: 'Cancel',
+                            preConfirm: () => {
+                                return [
+                                    // document.getElementById('type1'),
+                                    // document.getElementById('type2')
+                                ]
+                            }
+                        })*/
+
+
+            let inputOptions = {
+                'SAVINGS': 'Savings',
+                'CHECKING': 'Checking',
+            }
             Swal.fire({
-                title: 'Create account?',
-                showDenyButton: true,
-                // showCancelButton: true,
-                confirmButtonText: 'Accept',
-                denyButtonText: `Cancel`,
-            }).then((result) => {
+                    title: 'Select account type',
+                    input: 'radio',
+                    inputOptions: inputOptions,
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return 'You need to choose something!'
+                        }
+                    }
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        axios.post("http://localhost:8080/api/clients/current/accounts", `accountType=${result.value}`)
+                            .then(response => {
+                                Swal.fire('Create Success', '', 'success')
+                                    .then(result => {
+                                        window.location.reload()
+                                    })
+                            }).catch(error => {
+                                // this.error = error.response.data
+                                Swal.fire('Creation Failed', error.response.data, 'error')
+                                    .then(result => {
+                                        window.location.reload()
+                                    })
+                            })
 
-                if (result.isConfirmed) {
-
-                    axios.post("http://localhost:8080/api/clients/current/accounts")
-                        .then(response => {
-                            Swal.fire('Create Success', '', 'success')
-                                .then(result => {
-                                    window.location.reload()
-                                })
-                        }).catch(error => {
-                            this.error = error.response.data
-                            Swal.fire('Creation Failed', this.error, 'error')
-                                .then(result => {
-                                    window.location.reload()
-                                })
-                        })
-
-                } else if (result.isDenied) {
-                    Swal.fire('Cancel creation account', '', 'error')
-                }
-            })
+                    } else if (result.isDenied) {
+                        Swal.fire('Cancel creation account', '', 'error')
+                    }
+                })
         },
     },
     computed: {

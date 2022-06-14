@@ -52,7 +52,6 @@ public class AccountController {
 
     @GetMapping("/clients/current/accounts/{id}")
     public AccountDTO getAccountCurrent(Authentication authentication, @PathVariable Long id) {
-
         Set<Account> collectionAccount = accountService.getAllAccountsAuthenticated(authentication);
 
         return collectionAccount.stream().filter(account -> account.getId() == id).map(account -> new AccountDTO(account)).findFirst().orElse(null);
@@ -63,16 +62,17 @@ public class AccountController {
         Client client = clientService.getClientCurrent(authentication);
         Set<Account> accounts = accountService.getAllAccountsAuthenticated(authentication).stream().filter(account -> account.isActive()).collect(Collectors.toSet());
 
-        if (!accountType.equals(AccountType.SAVINGS) || !accountType.equals(AccountType.CHECKING)) {
+        if (!accountType.equals(AccountType.SAVINGS) && !accountType.equals(AccountType.CHECKING)) {
             return new ResponseEntity<>("Missing type account", HttpStatus.FORBIDDEN);
         }
-
-        if (accounts.size() < 3) {
-            accountService.saveAccount(new Account(AccountType.SAVINGS, "VIN" + randomNumber(1000000, 99999999), LocalDateTime.now(), 0, client));
-            return new ResponseEntity<>("Account successfully created", HttpStatus.CREATED);
-        } else {
+        if (accounts.size() >= 3) {
             return new ResponseEntity<>("Account limit reached", HttpStatus.FORBIDDEN);
         }
+
+        Account account = new Account(accountType, "VIN" + randomNumber(1000000, 99999999), LocalDateTime.now(), 0, client);
+        accountService.saveAccount(account);
+
+        return new ResponseEntity<>("Account successfully created", HttpStatus.CREATED);
     }
 
 

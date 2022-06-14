@@ -115,7 +115,10 @@
           <div v-for="account in accounts" class="card-single">
             <div>
               <h1 v-cloak>{{account.balance.toFixed(2)}}</h1>
-              <span v-cloak> <a :href="'./account.html?id='+account.id"> {{account.number}}</a></span>
+              <div class="d-flex flex-column">
+                <span v-cloak>{{account.accountType}} ACCOUNT</span>
+                <span v-cloak> <a :href="'./account.html?id='+account.id"> {{account.number}}</a></span>
+              </div>
             </div>
             <div>
               <span><i class="fas fa-dollar"></i></span>
@@ -288,7 +291,7 @@
                 <tbody>
                   <tr v-for='account in accounts'>
                     <td>{{account.number}}</td>
-                    <td>{{account.number}}</td>
+                    <td>{{account.accountType}}</td>
                     <td>{{account.balance}}</td>
                     <td>{{account.transactions.length}}</td>
                     <td> <button class="custom-btnn btn-1" @click='disableAccount(account.id)'>

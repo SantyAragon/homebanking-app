@@ -33,6 +33,20 @@
     <div id="app" class="body-pd">
 
 
+        <div class='d-flex align-items-center'>
+            <div class='d-flex flex-column'>
+                <label for='type1'></label>
+                <input type='radio' name='typeAccount' id='type1'>
+            </div>
+            <div class='d-flex flex-column'>
+                <label for='type2'></label>
+                <input type='radio' name='typeAccount' id='type2'>
+            </div>
+        </div>
+
+
+
+
         <input type="checkbox" id="nav-toggle">
         <div class="sidebar">
             <div class="sidebar-brand">
@@ -130,7 +144,8 @@
                                         <article v-cloak v-for="loan in loans" class="card__content grid">
                                             <div class="card__pricing">
                                                 <div v-cloak class="card__pricing-number">
-                                                    <span v-cloak class="card__pricing-symbol">%</span>{{loan.percentIncrease}}
+                                                    <span v-cloak
+                                                        class="card__pricing-symbol">%</span>{{loan.percentIncrease}}
                                                 </div>
                                                 <span class="card__pricing-month">/increase </span>
                                             </div>
