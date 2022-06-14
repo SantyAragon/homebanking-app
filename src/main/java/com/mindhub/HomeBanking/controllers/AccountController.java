@@ -2,6 +2,7 @@ package com.mindhub.HomeBanking.controllers;
 
 import com.mindhub.HomeBanking.dtos.AccountDTO;
 import com.mindhub.HomeBanking.models.Account;
+import com.mindhub.HomeBanking.models.AccountType;
 import com.mindhub.HomeBanking.models.Client;
 import com.mindhub.HomeBanking.services.AccountService;
 import com.mindhub.HomeBanking.services.ClientService;
@@ -58,12 +59,16 @@ public class AccountController {
     }
 
     @PostMapping("/clients/current/accounts")
-    public ResponseEntity<Object> createNewAccount(Authentication authentication) {
+    public ResponseEntity<Object> createNewAccount(Authentication authentication, @RequestParam AccountType accountType) {
         Client client = clientService.getClientCurrent(authentication);
         Set<Account> accounts = accountService.getAllAccountsAuthenticated(authentication).stream().filter(account -> account.isActive()).collect(Collectors.toSet());
 
+        if (!accountType.equals(AccountType.SAVINGS) || !accountType.equals(AccountType.CHECKING)) {
+            return new ResponseEntity<>("Missing type account", HttpStatus.FORBIDDEN);
+        }
+
         if (accounts.size() < 3) {
-            accountService.saveAccount(new Account("VIN-" + randomNumber(1000000, 99999999), LocalDateTime.now(), 0, client));
+            accountService.saveAccount(new Account(AccountType.SAVINGS, "VIN" + randomNumber(1000000, 99999999), LocalDateTime.now(), 0, client));
             return new ResponseEntity<>("Account successfully created", HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("Account limit reached", HttpStatus.FORBIDDEN);
@@ -92,13 +97,13 @@ public class AccountController {
         if (accountDisable == null) {
             return new ResponseEntity<>("Invalid Account", HttpStatus.FORBIDDEN);
         }
-        if(!accountDisable.isActive()){
+        if (!accountDisable.isActive()) {
             return new ResponseEntity<>("Account already deactivated", HttpStatus.FORBIDDEN);
         }
         if (!client.getAccounts().contains(accountDisable)) {
             return new ResponseEntity<>("You are not the account owner", HttpStatus.FORBIDDEN);
         }
-        if(accountDisable.getBalance()>0){
+        if (accountDisable.getBalance() > 0) {
             return new ResponseEntity<>("Your account has balance available, please transfer these balance", HttpStatus.FORBIDDEN);
         }
 

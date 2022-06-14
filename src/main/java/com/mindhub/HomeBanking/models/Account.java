@@ -18,6 +18,7 @@ public class Account {
     private long id;
 
     private boolean active;
+    private AccountType accountType;
     private String number;
     private LocalDateTime creationDate;
     private double balance;
@@ -33,8 +34,9 @@ public class Account {
     public Account() {
     }
 
-    public Account(String number, LocalDateTime creationDate, double balance, Client cliente) {
+    public Account(AccountType accountType, String number, LocalDateTime creationDate, double balance, Client cliente) {
         this.active = true;
+        this.accountType = accountType;
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
@@ -45,9 +47,17 @@ public class Account {
         return id;
     }
 
-    public boolean isActive() {return active;}
+    public boolean isActive() {
+        return active;
+    }
 
-    public void setActive(boolean active) {this.active = active;}
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public AccountType getAccountType() {
+        return accountType;
+    }
 
     public String getNumber() {
         return number;

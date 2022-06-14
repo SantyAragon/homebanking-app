@@ -40,12 +40,12 @@ public class HomeBankingApplication {
             clientRepository.save(client2);
             clientRepository.save(client3);
 
-            Account cuenta1 = new Account("VIN001", LocalDateTime.now(), 5000, client1);
-            Account cuenta2 = new Account("VIN002", LocalDateTime.now().plusDays(1), 7500, client1);
-            Account cuenta3 = new Account("VIN003", LocalDateTime.now(), 10000, client2);
-//            Account cuenta4 = new Account("VIN004", LocalDateTime.now(), 6500, client1);
-            Account cuenta5 = new Account("VIN005", LocalDateTime.now(), 25500, client3);
-            Account cuenta6 = new Account("VIN006", LocalDateTime.now(), 0, client3);
+            Account cuenta1 = new Account(AccountType.SAVINGS, "VIN001", LocalDateTime.now(), 5000, client1);
+            Account cuenta2 = new Account(AccountType.SAVINGS, "VIN002", LocalDateTime.now().plusDays(1), 7500, client1);
+            Account cuenta3 = new Account(AccountType.SAVINGS, "VIN003", LocalDateTime.now(), 10000, client2);
+//            Account cuenta4 = new Account(AccountType.SAVINGS,"VIN004", LocalDateTime.now(), 6500, client1);
+            Account cuenta5 = new Account(AccountType.SAVINGS, "VIN005", LocalDateTime.now(), 25500, client3);
+            Account cuenta6 = new Account(AccountType.SAVINGS, "VIN006", LocalDateTime.now(), 0, client3);
             accountRepository.save(cuenta1);
             accountRepository.save(cuenta2);
             accountRepository.save(cuenta3);
