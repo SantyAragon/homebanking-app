@@ -121,37 +121,6 @@ const app = Vue.createApp({
 
         },
         createAccount() {
-
-            // let contentHtml 
-            /* 
-                        Swal.fire({
-                            title: '<strong>Select type account</strong>',
-                            inputLabel:'Type account',
-                            inputValue:'radio',
-
-                            // html: `<div class='d-flex justify-content-center align-items-center gap-3'>
-                            // <div class='d-flex align-items-center flex-column'>
-                            //     <label for='type1'>Savings</label>
-                            //     <input required type='radio' name='typeAccount' value="SAVINGS" id='type1'>
-                            // </div>
-                            // <div class='d-flex align-items-center flex-column'>
-                            //     <label for='type2'>Checking</label>
-                            //     <input required type='radio' name='typeAccount' value="CHECKING" id='type2'>
-                            // </div>
-                            // </div>`,
-
-                            showCancelButton: true,
-                            confirmButtonText: 'Create',
-                            cancelButtonText: 'Cancel',
-                            preConfirm: () => {
-                                return [
-                                    // document.getElementById('type1'),
-                                    // document.getElementById('type2')
-                                ]
-                            }
-                        })*/
-
-
             let inputOptions = {
                 'SAVINGS': 'Savings',
                 'CHECKING': 'Checking',
@@ -175,7 +144,6 @@ const app = Vue.createApp({
                                         window.location.reload()
                                     })
                             }).catch(error => {
-                                // this.error = error.response.data
                                 Swal.fire('Creation Failed', error.response.data, 'error')
                                     .then(result => {
                                         window.location.reload()

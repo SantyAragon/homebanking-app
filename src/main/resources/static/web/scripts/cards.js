@@ -74,10 +74,10 @@ const app = Vue.createApp({
             let dateCard = new Date(card.thruDate)
 
             if (now > dateCard) {
-                // console.log('now:' + now, 'card' + card.id + ': ' + dateCard, (now > dateCard))
+                console.log('now:' + now, 'card' + card.id + ': ' + dateCard, (now > dateCard))
                 return false;
             } else {
-                // console.log('now:' + now, 'card' + card.id + ':' + dateCard, (now > dateCard))
+                console.log('now:' + now, 'card' + card.id + ':' + dateCard, (now > dateCard))
                 return true;
             }
 

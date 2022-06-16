@@ -12,8 +12,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import java.time.LocalDateTime;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -108,4 +112,36 @@ public class LoanController {
         return new ResponseEntity<>("Loan approved", HttpStatus.CREATED);
 
     }
+
+    @Transactional
+    @PostMapping("/loans/create")
+    public ResponseEntity<Object> createLoan(@RequestParam String nameLoan, @RequestParam int percentIncrease, @RequestParam int maxAmount, @RequestParam ArrayList<Integer> payments) {
+
+        //IF THE LOAN NAME ITS EMPTY
+        if (nameLoan.isEmpty()) {
+            return new ResponseEntity<>("Invalid name loan", HttpStatus.FORBIDDEN);
+        }
+        //IF THE PERCENT INCREASE ITS NEGATIVE OR 0
+        if (percentIncrease <= 0) {
+            return new ResponseEntity<>("Invalid percent increase", HttpStatus.FORBIDDEN);
+        }
+        //IF THE MAX AMOUNT OF LOAN ITS NEGATIVE OR 0
+        if (maxAmount <= 0) {
+            return new ResponseEntity<>("Invalid max amount", HttpStatus.FORBIDDEN);
+        }
+//        if (payments.stream().filter(payment -> payment <= 0).count() > 0) {
+//            return new ResponseEntity<>("One or more payments its invalid.", HttpStatus.FORBIDDEN);
+//        }
+
+        //IF ANY OF PAYMENTS ITS NEGATIVE OR 0
+        if (payments.stream().anyMatch(payment -> payment <= 0)) {
+            return new ResponseEntity<>("One or more payments its invalid.", HttpStatus.FORBIDDEN);
+        }
+
+        Loan loan = new Loan(nameLoan, maxAmount, payments, percentIncrease);
+        loanService.saveLoan(loan);
+        return new ResponseEntity<>("Create loan success", HttpStatus.ACCEPTED);
+
+    }
+
 }

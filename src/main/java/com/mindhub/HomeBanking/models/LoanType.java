@@ -4,5 +4,4 @@ public enum LoanType {
     Mortgage,
     Personal,
     Car,
-
 }

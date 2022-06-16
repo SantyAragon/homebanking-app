@@ -4,20 +4,15 @@ import com.mindhub.HomeBanking.models.ClientLoan;
 import com.mindhub.HomeBanking.models.Loan;
 import com.mindhub.HomeBanking.models.LoanType;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 public class LoanDTO {
     private long id;
 
     private int percentIncrease;
-    private LoanType name;
+    private String name;
 
     private int maxAmount;
 
@@ -28,7 +23,7 @@ public class LoanDTO {
 
     public LoanDTO(Loan loan) {
         this.id = loan.getId();
-        this.percentIncrease= loan.getPercentIncrease();
+        this.percentIncrease = loan.getPercentIncrease();
         this.name = loan.getName();
         this.maxAmount = loan.getMaxAmount();
         this.payments = loan.getPayments();
@@ -38,9 +33,11 @@ public class LoanDTO {
         return id;
     }
 
-    public int getPercentIncrease() {return percentIncrease;}
+    public int getPercentIncrease() {
+        return percentIncrease;
+    }
 
-    public LoanType getName() {
+    public String getName() {
         return name;
     }
 

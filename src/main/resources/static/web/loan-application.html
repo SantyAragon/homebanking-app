@@ -11,13 +11,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
 
     <link rel="stylesheet" href="./styles/styles.css">
     <link rel="stylesheet" href="./styles/loan-application.css">
 
     <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
-    <title>Create Cards | Dano Bank</title>
+    <title>Create Loan | Dano Bank</title>
 </head>
 
 <body>
@@ -31,21 +31,6 @@
         </div>
     </div>
     <div id="app" class="body-pd">
-
-
-        <div class='d-flex align-items-center'>
-            <div class='d-flex flex-column'>
-                <label for='type1'></label>
-                <input type='radio' name='typeAccount' id='type1'>
-            </div>
-            <div class='d-flex flex-column'>
-                <label for='type2'></label>
-                <input type='radio' name='typeAccount' id='type2'>
-            </div>
-        </div>
-
-
-
 
         <input type="checkbox" id="nav-toggle">
         <div class="sidebar">
@@ -157,14 +142,16 @@
                                                     <img v-cloak v-if="loan.name=='Car'" src="./assets/carloan.png"
                                                         class="card__header-img" alt="car loan icon">
 
-                                                    <img v-cloak v-if="loan.name=='Mortgage'"
+                                                    <img v-cloak v-else-if="loan.name=='Mortgage'"
                                                         src="./assets/mortgageloan.png" class="card__header-img"
                                                         alt=" mortgage loan icon">
 
-                                                    <img v-cloak v-if="loan.name=='Personal'"
+                                                    <img v-cloak v-else-if="loan.name=='Personal'"
                                                         src="./assets/personalloan.png" class="card__header-img"
                                                         alt=" personal loan icon">
 
+                                                    <img v-else src="./assets/loan-default.png" class="card__header-img"
+                                                        alt="logo default">
                                                 </div>
 
                                                 <span class="card__header-subtitle">Loan type</span>
@@ -221,7 +208,7 @@
                                                         <option disabled hidden selected value="Select Loan type">Select
                                                             Loan type</option>
                                                         <option v-for="loan in loans" v-show="!isDisabled(loan)"
-                                                            :value="loan">{{loan.name}}
+                                                            v-bind:value="loan">{{loan.name}}
                                                         </option>
                                                     </select>
                                                 </div>

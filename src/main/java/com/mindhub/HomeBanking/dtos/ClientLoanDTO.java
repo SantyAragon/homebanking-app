@@ -7,7 +7,7 @@ public class ClientLoanDTO {
 
     private long id;
     private long idLoan;
-    private LoanType name;
+    private String name;
     private Integer payments;
     private double amount;
 
@@ -34,7 +34,7 @@ public class ClientLoanDTO {
         return amount;
     }
 
-    public LoanType getName() {
+    public String getName() {
         return name;
     }
 

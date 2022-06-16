@@ -92,9 +92,6 @@ public class Client {
         accounts.add(account);
     }
 
-    public List<ClientLoanDTO> getLoans() {
-        return loans.stream().map(clientLoan -> new ClientLoanDTO(clientLoan)).collect(Collectors.toList());
-    }
 
     public Set<Card> getCards() {
         return cards;
@@ -111,4 +108,11 @@ public class Client {
     public void setLoans(Set<ClientLoan> loans) {
         this.loans = loans;
     }
+
+
+    //METHODS
+    public List<ClientLoanDTO> getLoans() {
+        return loans.stream().map(clientLoan -> new ClientLoanDTO(clientLoan)).collect(Collectors.toList());
+    }
+
 }

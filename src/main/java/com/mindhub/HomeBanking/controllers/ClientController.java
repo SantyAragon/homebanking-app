@@ -55,11 +55,19 @@ public class ClientController {
         }
         Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password));
         clientService.saveClient(client);
-        Account account = new Account(AccountType.SAVINGS,"VIN" + randomNumber(0, 99999999), LocalDateTime.now(), 0, client);
+        Account account = new Account(AccountType.SAVINGS, "VIN" + randomNumber(0, 99999999), LocalDateTime.now(), 0, client);
         accountService.saveAccount(account);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
 
+    }
+
+    @GetMapping("/admin")
+    public ResponseEntity<Object> isAdmin(Authentication authentication) {
+        if (!authentication.getName().contains("@admin.com")) {
+            return new ResponseEntity<>("is client", HttpStatus.ACCEPTED);
+        }
+        return new ResponseEntity<>("is admin", HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/clients/current")

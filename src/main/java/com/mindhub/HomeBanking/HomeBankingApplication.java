@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.mindhub.HomeBanking.models.CardType.*;
@@ -31,7 +32,7 @@ public class HomeBankingApplication {
     @Bean
     public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository, CardRepository cardRepository) {
         return (args) -> {
-            // save a couple of customers
+
 
             Client client1 = new Client("Melba", "Morel", "melba@mindhub.com", passwordEncoder.encode("melba123"));
             Client client2 = new Client("Santi", "Aragon", "SantyA@mindhub.com", passwordEncoder.encode("santi123"));
@@ -63,13 +64,6 @@ public class HomeBankingApplication {
             Transaction transaction8 = new Transaction(TransactionType.DEBIT, 7300, "Mc Donalds", LocalDateTime.now(), cuenta5);
             Transaction transaction9 = new Transaction(TransactionType.CREDIT, 9300, "Supermarket", LocalDateTime.now(), cuenta5);
 
-            Transaction transactionPrueba1 = new Transaction(TransactionType.DEBIT, 1099.99, "Riot Games 2500 RP", LocalDateTime.now().plusDays(1), cuenta1);
-            Transaction transactionPrueba2 = new Transaction(TransactionType.DEBIT, 1099.99, "Riot Games 2500 RP", LocalDateTime.now().plusDays(2), cuenta1);
-            Transaction transactionPrueba3 = new Transaction(TransactionType.DEBIT, 1099.99, "Riot Games 2500 RP", LocalDateTime.now().plusDays(3), cuenta1);
-            Transaction transactionPrueba4 = new Transaction(TransactionType.DEBIT, 1099.99, "Riot Games 2500 RP", LocalDateTime.now().plusDays(4), cuenta1);
-            Transaction transactionPrueba5 = new Transaction(TransactionType.DEBIT, 1099.99, "Riot Games 2500 RP", LocalDateTime.now().plusDays(5), cuenta1);
-            Transaction transactionPrueba6 = new Transaction(TransactionType.DEBIT, 1099.99, "Riot Games 2500 RP", LocalDateTime.now().plusDays(6), cuenta1);
-
             transactionRepository.save(transaction1);
             transactionRepository.save(transaction2);
             transactionRepository.save(transaction3);
@@ -79,18 +73,16 @@ public class HomeBankingApplication {
             transactionRepository.save(transaction7);
             transactionRepository.save(transaction8);
             transactionRepository.save(transaction9);
-            List<Transaction> transactionsPrueba = List.of(transactionPrueba1, transactionPrueba2, transactionPrueba3, transactionPrueba4, transactionPrueba5, transactionPrueba6);
-            transactionRepository.saveAll(transactionsPrueba);
 
 
             List<Integer> miLista = List.of(12, 24, 36, 48, 60);
-            Loan loan1 = new Loan(Mortgage, 500000, miLista, 25);
+            Loan loan1 = new Loan("Mortgage", 500000, miLista, 25);
 
             miLista = List.of(6, 12, 24);
-            Loan loan2 = new Loan(Personal, 100000, miLista, 12);
+            Loan loan2 = new Loan("Personal", 100000, miLista, 12);
 
             miLista = List.of(6, 12, 24, 36);
-            Loan loan3 = new Loan(Car, 300000, miLista, 35);
+            Loan loan3 = new Loan("Car", 300000, miLista, 35);
 
             loanRepository.save(loan1);
             loanRepository.save(loan2);
@@ -107,9 +99,6 @@ public class HomeBankingApplication {
             clientLoanRepository.save(clientloan3);
             clientLoanRepository.save(clientloan4);
 
-//            ClientLoan clientloan5 = new ClientLoan(50000, 12, client1, loan3);
-//            clientLoanRepository.save(clientloan5);
-
             Card card1 = new Card(client1.getFullName(), DEBIT, GOLD, "1234567890123456", 219, LocalDateTime.now().minusYears(7).minusMonths(3), LocalDateTime.now().minusYears(5).minusMonths(3), client1);
             Card card2 = new Card(client1.getFullName(), CREDIT, TITANIUM, "4000001234567899", 513, LocalDateTime.now().minusYears(2).minusMonths(1), LocalDateTime.now().minusYears(1).minusMonths(1), client1);
             Card card5 = new Card(client1.getFullName(), CREDIT, TITANIUM, "101341434567899", 513, LocalDateTime.now().minusYears(2).minusMonths(1), LocalDateTime.now().minusYears(1).minusMonths(3), client1);
@@ -122,7 +111,7 @@ public class HomeBankingApplication {
             cardRepository.save(card4);
             cardRepository.save(card5);
 
-            System.out.println("todo listo, arranca nomas rey");
+            System.out.println("todo listo, arranca nomás rey");
 
 
         };

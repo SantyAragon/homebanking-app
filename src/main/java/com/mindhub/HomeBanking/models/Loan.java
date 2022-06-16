@@ -19,8 +19,7 @@ public class Loan {
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
 
-    private LoanType name;
-
+    private String name;
     private int percentIncrease;
     private int maxAmount;
 
@@ -34,23 +33,22 @@ public class Loan {
     public Loan() {
     }
 
-    public Loan(LoanType name, int maxAmount, List<Integer> payments, int percentIncrease) {
+    public Loan(String name, int maxAmount, List<Integer> payments, int percentIncrease) {
         this.name = name;
         this.maxAmount = maxAmount;
         this.payments = payments;
         this.percentIncrease = percentIncrease;
     }
 
-
     public long getId() {
         return id;
     }
 
-    public LoanType getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(LoanType name) {
+    public void setName(String name) {
         this.name = name;
     }
 

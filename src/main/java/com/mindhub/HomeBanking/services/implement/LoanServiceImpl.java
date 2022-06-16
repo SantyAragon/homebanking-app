@@ -26,6 +26,11 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
+    public void saveLoan(Loan loan) {
+        loanRepository.save(loan);
+    }
+
+    @Override
     public Loan getLoanById(Long id) {
         return loanRepository.findById(id).orElse(null);
     }
