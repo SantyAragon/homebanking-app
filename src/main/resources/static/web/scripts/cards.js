@@ -14,7 +14,7 @@ const app = Vue.createApp({
         axios.get("http://localhost:8080/api/clients/current")
             .then(data => {
                 this.client = data.data;
-                this.cards = data.data.cards;
+                this.cards = this.client.cards;
                 this.sortCards();
 
                 this.cardsDebit = this.cards.filter(card => card.type == 'DEBIT')
@@ -49,7 +49,7 @@ const app = Vue.createApp({
                             .then(result => {
                                 if (result.isConfirmed) {
                                     console.log(result)
-                                    axios.patch('http://localhost:8080/api/clients/current/cards/disabled', `idCard=${id}&password=${result.value}`)
+                                    axios.patch('/api/clients/current/cards/disabled', `idCard=${id}&password=${result.value}`)
                                         .then(response => {
                                             Swal.fire('Card deactivated', '', 'success')
                                                 .then(result => {

@@ -136,6 +136,7 @@ const app = Vue.createApp({
                     }
                 })
                 .then((result) => {
+                    console.log(result)
                     if (result.isConfirmed) {
                         axios.post("http://localhost:8080/api/clients/current/accounts", `accountType=${result.value}`)
                             .then(response => {

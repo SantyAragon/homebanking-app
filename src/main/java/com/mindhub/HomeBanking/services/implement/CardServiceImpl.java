@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,11 @@ public class CardServiceImpl implements CardService {
     public Set<Card> getAllCardsAuthenticated(Authentication authentication) {
         Client client = clientService.getClientCurrent(authentication);
         return cardRepository.findAll().stream().filter(card -> card.getClient() == client).collect(Collectors.toSet());
+    }
+
+    @Override
+    public Card getCardByNumber(String number) {
+        return cardRepository.findByNumber(number).orElse(null);
     }
 
     @Override

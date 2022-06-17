@@ -79,9 +79,9 @@ public class Card {
     public boolean isExpired() {
         if (0 > this.thruDate.compareTo(LocalDateTime.now())) {
             return this.expired = true;
-        } else {
-            return this.expired = false;
         }
+        return this.expired = false;
+
     }
 
     public String getCardholder() {
@@ -148,4 +148,5 @@ public class Card {
     public void setClient(Client client) {
         this.client = client;
     }
+
 }

@@ -78,7 +78,7 @@ public class AccountController {
 
     @Transactional
     @PatchMapping("/clients/current/accounts/disabled")
-    public ResponseEntity<Object> disableCard(Authentication authentication, @RequestParam Long idAccount, @RequestParam String password) {
+    public ResponseEntity<Object> disableAccount(Authentication authentication, @RequestParam Long idAccount, @RequestParam String password) {
         Client client = clientService.getClientCurrent(authentication);
         Account accountDisable = accountService.getAccountById(idAccount);
 

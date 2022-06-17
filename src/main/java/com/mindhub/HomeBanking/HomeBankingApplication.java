@@ -111,7 +111,7 @@ public class HomeBankingApplication {
             cardRepository.save(card4);
             cardRepository.save(card5);
 
-            System.out.println("todo listo, arranca nomás rey");
+            System.out.println("todo listo, arranca nomas rey");
 
 
         };
