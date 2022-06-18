@@ -10,10 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.text.Document;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -154,8 +156,8 @@ public class TransactionController {
     }
 
 
-    @GetMapping("/transactions/generate")
-    public void generatePdf(HttpServletResponse response, Authentication authentication,@RequestBody AccountAndDateDTO accountAndDateDTO) throws IOException, DocumentException {
+    @PostMapping("/transactions/generate")
+    public void generatePdf(HttpServletResponse response, Authentication authentication, @RequestBody AccountAndDateDTO accountAndDateDTO) throws IOException, DocumentException {
         Client client = clientService.getClientCurrent(authentication);
 
         response.setContentType("application/pdf");
@@ -165,7 +167,7 @@ public class TransactionController {
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=dano-bank_" + accountAndDateDTO.getNumberAccount() + "-" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
-        pdfGenerator.export(response, authentication, accountAndDateDTO.getNumberAccount(),accountAndDateDTO.getSince(),accountAndDateDTO.getUntil());
+        pdfGenerator.export(response, authentication, accountAndDateDTO.getNumberAccount(), accountAndDateDTO.getSince(), accountAndDateDTO.getUntil());
     }
 
 }

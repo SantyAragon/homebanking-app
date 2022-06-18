@@ -4,6 +4,7 @@ import com.lowagie.text.DocumentException;
 import org.springframework.security.core.Authentication;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

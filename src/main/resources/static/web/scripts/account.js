@@ -6,12 +6,15 @@ const app = Vue.createApp({
             account: {},
             accounts: [],
             transactions: {},
+            numberAccount: "",
+            until: null,
+            since: null,
         }
     },
     created() {
 
 
-        axios.get("http://localhost:8080/api/clients/current")
+        axios.get("/api/clients/current")
             .then(data => {
                 this.client = data.data
                 this.accounts = data.data.accounts
@@ -24,13 +27,13 @@ const app = Vue.createApp({
         const urlParams = new URLSearchParams(window.location.search);
         const idAccount = urlParams.get('id');
 
-        axios.get("http://localhost:8080/api/clients/current/accounts/" + idAccount)
+        axios.get("/api/clients/current/accounts/" + idAccount)
             .then(data => {
-                console.log(data)
+
                 this.account = data.data;
                 this.transactions = data.data.transactions
-                console.log(this.account);
-                console.log(this.transactions);
+                this.numberAccount = this.account.number
+
 
                 this.sortTransactions();
 
@@ -52,11 +55,60 @@ const app = Vue.createApp({
             return (date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " +
                 date.getHours() + ":" + (date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes()))
         },
-
+        formatearHora(dateInput) {
+            const date = new Date(dateInput)
+            let minutes = date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes()
+            return date.getHours() + ":" + minutes
+        },
         logout() {
             axios.post('/api/logout').then(response => console.log('signed out!!!'))
             window.location.href = './index.html'
         },
+        generatePDF() {
+            let numberAndDateDTO = {
+                numberAccount: this.numberAccount,
+                since: this.since,
+                until: this.until
+            }
+
+            // axios({
+            //         url: '/api/transactions/generate',
+            //         method: 'POST',
+            //         responseType: "blob",
+            //         data: {
+            //             numberAccount: this.numberAccount,
+            //             since: this.since,
+            //             until: this.until
+            //         },
+            //     }).then(response => {
+            //         let url = window.URL.createObjectURL(new Blob([response.data]))
+            //         let link = document.createElement("a")
+            //         console.log(response);
+            //         link.href = url;
+            //         link.setAttribute("download", `DanoBank_${this.numberAccount}_${this.since}-${this.until}.pdf`)
+            //         document.body.appendChild(link)
+            //         link.click()
+            //     })
+            //     .catch(error => {
+            //         console.log(error)
+            //     })
+
+            axios.post('/api/transactions/generate', numberAndDateDTO, {
+                    'responseType': 'blob'
+                })
+                .then(response => {
+                    let url = window.URL.createObjectURL(new Blob([response.data]))
+                    let link = document.createElement("a")
+                    console.log(response);
+                    link.href = url;
+                    link.setAttribute("download", `DanoBank_${this.numberAccount}_${this.since}-${this.until}.pdf`)
+                    document.body.appendChild(link)
+                    link.click()
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        }
     },
     computed: {
 
