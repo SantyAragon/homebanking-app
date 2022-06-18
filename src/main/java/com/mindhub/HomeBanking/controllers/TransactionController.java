@@ -1,11 +1,9 @@
 package com.mindhub.HomeBanking.controllers;
 
+import com.lowagie.text.DocumentException;
 import com.mindhub.HomeBanking.dtos.PaymentDTO;
 import com.mindhub.HomeBanking.models.*;
-import com.mindhub.HomeBanking.services.AccountService;
-import com.mindhub.HomeBanking.services.CardService;
-import com.mindhub.HomeBanking.services.ClientService;
-import com.mindhub.HomeBanking.services.TransactionService;
+import com.mindhub.HomeBanking.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +11,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.Document;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/api")
@@ -27,6 +31,8 @@ public class TransactionController {
     private CardService cardService;
     @Autowired
     private TransactionService transactionService;
+    @Autowired
+    private PdfGenerator pdfGenerator;
 
     @Transactional
     @PostMapping("/transactions")
@@ -144,4 +150,20 @@ public class TransactionController {
 
         return new ResponseEntity<>("Payment approved", HttpStatus.ACCEPTED);
     }
+
+
+    @GetMapping("/transactions/generate")
+    public void generatePdf(HttpServletResponse response, Authentication authentication,String numberAccount) throws IOException, DocumentException {
+        Client client = clientService.getClientCurrent(authentication);
+
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-mm-dd:hh:mm");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=dano-bank_" + numberAccount + "-" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+        pdfGenerator.export(response, authentication, numberAccount);
+    }
+
 }
