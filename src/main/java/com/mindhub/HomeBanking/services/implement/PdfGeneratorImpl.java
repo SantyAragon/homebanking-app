@@ -3,6 +3,7 @@ package com.mindhub.HomeBanking.services.implement;
 
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
+import com.lowagie.text.Image;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
@@ -18,14 +19,9 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.*;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class PdfGeneratorImpl implements PdfGenerator {
@@ -51,12 +47,16 @@ public class PdfGeneratorImpl implements PdfGenerator {
         Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA);
         fontTitle.setSize(18);
 
+//        Image logo = Image.getInstance("https://i.ibb.co/4FvvMZJ/logo1.png");
+//        logo.setWidthPercentage(5);
+//        logo.setAlignment(Element.ALIGN_CENTER);
 
+//        Image logo = Image.getInstance("https://i.ibb.co/RHKRFWQ/LogoPDF.png");
+//        logo.setWidthPercentage(15f);
 
         Paragraph paragraph = new Paragraph("Transactions of Account number: " + account.getNumber(), fontTitle);
         paragraph.setAlignment(Paragraph.ALIGN_CENTER);
         paragraph.setSpacingAfter(5);
-
 
 
         //NEW TABLE
@@ -76,11 +76,33 @@ public class PdfGeneratorImpl implements PdfGenerator {
         Comparator<Transaction> idComparator = Comparator.comparing(Transaction::getId);
 
         transactions.stream().sorted(idComparator).forEach(transaction -> {
-            table.addCell(transaction.getId() + "");
-            table.addCell(transaction.getType() + "");
-            table.addCell(transaction.getDescription());
+            PdfPCell c1 = new PdfPCell(new Phrase(transaction.getId() + ""));
+            c1.setBackgroundColor(new Color(165, 144, 234));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+
+
+            PdfPCell c2 = new PdfPCell(new Phrase(transaction.getType() + ""));
+            c2.setBackgroundColor(new Color(165, 144, 234));
+            c2.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c2);
+
+            PdfPCell c3 = new PdfPCell(new Phrase(transaction.getDescription()));
+            c3.setBackgroundColor(new Color(165, 144, 234));
+            c3.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c3);
+
+
+//            table.addCell(transaction.getId() + "");
+//            table.addCell(transaction.getType() + "");
+//            table.addCell(transaction.getDescription());
             String amount = transaction.getType() == TransactionType.DEBIT ? "-" + transaction.getAmount() : transaction.getAmount() + "";
-            table.addCell(amount);
+//            table.addCell(amount);
+
+            PdfPCell c4 = new PdfPCell(new Phrase(amount));
+            c4.setBackgroundColor(new Color(165, 144, 234));
+            c4.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c4);
 
 
             String hours = transaction.getDate().getHour() > 9 ? transaction.getDate().getHour() + "" : "0" + transaction.getDate().getHour();
@@ -91,13 +113,21 @@ public class PdfGeneratorImpl implements PdfGenerator {
                     transaction.getDate().getDayOfMonth() + " " +
                     hours + ":" + minutes;
 
-            table.addCell(date);
+            PdfPCell c5 = new PdfPCell(new Phrase(date));
+            c5.setBackgroundColor(new Color(165, 144, 234));
+            c5.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c5);
 
+//            table.addCell(date);
 
-            table.addCell(transaction.getBalance() + "");
+            PdfPCell c6 = new PdfPCell(new Phrase(transaction.getBalance() + ""));
+            c6.setBackgroundColor(new Color(165, 144, 234));
+            c6.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c6);
+//            table.addCell(transaction.getBalance() + "");
         });
 
-
+//        document.add(logo);
         document.add(paragraph);
         document.add(table);
         document.close();
