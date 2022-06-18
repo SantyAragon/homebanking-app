@@ -1,6 +1,7 @@
 package com.mindhub.HomeBanking.controllers;
 
 import com.lowagie.text.DocumentException;
+import com.mindhub.HomeBanking.dtos.AccountAndDateDTO;
 import com.mindhub.HomeBanking.dtos.PaymentDTO;
 import com.mindhub.HomeBanking.models.*;
 import com.mindhub.HomeBanking.services.*;
@@ -16,6 +17,7 @@ import javax.swing.text.Document;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -153,7 +155,7 @@ public class TransactionController {
 
 
     @GetMapping("/transactions/generate")
-    public void generatePdf(HttpServletResponse response, Authentication authentication,String numberAccount) throws IOException, DocumentException {
+    public void generatePdf(HttpServletResponse response, Authentication authentication,@RequestBody AccountAndDateDTO accountAndDateDTO) throws IOException, DocumentException {
         Client client = clientService.getClientCurrent(authentication);
 
         response.setContentType("application/pdf");
@@ -161,9 +163,9 @@ public class TransactionController {
         String currentDateTime = dateFormatter.format(new Date());
 
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=dano-bank_" + numberAccount + "-" + currentDateTime + ".pdf";
+        String headerValue = "attachment; filename=dano-bank_" + accountAndDateDTO.getNumberAccount() + "-" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
-        pdfGenerator.export(response, authentication, numberAccount);
+        pdfGenerator.export(response, authentication, accountAndDateDTO.getNumberAccount(),accountAndDateDTO.getSince(),accountAndDateDTO.getUntil());
     }
 
 }

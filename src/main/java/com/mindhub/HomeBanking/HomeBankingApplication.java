@@ -54,10 +54,10 @@ public class HomeBankingApplication {
             accountRepository.save(cuenta5);
             accountRepository.save(cuenta6);
 
-            Transaction transaction1 = new Transaction(TransactionType.CREDIT, 550, "Transfer received from Rune Bank ", LocalDateTime.now(), cuenta1);
+            Transaction transaction1 = new Transaction(TransactionType.CREDIT, 550, "Transfer received from Rune Bank ", LocalDateTime.now().minusDays(1), cuenta1);
             Transaction transaction2 = new Transaction(TransactionType.DEBIT, 1099.99, "Riot Games 2500 RP", LocalDateTime.now(), cuenta1);
             Transaction transaction3 = new Transaction(TransactionType.CREDIT, 9900, "Moonton salary", LocalDateTime.now(), cuenta2);
-            Transaction transaction4 = new Transaction(TransactionType.DEBIT, 3099.99, "Riot Games 5500 RP", LocalDateTime.now(), cuenta1);
+            Transaction transaction4 = new Transaction(TransactionType.DEBIT, 3099.99, "Riot Games 5500 RP", LocalDateTime.now().minusDays(2), cuenta1);
             Transaction transaction5 = new Transaction(TransactionType.DEBIT, 3999, "Steam store", LocalDateTime.now(), cuenta2);
             Transaction transaction6 = new Transaction(TransactionType.DEBIT, 1650, "Mc Donalds", LocalDateTime.now(), cuenta2);
             Transaction transaction7 = new Transaction(TransactionType.DEBIT, 5300, "Supermarket", LocalDateTime.now(), cuenta2);
@@ -73,6 +73,20 @@ public class HomeBankingApplication {
             transactionRepository.save(transaction7);
             transactionRepository.save(transaction8);
             transactionRepository.save(transaction9);
+
+            Transaction transactionPrueba1 = new Transaction(TransactionType.DEBIT, 1099.99, "19 junio", LocalDateTime.now().plusDays(1), cuenta1);
+            Transaction transactionPrueba2 = new Transaction(TransactionType.DEBIT, 1099.99, "20 junio", LocalDateTime.now().plusDays(2), cuenta1);
+            Transaction transactionPrueba3 = new Transaction(TransactionType.DEBIT, 1099.99, "21 junio", LocalDateTime.now().plusDays(3), cuenta1);
+            Transaction transactionPrueba4 = new Transaction(TransactionType.DEBIT, 1099.99, "22 junio", LocalDateTime.now().plusDays(4), cuenta1);
+            Transaction transactionPrueba5 = new Transaction(TransactionType.DEBIT, 1099.99, "23 junio", LocalDateTime.now().plusDays(5), cuenta1);
+            Transaction transactionPrueba6 = new Transaction(TransactionType.DEBIT, 1099.99, "24 junio", LocalDateTime.now().plusDays(6), cuenta1);
+            transactionRepository.save(transactionPrueba1);
+            transactionRepository.save(transactionPrueba2);
+            transactionRepository.save(transactionPrueba3);
+            transactionRepository.save(transactionPrueba4);
+            transactionRepository.save(transactionPrueba5);
+            transactionRepository.save(transactionPrueba6);
+
 
 
             List<Integer> miLista = List.of(12, 24, 36, 48, 60);

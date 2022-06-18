@@ -19,8 +19,10 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Stream;
 
 
 @Service
@@ -34,10 +36,13 @@ public class PdfGeneratorImpl implements PdfGenerator {
     TransactionService transactionService;
 
     @Override
-    public void export(HttpServletResponse response, Authentication authentication, String numberAccount) throws IOException, DocumentException {
+    public void export(HttpServletResponse response, Authentication authentication, String numberAccount, LocalDateTime since,LocalDateTime until) throws IOException, DocumentException {
         Client client = clientService.getClientCurrent(authentication);
         Account account = accountService.getAccountByNumber(numberAccount);
         Set<Transaction> transactions = account.getTransactions();
+
+       Stream<Transaction> desde= transactions.stream().filter(transaction->transaction.getDate().isAfter(since));
+       Stream<Transaction> hasta = desde.filter(transaction->transaction.getDate().isBefore(until));
 
         Document document = new Document(PageSize.A4);
         PdfWriter.getInstance(document, response.getOutputStream());
@@ -75,7 +80,7 @@ public class PdfGeneratorImpl implements PdfGenerator {
         //CELLS FOR EACH TRANSACTIONS
         Comparator<Transaction> idComparator = Comparator.comparing(Transaction::getId);
 
-        transactions.stream().sorted(idComparator).forEach(transaction -> {
+        hasta.sorted(idComparator).forEach(transaction -> {
             PdfPCell c1 = new PdfPCell(new Phrase(transaction.getId() + ""));
             c1.setBackgroundColor(new Color(165, 144, 234));
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
