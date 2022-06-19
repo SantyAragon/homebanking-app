@@ -9,10 +9,10 @@ const app = Vue.createApp({
             numberAccount: "",
             until: null,
             since: null,
+            dateNowInput: "",
         }
     },
     created() {
-
 
         axios.get("/api/clients/current")
             .then(data => {
@@ -48,14 +48,33 @@ const app = Vue.createApp({
             //funcion para ordenar por LocalDateTime.
             // this.transactions.sort((a, b) => new Intl.Collator().compare(a.date, b.date))
         },
+        limitInput() {
 
-        formatearFecha(dateInput) {
+            let now = new Date();
+            var year = now.getFullYear();
+            var date = now.getDate();
+            var month = now.getMonth(); //viene con valores de 0 al 11
+            month = month + 1; //ahora lo tienes de 1 al 12
+            if (month < 10) //ahora le agregas un 0 para el formato date
+            {
+                month = "0" + month;
+            } else {
+                month = month.toString;
+            }
+
+            let maxNow = year + "-" + month + "-" + date
+            this.dateNowInput = maxNow
+            console.log(this.dateNowInput)
+            return maxNow
+
+        },
+        formatDate(dateInput) {
             const date = new Date(dateInput)
 
             return (date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " " +
                 date.getHours() + ":" + (date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes()))
         },
-        formatearHora(dateInput) {
+        formatTime(dateInput) {
             const date = new Date(dateInput)
             let minutes = date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes()
             return date.getHours() + ":" + minutes
@@ -70,45 +89,42 @@ const app = Vue.createApp({
                 since: this.since,
                 until: this.until
             }
+            console.log(numberAndDateDTO)
+            Swal.fire({
+                title: 'Do you make transaction?',
+                showDenyButton: true,
+                // showCancelButton: true,
+                confirmButtonText: 'Accept',
+                denyButtonText: `Cancel`,
+            }).then((result) => {
 
-            // axios({
-            //         url: '/api/transactions/generate',
-            //         method: 'POST',
-            //         responseType: "blob",
-            //         data: {
-            //             numberAccount: this.numberAccount,
-            //             since: this.since,
-            //             until: this.until
-            //         },
-            //     }).then(response => {
-            //         let url = window.URL.createObjectURL(new Blob([response.data]))
-            //         let link = document.createElement("a")
-            //         console.log(response);
-            //         link.href = url;
-            //         link.setAttribute("download", `DanoBank_${this.numberAccount}_${this.since}-${this.until}.pdf`)
-            //         document.body.appendChild(link)
-            //         link.click()
-            //     })
-            //     .catch(error => {
-            //         console.log(error)
-            //     })
+                if (result.isConfirmed) {
 
-            axios.post('/api/transactions/generate', numberAndDateDTO, {
-                    'responseType': 'blob'
-                })
-                .then(response => {
-                    let url = window.URL.createObjectURL(new Blob([response.data]))
-                    let link = document.createElement("a")
-                    console.log(response);
-                    link.href = url;
-                    link.setAttribute("download", `DanoBank_${this.numberAccount}_${this.since}-${this.until}.pdf`)
-                    document.body.appendChild(link)
-                    link.click()
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+                    axios.post('/api/transactions/generate', numberAndDateDTO, {
+                            'responseType': 'blob'
+                        })
+                        .then(response => {
+                            let url = window.URL.createObjectURL(new Blob([response.data]))
+                            let link = document.createElement("a")
+                            console.log(response);
+                            link.href = url;
+                            link.setAttribute("download", `DanoBank_${this.numberAccount}_${this.since}-${this.until}.pdf`)
+                            document.body.appendChild(link)
+                            link.click()
+                        })
+                        .catch(error => {
+
+                            Swal.fire('Download Failed', '', 'error')
+                                .then(result => {
+                                    window.location.reload()
+                                })
+                        })
+                } else if (result.isDenied) {
+                    Swal.fire('Cancel download', '', 'error')
+                }
+            })
         }
+
     },
     computed: {
 

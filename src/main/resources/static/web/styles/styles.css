@@ -687,7 +687,7 @@ td .status {
     padding: 0 10px;
     border-radius: 4px;
     z-index: 1;
-    background-color: #242a35;
+    background-color: #2c2435;
     border: solid 1px #e8e8e82d;
     transition: all .5s cubic-bezier(0.77, 0, 0.175, 1);
 }
@@ -707,8 +707,8 @@ td .status {
     z-index: -1;
     border-radius: 4px;
     transform: translateY(0%);
-    background-color: #01e056;
-    border: solid 1px #01e0572d;
+    background-color: #5D3EBC;
+    border: solid 1px #331e72;
     transition: all .5s cubic-bezier(0.77, 0, 0.175, 1);
 }
 

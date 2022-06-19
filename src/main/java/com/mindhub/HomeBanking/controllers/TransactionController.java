@@ -5,21 +5,18 @@ import com.mindhub.HomeBanking.dtos.AccountAndDateDTO;
 import com.mindhub.HomeBanking.dtos.PaymentDTO;
 import com.mindhub.HomeBanking.models.*;
 import com.mindhub.HomeBanking.services.*;
+import jdk.javadoc.doclet.Reporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.Document;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -157,8 +154,21 @@ public class TransactionController {
 
 
     @PostMapping("/transactions/generate")
-    public void generatePdf(HttpServletResponse response, Authentication authentication, @RequestBody AccountAndDateDTO accountAndDateDTO) throws IOException, DocumentException {
+    public ResponseEntity<?> generatePdf(HttpServletResponse response, Authentication authentication, @RequestBody AccountAndDateDTO accountAndDateDTO) throws IOException, DocumentException {
+        if (accountAndDateDTO.getNumberAccount().isEmpty())
+            return new ResponseEntity<>("Invalid number account", HttpStatus.FORBIDDEN);
+        if (accountAndDateDTO.getSince().isAfter(LocalDateTime.now()))
+            return new ResponseEntity<>("The date since is invalid", HttpStatus.FORBIDDEN);
+        if (accountAndDateDTO.getUntil().isAfter(LocalDateTime.now()))
+            return new ResponseEntity<>("The date until is invalid", HttpStatus.FORBIDDEN);
+
+
         Client client = clientService.getClientCurrent(authentication);
+        Account account = accountService.getAccountByNumber(accountAndDateDTO.getNumberAccount());
+
+        if (!client.getAccounts().contains(account))
+            return new ResponseEntity<>("You are not the account owner.", HttpStatus.FORBIDDEN);
+
 
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-mm-dd:hh:mm");
@@ -168,6 +178,8 @@ public class TransactionController {
         String headerValue = "attachment; filename=dano-bank_" + accountAndDateDTO.getNumberAccount() + "-" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
         pdfGenerator.export(response, authentication, accountAndDateDTO.getNumberAccount(), accountAndDateDTO.getSince(), accountAndDateDTO.getUntil());
+
+        return new ResponseEntity<>("PDF Sended.", HttpStatus.ACCEPTED);
     }
 
 }

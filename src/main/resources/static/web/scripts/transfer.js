@@ -60,6 +60,7 @@ const app = Vue.createApp({
                                         window.location.reload()
                                     })
                             }).catch(error => {
+                                console.log(error)
                                 this.error = error.response.data
                                 Swal.fire('Transaction Failed', this.error, 'error')
                                     .then(result => {
