@@ -26,6 +26,7 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/authenticated").permitAll()
                 .antMatchers("/rest/**", "/h2-console/**").hasAuthority("ADMIN")
                 .antMatchers("/api/clients/current/verification").permitAll()
+                .antMatchers("/api/clients/current/password").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/clients/cards/all").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.PATCH, "/api/clients/current/cards/disabled").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST, "/api/clients/current/cards").hasAuthority("CLIENT")
@@ -42,7 +43,7 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/cryptos/**").hasAuthority("CLIENT")
                 .antMatchers("/api/**").hasAuthority("ADMIN")
 
-                .antMatchers("/web/index.html", "web/assets/**", "/web/styles/index.css", "/web/scripts/index.js").permitAll()
+                .antMatchers("/web/index.html", "/web/recoverpassword.html", "web/assets/**", "/web/styles/index.css", "/web/styles/styles.css", "/web/scripts/index.js", "/web/scripts/password.js").permitAll()
                 .antMatchers("/**").hasAuthority("CLIENT");
 
 
