@@ -21,19 +21,35 @@
         <section class="user">
             <div class="user_options-container">
                 <div class="user_options-text">
-                    <div class="user_options-unregistered">
+                    <div v-if="!register" v-cloak class="user_options-unregistered options-mobile">
                         <h2 class="user_unregistered-title">Don't have an account?</h2>
-                        <p class="user_unregistered-text"></p>
-                        <button class="user_unregistered-signup" id="signup-button" @click="signupButton()">Sign
+                        <p class="user_unregistered-text">You are invited to register and become part of our bank.</p>
+                        <button class="user_unregistered-signup" id="signup-button"
+                            @click="signupButton(),toggleRegister()">Sign
                             up</button>
                     </div>
 
-                    <div class="user_options-registered">
+                    <div v-if="register" v-cloak class="user_options-registered options-mobile">
                         <h2 class="user_registered-title">Have an account?</h2>
-                        <p class="user_registered-text">Banjo tote bag bicycle rights, High Life sartorial cray craft
-                            beer whatever street art fap.</p>
-                        <button class="user_registered-login" id="login-button" @click="loginButton()">Login</button>
+                        <p class="user_registered-text">Log in and get to know all our features</p>
+                        <button class="user_registered-login" id="login-button"
+                            @click="loginButton(),toggleRegister()">Login</button>
                     </div>
+                    <div class="user_options-unregistered options-desktop">
+                        <h2 class="user_unregistered-title">Don't have an account?</h2>
+                        <p class="user_unregistered-text">You are invited to register and become part of our bank.</p>
+                        <button class="user_unregistered-signup" id="signup-button"
+                            @click="signupButton(),toggleRegister()">Sign
+                            up</button>
+                    </div>
+
+                    <div class="user_options-registered options-desktop">
+                        <h2 class="user_registered-title">Have an account?</h2>
+                        <p class="user_registered-text">Log in and get to know all our features</p>
+                        <button class="user_registered-login" id="login-button"
+                            @click="loginButton(),toggleRegister()">Login</button>
+                    </div>
+
                 </div>
 
                 <div class="user_options-forms" id="user_options-forms">
@@ -92,6 +108,7 @@
                 </div>
             </div>
         </section>
+
 
         <!-- <h2>logea por consola xd o completa el form </h2>
 

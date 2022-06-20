@@ -75,4 +75,28 @@ public class ClientController {
         return new ClientDTO(clientService.getClientCurrent(authentication));
     }
 
+    @GetMapping("/authenticated")
+    public ResponseEntity<?> isAuthenticated(Authentication authentication) {
+        if (authentication != null)
+            return new ResponseEntity<>("authenticated", HttpStatus.ACCEPTED);
+
+        return new ResponseEntity<>("not authenticated", HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/clients/current/verification")
+    public ResponseEntity<ClientDTO> verificationToken(@RequestParam String token) {
+        ClientDTO client = new ClientDTO(clientService.getClientByToken(token));
+
+        return new ResponseEntity<>(client, HttpStatus.ACCEPTED);
+    }
+
+    @PatchMapping("/clients/current/password")
+    public ResponseEntity<?> changePassword(String newPassword, String email) {
+        Client client = clientService.getClientByEmail(email);
+        client.setPassword(passwordEncoder.encode(newPassword));
+        clientService.saveClient(client);
+
+        return new ResponseEntity<>("Change password success", HttpStatus.ACCEPTED);
+    }
+
 }

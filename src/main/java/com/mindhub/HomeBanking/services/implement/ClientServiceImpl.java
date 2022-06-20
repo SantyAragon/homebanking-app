@@ -47,4 +47,9 @@ public class ClientServiceImpl implements ClientService {
         clientRepository.save(client);
     }
 
+    @Override
+    public Client getClientByToken(String token) {
+        return clientRepository.findByToken(token);
+    }
+
 }

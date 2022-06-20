@@ -352,10 +352,97 @@ input::placeholder {
     animation: bounceRight 1s forwards;
 }
 
+@media screen and (max-width: 500px) {
+
+    .user_options-registered,
+    .user_options-unregistered {
+        width: 100%;
+    }
+
+    .user_options-text {
+        margin-bottom: 20px;
+    }
+
+    .options-desktop {
+        display: none;
+    }
+
+    .user_options-forms {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        transform: none;
+    }
+
+    @-webkit-keyframes bounceLeft {
+        0% {
+            transform: translate3d(100%, 0);
+        }
+
+        50% {
+            transform: translate3d(-30px, 0);
+        }
+
+        100% {
+            transform: translate3d(0, 0);
+        }
+    }
+
+    @keyframes bounceLeft {
+        0% {
+            transform: translate3d(100%, 0);
+        }
+
+        50% {
+            transform: translate3d(-30px, 0);
+        }
+
+        100% {
+            transform: translate3d(0, 0);
+        }
+    }
+
+    /**
+       * * Bounce to the left side
+       * */
+    @-webkit-keyframes bounceRight {
+        0% {
+            transform: translate3d(0, 0);
+        }
+
+        50% {
+            transform: translate3d(calc(100% + 30px), 0);
+        }
+
+        100% {
+            transform: translate3d(100%, 0);
+        }
+    }
+
+    @keyframes bounceRight {
+        0% {
+            transform: translate3d(0, 0);
+        }
+
+        50% {
+            transform: translate3d(calc(100% + 30px), 0);
+        }
+
+        100% {
+            transform: translate3d(100%, 0);
+        }
+    }
+}
+
 /**
    * * Responsive 990px
    * */
-@media screen and (max-width: 990px) {
+@media screen and (min-width: 501px) and (max-width:2560px) {
+    .options-mobile {
+        display: none !important;
+    }
+
     .user_options-forms {
         min-height: 350px;
     }
@@ -394,3 +481,9 @@ input::placeholder {
 }
 
 /* ========== START THE NEW AGE =============== */
+/* OPTIONS FORMS  PARA CELU 
+WIDTH 100%
+position relative
+top 0 left 0 
+transform deshabilitado
+*/
