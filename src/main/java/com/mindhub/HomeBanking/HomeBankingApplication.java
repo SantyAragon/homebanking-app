@@ -88,7 +88,6 @@ public class HomeBankingApplication {
             transactionRepository.save(transactionPrueba6);
 
 
-
             List<Integer> miLista = List.of(12, 24, 36, 48, 60);
             Loan loan1 = new Loan("Mortgage", 500000, miLista, 25);
 
@@ -124,6 +123,15 @@ public class HomeBankingApplication {
             cardRepository.save(card3);
             cardRepository.save(card4);
             cardRepository.save(card5);
+
+
+            Client test1 = new Client("Test", "Test", "Test@email.com", "test123");
+            clientRepository.save(test1);
+
+            Account accountTest1 = new Account(AccountType.CHECKING, "VIN-CHECKING-TEST", LocalDateTime.now(), 0, test1);
+            Account accountTest2 = new Account(AccountType.SAVINGS, "VIN-SAVINGS-TEST", LocalDateTime.now(), 0, test1);
+            accountRepository.save(accountTest1);
+            accountRepository.save(accountTest2);
 
             System.out.println("todo listo, arranca nomas rey");
 
