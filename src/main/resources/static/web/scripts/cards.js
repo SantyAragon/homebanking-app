@@ -11,7 +11,7 @@ const app = Vue.createApp({
     },
     created() {
 
-        axios.get("http://localhost:8080/api/clients/current")
+        axios.get("/api/clients/current")
             .then(data => {
                 this.client = data.data;
                 this.cards = this.client.cards;

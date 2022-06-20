@@ -14,7 +14,7 @@ const app = Vue.createApp({
     },
     created() {
 
-        axios.get("http://localhost:8080/api/clients/current")
+        axios.get("/api/clients/current")
             .then(data => {
                 this.client = data.data;
 
@@ -24,7 +24,7 @@ const app = Vue.createApp({
                 let loader = document.querySelector('#loader-container')
                 loader.classList.add('loader-desactive')
             })
-        axios.get("http://localhost:8080/api/loans")
+        axios.get("/api/loans")
             .then(data => {
                 this.loans = data.data
                 this.loans.sort((a, b) => a.id - b.id)
@@ -73,7 +73,7 @@ const app = Vue.createApp({
                 })
                 .then((result) => {
                     if (result.isConfirmed) {
-                        axios.post('http://localhost:8080/api/loans', loanApplication, {
+                        axios.post('/api/loans', loanApplication, {
                             headers: {
                                 'content-type': 'application/json'
                             }

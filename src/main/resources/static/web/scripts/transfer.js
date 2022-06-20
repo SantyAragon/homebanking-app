@@ -18,7 +18,7 @@ const app = Vue.createApp({
     },
     created() {
 
-        axios.get("http://localhost:8080/api/clients/current")
+        axios.get("/api/clients/current")
             .then(data => {
                 this.client = data.data;
 
@@ -53,7 +53,7 @@ const app = Vue.createApp({
                 if (result.isConfirmed) {
                     if (this.originAccountNumber != "Select account" && this.targetAccountNumber != "Select account" && this.amount > 0 && this.description != "") {
 
-                        axios.post('http://localhost:8080/api/transactions', `description=${this.description}&amount=${this.amount}&originAccountNumber=${this.originAccountNumber}&targetAccountNumber=${this.targetAccountNumber}`)
+                        axios.post('/api/transactions', `description=${this.description}&amount=${this.amount}&originAccountNumber=${this.originAccountNumber}&targetAccountNumber=${this.targetAccountNumber}`)
                             .then(response => {
                                 Swal.fire('Transaction Success', '', 'success')
                                     .then(result => {
@@ -68,7 +68,7 @@ const app = Vue.createApp({
                                     })
                             })
                     } else if (this.originAccount != "Select account" && this.thirdAccount != "" && this.amount > 0 && this.description != "") {
-                        axios.post('http://localhost:8080/api/transactions', `description=${this.description}&amount=${this.amount}&originAccount=${this.originAccount}&targetAccount=${this.thirdAccount}`)
+                        axios.post('/api/transactions', `description=${this.description}&amount=${this.amount}&originAccount=${this.originAccount}&targetAccount=${this.thirdAccount}`)
                             .then(response => {
                                 Swal.fire('Transaction Success', '', 'success')
                                     .then(result => {

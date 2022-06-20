@@ -19,7 +19,7 @@ Vue.createApp({
     },
 
     created() {
-        axios.get('http://localhost:8080/api/clients')
+        axios.get('/api/clients')
             .then(datos => {
                 console.log(datos.data)
                 this.clients = datos.data
@@ -38,14 +38,14 @@ Vue.createApp({
                 email: this.email,
             }
             if (this.firstName != "" && this.lastName != "" && this.email != "" && this.email.includes("@" && ".")) {
-                axios.post('http://localhost:8080/rest/clients', this.client)
+                axios.post('/rest/clients', this.client)
             }
 
         },
         capturarCliente(cliente) {
             // console.log(cliente)
             this.clienteSeleccionado = cliente;
-            this.urlclienteSeleccionado = "http://localhost:8080/rest/clients/" + cliente.id;
+            this.urlclienteSeleccionado = "/rest/clients/" + cliente.id;
         },
         editarCliente(url) {
             this.firstNameEdit = document.querySelector("#firstNameEdit").value
@@ -65,7 +65,7 @@ Vue.createApp({
 
             this.clienteSeleccionado.accounts.forEach(account => {
                 // console.log(account.transactions)
-                axios.delete("http://localhost:8080/rest/accounts/" + account.id)
+                axios.delete("/rest/accounts/" + account.id)
             });
 
             function saludos() {
@@ -85,7 +85,7 @@ Vue.createApp({
             setTimeout(saludos, 100);
         },
         editarCuenta(cuenta) {
-            this.urlCuentaSeleccionada = "http://localhost:8080/rest/accounts/" + cuenta.id;
+            this.urlCuentaSeleccionada = "/rest/accounts/" + cuenta.id;
             console.log(this.urlCuentaSeleccionada)
 
             Swal.fire({

@@ -14,7 +14,7 @@ const app = Vue.createApp({
         }
     },
     created() {
-        axios.get("http://localhost:8080/api/clients/current")
+        axios.get("/api/clients/current")
             .then(data => {
 
                 this.client = data.data;
@@ -27,7 +27,7 @@ const app = Vue.createApp({
                 this.takeAllTransaction();
             })
 
-        axios.get("http://localhost:8080/api/cryptos")
+        axios.get("/api/cryptos")
             .then(data => {
                 this.topCryptos = data.data
             })
@@ -57,7 +57,7 @@ const app = Vue.createApp({
                             .then(result => {
                                 if (result.isConfirmed) {
                                     console.log(result)
-                                    axios.patch('http://localhost:8080/api/clients/current/accounts/disabled', `idAccount=${id}&password=${result.value}`)
+                                    axios.patch('/api/clients/current/accounts/disabled', `idAccount=${id}&password=${result.value}`)
                                         .then(response => {
                                             Swal.fire('Account deactivated', '', 'success')
                                                 .then(result => {
@@ -138,7 +138,7 @@ const app = Vue.createApp({
                 .then((result) => {
                     console.log(result)
                     if (result.isConfirmed) {
-                        axios.post("http://localhost:8080/api/clients/current/accounts", `accountType=${result.value}`)
+                        axios.post("/api/clients/current/accounts", `accountType=${result.value}`)
                             .then(response => {
                                 Swal.fire('Create Success', '', 'success')
                                     .then(result => {

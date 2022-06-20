@@ -14,7 +14,7 @@ const app = Vue.createApp({
     },
     created() {
 
-        axios.get("http://localhost:8080/api/clients/current")
+        axios.get("/api/clients/current")
             .then(data => {
                 this.client = data.data;
             })
@@ -37,7 +37,7 @@ const app = Vue.createApp({
             this.arrayPayments = Array.from(this.paymentsLoan.split(","))
 
 
-            axios.post('http://localhost:8080/api/loans/create', `nameLoan=${this.nameLoan}&percentIncrease=${this.increaseLoan}&maxAmount=${this.maxAmountLoan}&payments=${this.paymentsLoan}`)
+            axios.post('/api/loans/create', `nameLoan=${this.nameLoan}&percentIncrease=${this.increaseLoan}&maxAmount=${this.maxAmountLoan}&payments=${this.paymentsLoan}`)
                 .then(response => window.location.href = "./loan-application.html")
                 .catch(error => {
                     error.response
