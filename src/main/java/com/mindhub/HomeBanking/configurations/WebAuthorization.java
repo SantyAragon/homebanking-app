@@ -61,7 +61,7 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
         // turn off checking for CSRF tokens
 
         http.csrf().disable();
-//        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
 
         //disabling frameOptions so h2-console can be accessed
 
