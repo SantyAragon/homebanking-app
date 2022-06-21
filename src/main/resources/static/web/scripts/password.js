@@ -16,6 +16,8 @@ const app = Vue.createApp({
         axios.get(`/api/clients/current/verification?token=${this.token}`)
             .then(response => {
                 this.client = response.data
+                let loader = document.querySelector('#loader-container')
+                loader.classList.add('loader-desactive')
             })
     },
     methods: {

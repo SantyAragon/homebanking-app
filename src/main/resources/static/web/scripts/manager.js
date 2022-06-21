@@ -24,7 +24,8 @@ Vue.createApp({
                 this.clients = datos.data
                 // this.clients = datos.data._embedded.clients
                 this.contenidoJson = datos.data
-
+                let loader = document.querySelector('#loader-container')
+                loader.classList.add('loader-desactive')
             })
     },
     methods: {

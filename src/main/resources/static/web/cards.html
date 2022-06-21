@@ -19,6 +19,15 @@
 </head>
 
 <body>
+    <div class="loader-container" id="loader-container">
+        <div class="loading">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
     <div id="app">
 
         <input type="checkbox" id="nav-toggle">
@@ -48,24 +57,24 @@
                             <span>Transactions</span>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#">
                             <span><i class="fa-solid fa-circle-dollar-to-slot"></i></span>
                             <span>Staking</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="./loan-application.html">
                             <span class="fas fa-boxes"></span>
                             <span>Loans</span>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#">
                             <span class="fas fa-user-circle"></span>
                             <span>My Accounts</span>
                         </a>
-                    </li>
+                    </li> -->
 
                 </ul>
                 <ul>
@@ -102,7 +111,7 @@
                     </div>
                     <div>
                         <h4 v-cloak>{{client.firstName}} {{client.lastName}}</h4>
-                        <small>Super Admin</small>
+                        <small>Client view</small>
                     </div>
                 </div>
             </header>
@@ -117,7 +126,7 @@
                         </div>
                         <div class="card-body bg-white">
                             <div class="col-12" v-if="this.cards.length==0">
-                                <p> Aun no tiene tarjetas solicitadas.</p>
+                                <p> No cards have been requested yet.</p>
                             </div>
                             <div v-cloak v-else class="col-12">
 
@@ -136,7 +145,7 @@
 
                                             <div class="card__front card__part"
                                                 :class="{'silver' : card.color=='SILVER' , 'gold' : card.color=='GOLD' , 'titanium' : card.color=='TITANIUM','disabled': !isActive(card)}">
-                                                <img class="card__front-logo card__logo" src="./assets/logo.png">
+                                                <img class="card__front-logo card__logo" src="./assets/logo-pdf.png">
                                                 <p class="card_numer">{{card.number.slice(0,4)}}
                                                     {{card.number.slice(4,8)}}
                                                     {{card.number.slice(8,12)}} {{card.number.slice(12,16)}}
@@ -158,7 +167,7 @@
                                                     <div class="card__secret">
                                                         <p class="card__secret--last">{{card.cvv}}</p>
                                                     </div>
-                                                    <img class="card__back-logo card__logo" src="./assets/logo.png">
+                                                    <img class="card__back-logo card__logo" src="./assets/logo-pdf.png">
                                                 </div>
                                             </div>
 
@@ -180,7 +189,7 @@
 
                                             <div class="card__front card__part"
                                                 :class="{'silver' : card.color=='SILVER' , 'gold' : card.color=='GOLD' , 'titanium' : card.color=='TITANIUM','disabled': !isActive(card)}">
-                                                <img class="card__front-logo card__logo" src="./assets/logo.png">
+                                                <img class="card__front-logo card__logo" src="./assets/logo-pdf.png">
 
                                                 <p class="card_numer">{{card.number.slice(0,4)}}
                                                     {{card.number.slice(4,8)}}
@@ -204,7 +213,7 @@
                                                         <p class="card__secret--last">{{card.cvv}}</p>
                                                     </div>
 
-                                                    <img class="card__back-logo card__logo" src="./assets/logo.png">
+                                                    <img class="card__back-logo card__logo" src="./assets/logo-pdf.png">
 
                                                 </div>
                                             </div>

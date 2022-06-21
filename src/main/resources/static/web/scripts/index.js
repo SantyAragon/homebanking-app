@@ -17,6 +17,8 @@ const app = Vue.createApp({
     },
     created() {
         this.isAuthenticated()
+        let loader = document.querySelector('#loader-container')
+        loader.classList.add('loader-desactive')
     },
     methods: {
         login() {

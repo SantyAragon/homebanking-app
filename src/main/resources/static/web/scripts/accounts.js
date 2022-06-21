@@ -25,6 +25,8 @@ const app = Vue.createApp({
 
 
                 this.takeAllTransaction();
+                let loader = document.querySelector('#loader-container')
+                loader.classList.add('loader-desactive')
             })
 
         axios.get("/api/cryptos")

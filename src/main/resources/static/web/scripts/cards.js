@@ -19,7 +19,8 @@ const app = Vue.createApp({
 
                 this.cardsDebit = this.cards.filter(card => card.type == 'DEBIT')
                 this.cardsCredit = this.cards.filter(card => card.type == 'CREDIT')
-
+                let loader = document.querySelector('#loader-container')
+                loader.classList.add('loader-desactive')
                 // this.removeHoverCardExpired()
             })
 
