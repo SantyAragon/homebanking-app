@@ -22,7 +22,7 @@ const app = Vue.createApp({
                 this.loans = data.data.loans
                 this.totalBalance = this.accounts.map(account => account.balance).reduce((a, b) => a + b, 0)
                 this.cards = this.client.cards
-                console.log(this.loans)
+
 
                 this.takeAllTransaction();
             })
@@ -56,7 +56,7 @@ const app = Vue.createApp({
                             })
                             .then(result => {
                                 if (result.isConfirmed) {
-                                    console.log(result)
+
                                     axios.patch('/api/clients/current/accounts/disabled', `idAccount=${id}&password=${result.value}`)
                                         .then(response => {
                                             Swal.fire('Account deactivated', '', 'success')
@@ -103,7 +103,9 @@ const app = Vue.createApp({
 
         },
         logout() {
-            axios.post('/api/logout').then(response => console.log('signed out!!!'))
+            axios.post('/api/logout').then(response => {
+                // console.log('signed out!!!')
+            })
             window.location.href = './index.html'
         },
         formatearPrecio(price) {
@@ -136,7 +138,6 @@ const app = Vue.createApp({
                     }
                 })
                 .then((result) => {
-                    console.log(result)
                     if (result.isConfirmed) {
                         axios.post("/api/clients/current/accounts", `accountType=${result.value}`)
                             .then(response => {

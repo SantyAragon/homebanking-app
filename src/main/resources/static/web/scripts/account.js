@@ -64,7 +64,7 @@ const app = Vue.createApp({
 
             let maxNow = year + "-" + month + "-" + date
             this.dateNowInput = maxNow
-            console.log(this.dateNowInput)
+            // console.log(this.dateNowInput)
             return maxNow
 
         },
@@ -80,7 +80,10 @@ const app = Vue.createApp({
             return date.getHours() + ":" + minutes
         },
         logout() {
-            axios.post('/api/logout').then(response => console.log('signed out!!!'))
+            axios.post('/api/logout')
+                .then(response => {
+                    // console.log('signed out!!!')
+                })
             window.location.href = './index.html'
         },
         generatePDF() {
@@ -89,7 +92,7 @@ const app = Vue.createApp({
                 since: this.since,
                 until: this.until
             }
-            console.log(numberAndDateDTO)
+
             Swal.fire({
                 title: 'Do you make transaction?',
                 showDenyButton: true,
@@ -106,7 +109,6 @@ const app = Vue.createApp({
                         .then(response => {
                             let url = window.URL.createObjectURL(new Blob([response.data]))
                             let link = document.createElement("a")
-                            console.log(response);
                             link.href = url;
                             link.setAttribute("download", `DanoBank_${this.numberAccount}_${this.since}-${this.until}.pdf`)
                             document.body.appendChild(link)

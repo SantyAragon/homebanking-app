@@ -60,7 +60,7 @@ const app = Vue.createApp({
                                         window.location.reload()
                                     })
                             }).catch(error => {
-                                console.log(error)
+
                                 this.error = error.response.data
                                 Swal.fire('Transaction Failed', this.error, 'error')
                                     .then(result => {
@@ -88,7 +88,9 @@ const app = Vue.createApp({
             })
         },
         logout() {
-            axios.post('/api/logout').then(response => console.log('signed out!!!'))
+            axios.post('/api/logout').then(response => {
+                //  console.log('signed out!!!')
+            })
             window.location.href = './index.html'
         },
         changeStep() {
@@ -107,13 +109,11 @@ const app = Vue.createApp({
                     break
 
             }
-            console.log(this.step)
+
         },
         changeStepForm() {
             let allForms = document.querySelector('#allSteps')
 
-
-            console.log(this.step)
             let formZero = allForms.querySelector('#stepZero')
             let formOne = allForms.querySelector('#stepOne')
             let formTwo = allForms.querySelector('#stepTwo')

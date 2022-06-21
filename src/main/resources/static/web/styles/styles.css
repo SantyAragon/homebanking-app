@@ -734,3 +734,8 @@ td .status {
         transform: translateY(0%);
     }
 }
+
+#not-transaction {
+    width: 46%;
+    height: 50%;
+}
