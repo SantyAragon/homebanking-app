@@ -457,7 +457,7 @@ input::placeholder {
 
     .user_options-forms .user_forms-signup,
     .user_options-forms .user_forms-login {
-        top: 40px;
+        top: 12px;
     }
 
     .user_options-registered,
@@ -481,9 +481,3 @@ input::placeholder {
 }
 
 /* ========== START THE NEW AGE =============== */
-/* OPTIONS FORMS  PARA CELU 
-WIDTH 100%
-position relative
-top 0 left 0 
-transform deshabilitado
-*/

@@ -13,7 +13,7 @@ const app = Vue.createApp({
         const urlParams = new URLSearchParams(window.location.search);
         this.token = urlParams.get('token');
 
-        axios.get(`http://localhost:8080/api/clients/current/verification?token=${this.token}`)
+        axios.get(`/api/clients/current/verification?token=${this.token}`)
             .then(response => {
                 this.client = response.data
             })
@@ -23,7 +23,6 @@ const app = Vue.createApp({
 
             if (this.newPassword == this.newPasswordConfirm) {
                 axios.patch('/api/clients/current/password', `newPassword=${this.newPassword}&email=${this.client.email}`)
-                    .then(console.log("cambio exitoso"))
                     .then(location.href = "./index.html")
             } else {
                 this.error = "Please, check that their passwords are the same."
@@ -32,7 +31,9 @@ const app = Vue.createApp({
 
         },
         logout() {
-            axios.post('/api/logout').then(response => console.log('signed out!!!'))
+            axios.post('/api/logout').then(response => {
+                // console.log('signed out!!!')
+            })
             window.location.href = './index.html'
         },
 

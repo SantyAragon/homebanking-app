@@ -30,7 +30,7 @@ const app = Vue.createApp({
                     // window.location.href = '../web/accounts.html'
                     axios.get("/api/admin")
                         .then(response => {
-                            console.log(response.data)
+
 
                             if (response.data == "is admin") {
                                 Swal.fire({
@@ -76,7 +76,9 @@ const app = Vue.createApp({
                 })
         },
         logout() {
-            axios.post('/api/logout').then(response => console.log('signed out!!!'))
+            axios.post('/api/logout').then(response => {
+                // console.log('signed out!!!')
+            })
             window.location.href = '/index.html'
         },
         signupButton() {
@@ -92,10 +94,10 @@ const app = Vue.createApp({
         },
         toggleRegister() {
             if (this.register) {
-                console.log("xd")
+                // console.log("xd")
                 this.register = false
             } else {
-                console.log("dx")
+                // console.log("dx")
                 this.register = true;
             }
         },
@@ -104,10 +106,10 @@ const app = Vue.createApp({
                 .then(response => {
                     if (response.data == "authenticated") {
                         this.logged = true;
-                        console.log("probando equisde")
+                        // console.log("probando equisde")
                     } else if (response.data == "not authenticated") {
                         this.logged = false
-                        console.log("probando xd");
+                        // console.log("probando xd");
                     }
 
                 })

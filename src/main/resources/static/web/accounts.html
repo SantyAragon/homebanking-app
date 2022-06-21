@@ -159,7 +159,7 @@
                   </button></a>
               </div>
               <div class="card-body">
-                <div class="table-responsive heigth-cards table-transactions">
+                <div v-if="allTransactions.length>0" class="table-responsive heigth-cards table-transactions">
                   <table class="w-100">
                     <thead>
                       <tr>
@@ -198,8 +198,14 @@
 
                   </table>
                 </div>
-              </div>
+                <div v-else>
+                  <div class="w-100 d-flex justify-content-center flex-column align-items-center">
+                    <h3>Not have transactions.</h3>
+                    <img id="not-transaction" src="./assets/nottransactions.jpg" alt="">
+                  </div>
 
+                </div>
+              </div>
             </div>
 
           </div>

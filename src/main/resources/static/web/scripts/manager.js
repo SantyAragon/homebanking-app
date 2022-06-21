@@ -21,12 +21,9 @@ Vue.createApp({
     created() {
         axios.get('/api/clients')
             .then(datos => {
-                console.log(datos.data)
                 this.clients = datos.data
                 // this.clients = datos.data._embedded.clients
                 this.contenidoJson = datos.data
-
-                console.log(this.clients)
 
             })
     },
@@ -43,7 +40,6 @@ Vue.createApp({
 
         },
         capturarCliente(cliente) {
-            // console.log(cliente)
             this.clienteSeleccionado = cliente;
             this.urlclienteSeleccionado = "/rest/clients/" + cliente.id;
         },
@@ -61,8 +57,6 @@ Vue.createApp({
                 .then(location.reload())
         },
         removerCliente(url) {
-            console.log(url);
-
             this.clienteSeleccionado.accounts.forEach(account => {
                 // console.log(account.transactions)
                 axios.delete("/rest/accounts/" + account.id)
@@ -70,7 +64,7 @@ Vue.createApp({
 
             function saludos() {
                 axios.delete(url)
-                console.log("nos vemos pa, eliminado ")
+                // console.log("nos vemos pa, eliminado ")
 
                 Swal.fire({
                     icon: 'success',
@@ -86,7 +80,6 @@ Vue.createApp({
         },
         editarCuenta(cuenta) {
             this.urlCuentaSeleccionada = "/rest/accounts/" + cuenta.id;
-            console.log(this.urlCuentaSeleccionada)
 
             Swal.fire({
                     input: 'number',
@@ -98,8 +91,6 @@ Vue.createApp({
                 })
                 .then(result => {
                     if (result.isConfirmed) {
-                        console.log(result)
-                        console.log(result.value)
 
                         axios.patch(this.urlCuentaSeleccionada, {
                             balance: result.value
