@@ -20,7 +20,8 @@ const app = Vue.createApp({
                 this.accounts = data.data.accounts
                 this.accounts.sort((a, b) => a.id - b.id);
 
-
+                let loader = document.querySelector('#loader-container')
+                loader.classList.add('loader-desactive')
             })
 
 

@@ -59,24 +59,24 @@
                             <span>Transactions</span>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#">
                             <span><i class="fa-solid fa-circle-dollar-to-slot"></i></span>
                             <span>Staking</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="#" class="active">
                             <span class="fas fa-boxes"></span>
                             <span>Loans</span>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#">
                             <span class="fas fa-user-circle"></span>
                             <span>My Accounts</span>
                         </a>
-                    </li>
+                    </li> -->
 
                 </ul>
                 <ul>
@@ -107,7 +107,7 @@
                 <div class="user-wrapper">
                     <div class="">
                         <h4 v-cloak>{{client.firstName}} {{client.lastName}}</h4>
-                        <small>Super Admin</small>
+                        <small>Client view</small>
                     </div>
                 </div>
             </header>
@@ -124,7 +124,7 @@
                                 class="card-body row w-100 d-flex flex-column justify-content-center align-items-center ">
                                 <!-- LOAN CARDS -->
                                 <section class="cardd container grid">
-                                    <div class="card__container grid">
+                                    <div class="card__container grid w-100 ms-3">
                                         <!--==================== CARD 1 ====================-->
                                         <article v-cloak v-for="loan in loans" class="card__content grid">
                                             <div class="card__pricing">
@@ -183,17 +183,17 @@
                                                 </li>
                                             </ul>
 
-                                            <input @click="selectLoan(loan),isDisabled(loan)" type="button"
-                                                :disabled="isDisabled(loan)"
-                                                :class="{'button-disabled':isDisabled(loan)}" class="card__button"
-                                                :value="isDisabled(loan)?'Loan already taked':'Choose this plan'">
+                                            <a href="#contact_form"> <input @click="selectLoan(loan),isDisabled(loan)"
+                                                    type="button" :disabled="isDisabled(loan)"
+                                                    :class="{'button-disabled':isDisabled(loan)}" class="card__button"
+                                                    :value="isDisabled(loan)?'Loan already taken':'Choose this plan'"></a>
 
                                         </article>
                                     </div>
                                 </section>
                                 <!-- FORM Request -->
                                 <section>
-                                    <div v-cloak class="slide-in-top" class="card" v-if="typeLoan !='Select Loan type'">
+                                    <div v-cloak class="card" v-show="typeLoan !='Select Loan type'">
                                         <div id="container">
                                             <h2 class="title-form pt-3">&bull; Request loan &bull;</h2>
                                             <div class="underline">

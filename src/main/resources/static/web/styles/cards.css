@@ -81,13 +81,15 @@
 }
 
 .card__logo {
-    height: 16px;
+    height: 35px;
+    
+    
 }
 
 .card__front-logo {
     position: absolute;
-    top: 18px;
-    right: 18px;
+    top: 8px;
+    right: 25px;
 }
 
 .card__square {

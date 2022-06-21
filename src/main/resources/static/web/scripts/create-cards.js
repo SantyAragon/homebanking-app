@@ -24,7 +24,8 @@ const app = Vue.createApp({
 
                 // console.log(this.cardsCredit)
                 // console.log(this.cardsDebit)
-
+                let loader = document.querySelector('#loader-container')
+                loader.classList.add('loader-desactive')
             })
 
     },

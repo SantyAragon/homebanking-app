@@ -18,6 +18,15 @@
 </head>
 
 <body>
+  <div class="loader-container" id="loader-container">
+    <div class="loading">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
   <div id="app">
 
 
@@ -48,24 +57,24 @@
               <span>Transactions</span>
             </a>
           </li>
-          <li>
+          <!-- <li>
             <a href="#">
               <span><i class="fa-solid fa-circle-dollar-to-slot"></i></span>
               <span>Staking</span>
             </a>
-          </li>
+          </li> -->
           <li>
             <a href="./loan-application.html">
               <span class="fas fa-boxes"></span>
               <span>Loans</span>
             </a>
           </li>
-          <li>
+          <!-- <li>
             <a href="#">
               <span class="fas fa-user-circle"></span>
               <span>My Accounts</span>
             </a>
-          </li>
+          </li> -->
 
         </ul>
         <ul>
@@ -103,7 +112,7 @@
           </div>
           <div>
             <h4 v-cloak>{{client.firstName}} {{client.lastName}}</h4>
-            <small>Super Admin</small>
+            <small>Client view</small>
           </div>
         </div>
       </header>

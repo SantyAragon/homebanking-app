@@ -17,6 +17,8 @@ const app = Vue.createApp({
         axios.get("/api/clients/current")
             .then(data => {
                 this.client = data.data;
+                let loader = document.querySelector('#loader-container')
+                loader.classList.add('loader-desactive')
             })
 
     },
