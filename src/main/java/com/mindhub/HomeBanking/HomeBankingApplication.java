@@ -10,12 +10,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import static com.mindhub.HomeBanking.models.CardType.*;
 import static com.mindhub.HomeBanking.models.ColorCard.*;
-import static com.mindhub.HomeBanking.models.LoanType.*;
 
 @SpringBootApplication
 public class HomeBankingApplication {

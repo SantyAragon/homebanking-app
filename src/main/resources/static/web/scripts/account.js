@@ -95,7 +95,7 @@ const app = Vue.createApp({
             }
 
             Swal.fire({
-                title: 'Do you make transaction?',
+                title: 'Do you want to download it?',
                 showDenyButton: true,
                 // showCancelButton: true,
                 confirmButtonText: 'Accept',
