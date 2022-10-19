@@ -60,24 +60,24 @@
                             <span>Transactions</span>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#">
                             <span><i class="fa-solid fa-circle-dollar-to-slot"></i></span>
                             <span>Staking</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="./loan-application.html">
                             <span class="fas fa-boxes"></span>
                             <span>Loans</span>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#">
                             <span class="fas fa-user-circle"></span>
                             <span>My Accounts</span>
                         </a>
-                    </li>
+                    </li> -->
 
                 </ul>
                 <ul>
@@ -108,8 +108,8 @@
                 <div class="user-wrapper">
                     <img src="https://bit.ly/3bvT89p" width="50px" height="50px" alt="profile-img">
                     <div class="">
-                        <h4>Santiago Aragon</h4>
-                        <small>Super Admin</small>
+                        <h4 v-cloak>{{client.firstName}} {{client.lastName}}</h4>
+                        <small>Client view</small>
                     </div>
                 </div>
             </header>
@@ -197,7 +197,8 @@
                                             <select v-else v-model="targetAccountNumber" name="" id="" required>
                                                 <option value="Select account">Select target account</option>
                                                 <option v-for="account in accounts"
-                                                    v-show="originAccountNumber!=account.number" :value="account.number">
+                                                    v-show="originAccountNumber!=account.number"
+                                                    :value="account.number">
                                                     {{account.number}}
                                                 </option>
                                             </select>

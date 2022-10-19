@@ -19,7 +19,8 @@ const app = Vue.createApp({
 
                 this.cardsDebit = this.cards.filter(card => card.type == 'DEBIT')
                 this.cardsCredit = this.cards.filter(card => card.type == 'CREDIT')
-
+                let loader = document.querySelector('#loader-container')
+                loader.classList.add('loader-desactive')
                 // this.removeHoverCardExpired()
             })
 
@@ -48,7 +49,7 @@ const app = Vue.createApp({
                             })
                             .then(result => {
                                 if (result.isConfirmed) {
-                                    console.log(result)
+                                    // console.log(result)
                                     axios.patch('/api/clients/current/cards/disabled', `idCard=${id}&password=${result.value}`)
                                         .then(response => {
                                             Swal.fire('Card deactivated', '', 'success')
@@ -74,10 +75,10 @@ const app = Vue.createApp({
             let dateCard = new Date(card.thruDate)
 
             if (now > dateCard) {
-                console.log('now:' + now, 'card' + card.id + ': ' + dateCard, (now > dateCard))
+                // console.log('now:' + now, 'card' + card.id + ': ' + dateCard, (now > dateCard))
                 return false;
             } else {
-                console.log('now:' + now, 'card' + card.id + ':' + dateCard, (now > dateCard))
+                // console.log('now:' + now, 'card' + card.id + ':' + dateCard, (now > dateCard))
                 return true;
             }
 
@@ -98,7 +99,9 @@ const app = Vue.createApp({
             return month + "/" + year
         },
         logout() {
-            axios.post('/api/logout').then(response => console.log('signed out!!!'))
+            axios.post('/api/logout').then(response => {
+                // console.log('signed out!!!')
+            })
             window.location.href = './index.html'
         },
 

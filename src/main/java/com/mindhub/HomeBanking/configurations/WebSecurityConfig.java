@@ -22,8 +22,10 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-
+                .antMatchers("/api/authenticated").permitAll()
                 .antMatchers("/rest/**", "/h2-console/**").hasAuthority("ADMIN")
+                .antMatchers("/api/clients/current/verification").permitAll()
+                .antMatchers("/api/clients/current/password").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/clients/cards/all").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.PATCH, "/api/clients/current/cards/disabled").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST, "/api/clients/current/cards").hasAuthority("CLIENT")
@@ -40,7 +42,7 @@ public class WebSecurityConfig {
                 .antMatchers("/api/cryptos/**").hasAuthority("CLIENT")
                 .antMatchers("/api/**").hasAuthority("ADMIN")
 
-                .antMatchers("/web/index.html", "web/assets/**", "/web/styles/index.css", "/web/scripts/index.js").permitAll()
+                .antMatchers("/web/index.html", "/web/recoverpassword.html", "web/assets/**", "/web/styles/index.css", "/web/styles/styles.css", "/web/scripts/index.js", "/web/scripts/password.js").permitAll()
                 .antMatchers("/**").hasAuthority("CLIENT");
 
 
@@ -58,7 +60,7 @@ public class WebSecurityConfig {
         // turn off checking for CSRF tokens
 
         http.csrf().disable();
-//        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
 
         //disabling frameOptions so h2-console can be accessed
 

@@ -1,5 +1,6 @@
 package com.mindhub.HomeBanking.models;
 
+import com.mindhub.HomeBanking.Utils.utils;
 import com.mindhub.HomeBanking.dtos.AccountDTO;
 import com.mindhub.HomeBanking.dtos.ClientLoanDTO;
 import org.hibernate.annotations.GenericGenerator;
@@ -22,7 +23,7 @@ public class Client {
     private String lastName;
     private String email;
     private String password;
-
+    private String token;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Account> accounts = new HashSet<>();
@@ -41,6 +42,7 @@ public class Client {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.token = utils.generateToken();
     }
 
     public String getFirstName() {
@@ -109,6 +111,13 @@ public class Client {
         this.loans = loans;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     //METHODS
     public List<ClientLoanDTO> getLoans() {

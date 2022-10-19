@@ -422,20 +422,54 @@ td .status {
 
 }
 
-@media only screen and (max-width: 560px) {
-    .cards {
-        grid-template-columns: 100%;
-    }
+main .accounts {
+    width: 95vw;
+}
 
+@media only screen and (max-width: 1200px) {
     .table-transactions {
         overflow: scroll;
         overflow-x: visible !important;
+    }
+
+    .sidebar {
+        width: var(--widthSideBar);
+    }
+
+    .sidebar .sidebar-brand,
+    .sidebar li {
+        padding-left: 1rem;
+        text-align: center;
+    }
+
+    #nav-toggle:checked+.sidebar li a {
+        padding-left: 0rem;
+    }
+
+    .sidebar .sidebar-brand h1 span:last-child,
+    .sidebar li a span:last-child {
+        display: none;
+
+    }
+
+    .main-content header {
+        width: calc(100% - 70px);
+        left: var(--widthSideBar);
+    }
+
+    .main-content {
+        margin-left: calc(var(--widthSideBar))
     }
 }
 
-@media only screen and (max-width: 768px) {
-    .cards {
-        grid-template-columns: repeat(2, 1fr);
+@media only screen and (max-width: 960px) {
+    .table-transactions {
+        overflow: scroll;
+        overflow-x: visible !important;
+    }
+
+    .card-single {
+        width: 100%;
     }
 
     .table-transactions {
@@ -443,9 +477,26 @@ td .status {
         overflow-x: visible !important;
     }
 
+    /* .recent-grid {
+        grid-template-columns: 60% 40%;
+    } */
+}
+
+@media only screen and (max-width: 768px) {
+    /* .cards {
+        grid-template-columns: repeat(2, 1fr);
+    } */
+
+
+    .table-transactions {
+        overflow: scroll;
+        overflow-x: visible !important;
+    }
+
+    /* 
     .recent-grid {
         grid-template-columns: 100%;
-    }
+    } */
 
     .search-wrapper {
         display: none;
@@ -522,63 +573,19 @@ td .status {
     }
 }
 
-@media only screen and (max-width: 960px) {
-    .table-transactions {
-        overflow: scroll;
-        overflow-x: visible !important;
-    }
-
-    .cards {
-        grid-template-columns: repeat(3, 1fr);
-    }
+@media only screen and (max-width: 560px) {
+    /* .cards {
+        grid-template-columns: 100%;
+    } */
 
     .table-transactions {
         overflow: scroll;
         overflow-x: visible !important;
-    }
-
-    .recent-grid {
-        grid-template-columns: 60% 40%;
     }
 }
 
-@media only screen and (max-width: 1200px) {
-    .table-transactions {
-        overflow: scroll;
-        overflow-x: visible !important;
-    }
 
-    .sidebar {
-        width: var(--widthSideBar);
-    }
 
-    .sidebar .sidebar-brand,
-    .sidebar li {
-        padding-left: 1rem;
-        text-align: center;
-    }
-
-    #nav-toggle:checked+.sidebar li a {
-        padding-left: 0rem;
-    }
-
-    .sidebar .sidebar-brand h1 span:last-child,
-    .sidebar li a span:last-child {
-        display: none;
-
-    }
-
-    .main-content {
-        margin-left: var(--widthSideBar);
-
-    }
-
-    .main-content header {
-        width: calc(100% - 70px);
-        left: var(--widthSideBar);
-
-    }
-}
 
 .row>* {
     padding-right: 0;
@@ -732,5 +739,83 @@ td .status {
 
     100% {
         transform: translateY(0%);
+    }
+}
+
+#not-transaction {
+    width: 46%;
+    height: 50%;
+}
+
+.loader-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0c1a3f3d;
+    position: fixed;
+    top: 0;
+    z-index: 10000;
+}
+
+.loader-desactive {
+    display: none;
+}
+
+/* From cssbuttons.io by @satyamchaudharydev */
+.loading {
+    --speed-of-animation: 1.1s;
+    --gap: 8px;
+    --first-color: #d61f49;
+    --second-color: #0c1a3f;
+    --third-color: #d61f49;
+    --fourth-color: #0c1a3f;
+    --fifth-color: #d61f49;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    gap: 8px;
+    height: 100px;
+}
+
+.loading span {
+    width: 6px;
+    height: 100px;
+    background: var(--first-color);
+    animation: scale var(--speed-of-animation) ease-in-out infinite;
+}
+
+.loading span:nth-child(2) {
+    background: var(--second-color);
+    animation-delay: -0.8s;
+}
+
+.loading span:nth-child(3) {
+    background: var(--third-color);
+    animation-delay: -0.7s;
+}
+
+.loading span:nth-child(4) {
+    background: var(--fourth-color);
+    animation-delay: -0.6s;
+}
+
+.loading span:nth-child(5) {
+    background: var(--fifth-color);
+    animation-delay: -0.5s;
+}
+
+@keyframes scale {
+
+    0%,
+    40%,
+    100% {
+        transform: scaleY(0.05);
+    }
+
+    20% {
+        transform: scaleY(1);
     }
 }

@@ -18,6 +18,15 @@
 </head>
 
 <body>
+  <div class="loader-container" id="loader-container">
+    <div class="loading">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
   <div id="app">
 
 
@@ -48,24 +57,24 @@
               <span>Transactions</span>
             </a>
           </li>
-          <li>
+          <!-- <li>
             <a href="#">
               <span><i class="fa-solid fa-circle-dollar-to-slot"></i></span>
               <span>Staking</span>
             </a>
-          </li>
+          </li> -->
           <li>
             <a href="./loan-application.html">
               <span class="fas fa-boxes"></span>
               <span>Loans</span>
             </a>
           </li>
-          <li>
+          <!-- <li>
             <a href="#">
               <span class="fas fa-user-circle"></span>
               <span>My Accounts</span>
             </a>
-          </li>
+          </li> -->
 
         </ul>
         <ul>
@@ -103,14 +112,14 @@
           </div>
           <div>
             <h4 v-cloak>{{client.firstName}} {{client.lastName}}</h4>
-            <small>Super Admin</small>
+            <small>Client view</small>
           </div>
         </div>
       </header>
 
       <main>
         <!-- ACCOUNTS CLIENTS + BALANCE -->
-        <div class="cards">
+        <div class="cards d-flex flex-wrap">
           <!-- ACCOUNTS CLIENT -->
           <div v-for="account in accounts" class="card-single">
             <div>
@@ -125,7 +134,7 @@
             </div>
           </div>
           <!-- TOTAL BALANCE -->
-          <div class="card-single">
+          <div class="card-single total-balance">
             <div>
               <h1 v-cloak>{{totalBalance.toFixed(2)}}</h1>
               <span>Total Balance</span>
@@ -151,7 +160,7 @@
         <!-- SECTIONS -->
         <div class="pt-3 row contenedorrr">
           <!-- TABLE TRANSACTIONS-->
-          <div class="projects col-8">
+          <div class="projects col-md-8">
             <div class="card">
               <div class="card-header">
                 <h2>Recent Transactions</h2>
@@ -159,7 +168,7 @@
                   </button></a>
               </div>
               <div class="card-body">
-                <div class="table-responsive heigth-cards table-transactions">
+                <div v-if="allTransactions.length>0" class="table-responsive heigth-cards table-transactions">
                   <table class="w-100">
                     <thead>
                       <tr>
@@ -198,13 +207,19 @@
 
                   </table>
                 </div>
-              </div>
+                <div v-else>
+                  <div class="w-100 d-flex justify-content-center flex-column align-items-center">
+                    <h3>Not have transactions.</h3>
+                    <img id="not-transaction" src="./assets/nottransactions.jpg" alt="">
+                  </div>
 
+                </div>
+              </div>
             </div>
 
           </div>
           <!-- CARDS AND LOANS -->
-          <div class="row col-4 projects">
+          <div class="row col-md-4 projects">
 
             <!-- CARDS -->
             <div class="customers col-12 ">

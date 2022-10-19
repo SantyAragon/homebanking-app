@@ -94,9 +94,6 @@ public class TransactionController {
         return new ResponseEntity<>("Transaction success", HttpStatus.CREATED);
     }
 
-    //Además debes crear una aplicación de front end separada(con html y js - vue) que presente
-//        una interfaz de punto de venta que haga el llamado al servicio e indique si la operación fue realizada o no, en
-//        caso de error mostrar por qué ocurrió.
     @CrossOrigin
     @Transactional
     @PostMapping("/transactions/payment")

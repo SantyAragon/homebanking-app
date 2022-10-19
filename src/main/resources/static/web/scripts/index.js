@@ -9,12 +9,16 @@ const app = Vue.createApp({
             emailSign: "",
             passwordSign: "",
             errorLogin: "",
-            errorRegister: ""
+            errorRegister: "",
 
+            register: false,
+            logged: false
         }
     },
     created() {
-
+        this.isAuthenticated()
+        let loader = document.querySelector('#loader-container')
+        loader.classList.add('loader-desactive')
     },
     methods: {
         login() {
@@ -24,7 +28,7 @@ const app = Vue.createApp({
                     // window.location.href = '../web/accounts.html'
                     axios.get("/api/admin")
                         .then(response => {
-                            console.log(response.data)
+
 
                             if (response.data == "is admin") {
                                 Swal.fire({
@@ -41,8 +45,7 @@ const app = Vue.createApp({
                                         window.location.href = "../web/accounts.html"
                                     }
                                 })
-                            } 
-                            else if (response.data == "is client") {
+                            } else if (response.data == "is client") {
                                 window.location.href = '../web/accounts.html'
                             }
 
@@ -71,7 +74,9 @@ const app = Vue.createApp({
                 })
         },
         logout() {
-            axios.post('/api/logout').then(response => console.log('signed out!!!'))
+            axios.post('/api/logout').then(response => {
+                // console.log('signed out!!!')
+            })
             window.location.href = '/index.html'
         },
         signupButton() {
@@ -85,10 +90,29 @@ const app = Vue.createApp({
             userForms.classList.remove('bounceLeft')
             userForms.classList.add('bounceRight')
         },
+        toggleRegister() {
+            if (this.register) {
+                // console.log("xd")
+                this.register = false
+            } else {
+                // console.log("dx")
+                this.register = true;
+            }
+        },
+        isAuthenticated() {
+            axios.get('/api/authenticated')
+                .then(response => {
+                    if (response.data == "authenticated") {
+                        this.logged = true;
+                        // console.log("probando equisde")
+                    } else if (response.data == "not authenticated") {
+                        this.logged = false
+                        // console.log("probando xd");
+                    }
 
-
+                })
+        }
     },
-
 
     computed: {
 

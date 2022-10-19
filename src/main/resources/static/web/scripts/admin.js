@@ -17,6 +17,8 @@ const app = Vue.createApp({
         axios.get("/api/clients/current")
             .then(data => {
                 this.client = data.data;
+                let loader = document.querySelector('#loader-container')
+                loader.classList.add('loader-desactive')
             })
 
     },
@@ -26,7 +28,9 @@ const app = Vue.createApp({
     methods: {
 
         logout() {
-            axios.post('/api/logout').then(response => console.log('signed out!!!'))
+            axios.post('/api/logout').then(response => {
+                // console.log('signed out!!!')
+            })
             window.location.href = './index.html'
         },
         createNewLoan() {
