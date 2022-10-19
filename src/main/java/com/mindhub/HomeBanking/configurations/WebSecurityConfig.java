@@ -1,26 +1,25 @@
 package com.mindhub.HomeBanking.configurations;
 
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
-import org.springframework.web.cors.CorsConfiguration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.security.AccessControlContext;
 
 @EnableWebSecurity
 @Configuration
-public class WebAuthorization extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig {
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
 
@@ -32,7 +31,7 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/clients/current/accounts").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST, "/api/transactions/payment").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/transactions/generate").hasAuthority("CLIENT")
-                .antMatchers( "/api/transactions/generate").hasAuthority("CLIENT")
+                .antMatchers("/api/transactions/generate").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST, "/api/transactions").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST, "/api/loans").hasAuthority("CLIENT")
                 .antMatchers("/api/admin", "/api/loans").hasAuthority("CLIENT")
@@ -80,6 +79,7 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
         // if logout is successful, just send a success response
 
         http.logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
+        return http.build();
     }
 
     private void clearAuthenticationAttributes(HttpServletRequest request) {

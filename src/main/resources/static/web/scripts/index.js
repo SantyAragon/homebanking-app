@@ -19,11 +19,7 @@ const app = Vue.createApp({
     methods: {
         login() {
 
-            axios.post('/api/login', `email=${this.email}&password=${this.password}`, {
-                    headers: {
-                        'content-type': 'application/x-www-form-urlencoded'
-                    }
-                })
+            axios.post('/api/login', `email=${this.email}&password=${this.password}`)
                 .then(response => {
                     // window.location.href = '../web/accounts.html'
                     axios.get("/api/admin")
